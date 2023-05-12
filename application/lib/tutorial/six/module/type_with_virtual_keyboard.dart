@@ -1,25 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:xml/xml.dart' as xml;
+import 'package:flutter/services.dart';
 
-class TypeWithKeyboard extends StatelessWidget {
+class TypeWithKeyboard extends StatefulWidget {
   const TypeWithKeyboard({Key? key}) : super(key: key);
-  Future<String> getLessonFromXML(BuildContext context) async {
-    //final file = File('text.xml');
-    //final xmlString = file.readAsStringSync();
-    String xmlString = await DefaultAssetBundle.of(context).loadString("lib/resources/test.xml");
-    final document = xml.XmlDocument.parse(xmlString);
-    final lessonNode = document.findElements("lesson6");
-    //print(lessonNode.first.findElements('title').first.text);
-    return lessonNode.first.findElements("virtual_keyboard").first.text;
+//TODO
+//announce: tap and get keyboard
+//set up keyboard listener
+//announce: enter hello
+//check the word
+//announce
+  _TypeWithKeyBoard createState() => _TypeWithKeyBoard();
+}
+class _TypeWithKeyBoard extends State<TypeWithKeyboard>{
+  final FocusNode focusNode = FocusNode();
+  final TextEditingController textController = TextEditingController();
+  bool isFirstTime = true;
+  @override
+  void initState() {
+    super.initState();
+    speakIntro();
 
+    // Add a listener to the text field controller to listen for focus changes
+    textController.addListener(() {
+      if (textController.text.isEmpty &&
+          textController.selection.baseOffset ==
+              textController.selection.extentOffset) {
+        // The text field has focus and the cursor is not selecting text
+        // Call the speakDuringLesson function
+        speakDuringLesson("Great job! You opened up the on screen virtual keyboard. Explore by touch to type hello using the keyboard");
+      }
+    });
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    textController.dispose();
+  }
+
+  void speakIntro() {
+    SemanticsService.announce("In this tutorial, you will be learning how to open the on-screen virtual keyboard and type using it.", TextDirection.ltr,);
+    speakDuringLesson("To start, double tap on the screen to open the virtual keyboard.");
+  }
+
+  void speakDuringLesson(String text) async{
+    SemanticsService.announce(text,TextDirection.ltr,);
+  }
+  void onFinishTyping() {
+    String input = textController.text.toLowerCase();
+    if (input == "hello") {
+      speakDuringLesson("Great job! You have typed the word hello with the on screen keyboard. Congratulations on completing this lesson. In this lesson you have successfully learnt how to type with the on screen keyboard.");
+      Future.delayed(Duration(seconds: 5), () {
+        endLesson();
+      });
+    } else {
+      speakDuringLesson("Looks like you have not typed the word hello. Double tap on the screen to bring up the keyboard. Tap on the backspace button to delete the previously typed word and try typing the word hello again.");
+    }
+  }
+  void endLesson(){
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    SemanticsService.announce(
-        "To go back, swipe down then left with one finger in a continuous action. If multi-gestures are enabled, swipe with two fingers from the left or right side of the screen.",
-        TextDirection.ltr);
 
+    if (isFirstTime) {
+      speakIntro();
+      isFirstTime = false;
+    }
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   SemanticsService.announce("In this tutorial, you will be learning how to open the on-screen virtual keyboard and type using it. To start, double tap on the screen to open the virtual keyboard.", TextDirection.ltr);
+    // });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Disable back button
@@ -27,24 +80,19 @@ class TypeWithKeyboard extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          children: [FutureBuilder(
-            future: getLessonFromXML(context),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
+          children: [
             TextField(
-              controller: TextEditingController(),
+              controller: textController,
+              autofocus: false,
               keyboardType: TextInputType.text,
+              onSubmitted: (value) {
+                onFinishTyping();
+              },
             ),
           ],
-      ),
+        ),
       ),
     );
   }
+
 }
