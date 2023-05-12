@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/semantics.dart';
+import 'package:flutter/services.dart';
 import 'chatModel.dart';
 
 class ChatView extends StatefulWidget {
@@ -8,6 +9,7 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView>{
+  bool isFirstTime = true;
   final TextEditingController textEditor = TextEditingController();
   List<ChatModel> messages = [];
 
@@ -40,15 +42,32 @@ class _ChatViewState extends State<ChatView>{
   }
   void _handleSubmit(String text, int id) {
     textEditor.clear();
+    bool containMessage = text.contains("bob");
     ChatModel message = ChatModel(
       message: text,
       isMe: true,
       id: id,
     );
+    speakDuringLesson(message.message);
     setState(() {
       messages.add(message);
       debugPrint("added message");
     });
+    if (containMessage){
+      speakDuringLesson("you have successfully complete the lesson, now navigate back to tutorial 6");
+      Future.delayed(Duration(seconds: 8), () {
+        Navigator.pop(context);
+      });
+    }
+  }
+
+  void speakIntro() {
+    SemanticsService.announce("Welcome to Lesson 6's challenge. In this challenge, you'll be asked to send a message to your friend, Bob, in a chat room. Now let's get started", TextDirection.ltr,);
+    speakDuringLesson("To finish this challenge send a message to Bob and include his name.");
+  }
+
+  void speakDuringLesson(String text) async{
+    SemanticsService.announce(text,TextDirection.ltr,);
   }
   Widget chatMessage(ChatModel message){
     return Container(
@@ -92,6 +111,10 @@ class _ChatViewState extends State<ChatView>{
   }
   @override
   Widget build(BuildContext context) {
+    if (isFirstTime) {
+      speakIntro();
+      isFirstTime = false;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Send Message"),
