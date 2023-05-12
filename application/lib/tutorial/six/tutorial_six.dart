@@ -1,5 +1,6 @@
 import 'package:application/tutorial/six/module/type_with_virtual_keyboard.dart';
 import 'package:flutter/material.dart';
+import 'package:application/tutorial/six/module/chatView.dart';
 
 class TutorialSix extends StatelessWidget {
   const TutorialSix({Key? key}) : super(key: key);
@@ -24,8 +25,13 @@ class TutorialSix extends StatelessWidget {
               },
               child: const Text("typing with a virtual keyboard"),
             ),
-            const ElevatedButton(
-              onPressed: null,
+            ElevatedButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatView()),
+                );
+              },
               child: Text("End of Lesson challenges"),
             ),
           ],
