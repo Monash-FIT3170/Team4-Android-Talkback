@@ -10,7 +10,7 @@ class TutorialSix extends StatelessWidget {
     // scaffold page
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tutorial 2"),
+        title: const Text("Tutorial 6"),
       ),
       body: Center(
         child: Column(
