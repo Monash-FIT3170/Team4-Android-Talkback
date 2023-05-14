@@ -76,7 +76,7 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard>{
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Disable back button
-        title: const Text("Go Back Module"),
+        title: const Text("Virtual Keyboard Module"),
       ),
       body: Center(
         child: Column(
