@@ -49,11 +49,6 @@ class TutorialFive extends StatelessWidget {
               child: const Text("Open Notification"),
             ),
 
-            
-            const ElevatedButton(
-              onPressed: null,
-              child: Text("Open Notification"),
-            ),
             const ElevatedButton(
               onPressed: null,
               child: Text("Open Talkback Menu"),
