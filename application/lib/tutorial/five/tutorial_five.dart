@@ -1,3 +1,4 @@
+import 'package:application/tutorial/five/module/open_notification.dart';
 import 'package:flutter/material.dart';
 
 class TutorialFive extends StatelessWidget {
@@ -9,31 +10,38 @@ class TutorialFive extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Tutorial 5"),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            const ElevatedButton(
               onPressed: null,
               child: Text("Open Recent Apps"),
             ),
-            ElevatedButton(
+            const ElevatedButton(
               onPressed: null,
               child: Text("Go To Home Screen"),
             ),
+
             ElevatedButton(
-              onPressed: null,
-              child: Text("Open Notification"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const OpenNotification()),
+                );
+              },
+              child: const Text("Open Notification"),
             ),
-            ElevatedButton(
+
+            const ElevatedButton(
               onPressed: null,
               child: Text("Open Talkback Menu"),
             ),
-            ElevatedButton(
+            const ElevatedButton(
               onPressed: null,
               child: Text("Open Voice Command"),
             ),
-            ElevatedButton(
+            const ElevatedButton(
               onPressed: null,
               child: Text("End of Lesson Challenge"),
             ),
