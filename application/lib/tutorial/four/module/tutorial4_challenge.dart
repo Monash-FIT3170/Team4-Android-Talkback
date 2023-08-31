@@ -53,34 +53,18 @@ class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
     // await player.setFilePath(file.path);
 
     await tts.speak(
-        "In this challenge, you'll be presented an article with an embedded video already playing. To complete the challenge, pause the video, and return its slider to the beginning of the video, then replay it. You may now start.");
+        "In this challenge, you'll be presented an article with an embedded video already playing. To complete the challenge, pause the video, then replay it. You may now start.");
   }
 
-  void _speakPauseVideo() {
-    tts.stop();
-    tts.speak(
-        "Great job! You have played the video. Now, we will try to pause the video. To pause the video, bring up the media controller and find the pause button. Double tap on the button to pause the video.");
-  }
 
-  Future<void> _speakOutro() async {
-    tts.stop();
-    tts.speak(
-        "Great job! You have paused the video. Congratulations on completing this lesson on how to start and stop a video. Sending you back to the lesson page.");
-    await tts.awaitSpeakCompletion(true);
-  }
 
   void checkPause() {
-    // if (playerWidget.controller.videoPlayerController.value.isPlaying &&
-    //     !_hasSpokenPause &&
-    //     _hasSpokenIntro) {
-    //   _speakPauseVideo();
-    //   _hasSpokenPause = true;
-    // } else if (!playerWidget.controller.videoPlayerController.value.isPlaying &&
-    //     _hasSpokenPause &&
-    //     !_hasSpokenOutro) {
-    //   _speakOutro();
-    //   _hasSpokenOutro = true;
-    // }
+    if (!playerWidget.controller.videoPlayerController.value.isPlaying) {
+      _speakOutro();
+      Timer(Duration(seconds: 15), () {
+        Navigator.pop(context);
+      });
+    }
   }
 
   @override

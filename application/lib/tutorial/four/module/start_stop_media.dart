@@ -69,6 +69,9 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     tts.stop();
     tts.speak(
         "Great job! You have paused the video. Congratulations on completing this lesson on how to start and stop a video. Sending you back to the lesson page.");
+    Timer(Duration(seconds: 15), () {
+      Navigator.pop(context);
+    });
     await tts.awaitSpeakCompletion(true);
   }
 
