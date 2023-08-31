@@ -52,7 +52,7 @@ class TutorialFive extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OpenTalkbackMenu()),
+                  MaterialPageRoute(builder: (context) => const OpenTalkback()),
                 );
               },
               child: Text("Open Talkback Menu"),

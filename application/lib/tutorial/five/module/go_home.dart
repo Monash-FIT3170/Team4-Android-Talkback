@@ -1,173 +1,87 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:application/common/instruction_card.dart';
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
-class GoHome extends StatefulWidget {
-  const GoHome({Key? key}) : super(key: key);
-
-  @override
-  State<GoHome> createState() => _GoHome();
+class GoHome extends _GoHome {
+  const GoHome({super.key})
+      : super(
+      instruction:
+      "Welcome. In this module, you will learn how to return to the home screen from inside an application. To perform do this, perform a swipe up then left gesture. Once complete, open the recents menu by swiping left then up. From the recents menu, return to the tutorial by double tapping the app. You may now start.",
+      nextSubmodule: const GoHome2());
 }
 
-class _GoHome extends State<GoHome> with WidgetsBindingObserver {
-  String introSpeech = """Welcome, in this module you will learn how to 
-      return to the home screen from inside an application, 
-      to perform this task, swipe up then left, try it now, 
-      then return to the tutorial after you have reached the 
-      home screen by swiping left then up to open the recent apps, 
-      then double tap to ruturn to this app
-      """;
-  String middleSpeech = """Good, you are back, this gesture is useful 
-      as it allows you to return to the home screen at any time no matter 
-      where you are, now do it again, remember the gesture is swipe up then 
-      left, return to this app by opening recent apps page just like before.
-      """;
-  String endSpeech =
-      """Nice, you have navigated back to this screen, you have now learnt 
-      how to use the go to home screen gesture, sending you to the main menu
-      """;
-  bool isIntro = true;
-  bool isMiddle = false;
-  bool isEnd = false;
+class GoHome2 extends _GoHome {
+  const GoHome2({super.key})
+      : super(
+      instruction:
+      "Good job! This gesture is useful as it allows you to return to the home screen at anytime, no matter where you are. Now do it again, remember: the gesture is swipe up then left. Return to the tutorial through the recents menu just like before. You may now start.",
+      nextSubmodule: const GoHome3());
+}
 
-  FlutterTts? flutterTts;
+class GoHome3 extends _GoHome {
+  const GoHome3({super.key})
+      : super(
+      instruction:
+      "Nice work! You have navigated back to the tutorial. You have now learnt how to use the go to home screen gesture.",
+      nextSubmodule: null);
+}
+
+
+
+class _GoHome extends StatefulWidget {
+  final String instruction;
+  final _GoHome? nextSubmodule;
+
+  const _GoHome(
+      {super.key,
+        required this.instruction,
+        required this.nextSubmodule});
 
   @override
-  void initState() {
+  State<StatefulWidget> createState() {
+    return _GoHomeSubmoduleState();
+  }
+}
+
+class _GoHomeSubmoduleState extends State<_GoHome> {
+  late AppLifecycleListener listener = AppLifecycleListener(
+      onResume: () {
+        if (widget.nextSubmodule != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => widget.nextSubmodule!));
+        }
+      }
+  );
+
+  @override
+  initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    listener;
+    if (widget.nextSubmodule == null) {
+      Timer(Duration(seconds: 10), () {
+        Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
+      });
+    }
 
-    // Initilizing tts engine
-    _initTextToSpeech().then((value) {
-      flutterTts = value;
-      _speakLines(flutterTts!, introSpeech);
-    });
-  }
-
-  Future<FlutterTts> _initTextToSpeech() async {
-    String lang = 'en-US';
-    double narrationSpeed = 0.45;
-
-    FlutterTts flutterTts = FlutterTts();
-    flutterTts.setLanguage(lang);
-    flutterTts.setSpeechRate(narrationSpeed);
-    return flutterTts;
-  }
-
-  void _speakLines(FlutterTts flutterTts, String message) async {
-    String line =
-        message.replaceAll('\n', ' '); // Multi line str into str array
-
-    flutterTts.speak(line);
   }
 
   @override
   void dispose() {
-    flutterTts!.stop();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state != AppLifecycleState.resumed) {
-      return;
-    }
-
-    changeStage();
-  }
-
-  void changeStage() {
-    if (isMiddle) {
-      setState(() {
-        isMiddle = false;
-        isEnd = true;
-      });
-    }
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isMiddle = true;
-      });
-    }
+    listener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // Body
+        appBar: AppBar(
+          title: const Text('Go Home'),
+        ),
         body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          // All the elements of the page
-          children: [
-            if (isIntro)
-              // This speaks the intro
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, introSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(introSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-            if (isMiddle)
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, middleSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(middleSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-            if (isEnd)
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, endSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(endSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-          ],
-        )));
+            child: Column(children: [
+              InstructionsCard(instruction: widget.instruction),
+            ])));
   }
 }
