@@ -1,176 +1,87 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:application/common/instruction_card.dart';
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
-class OpenRecent extends StatefulWidget {
-  const OpenRecent({Key? key}) : super(key: key);
-
-  @override
-  State<OpenRecent> createState() => _OpenRecent();
+class OpenRecent extends _OpenRecent {
+  const OpenRecent({super.key})
+      : super(
+      instruction:
+      "Welcome. In this module, you will learn how to open the recents menu and open recent apps. The recents menu is a handy way to quickly switch between frequently used apps. This can be done in two different ways. Firstly, perform a swipe left then up gesture in one motion. Once completed, select and double tap the tutorial to return to the lesson. You may now start.",
+      nextSubmodule: const OpenRecent2());
 }
 
-class _OpenRecent extends State<OpenRecent> with WidgetsBindingObserver {
-  String introSpeech =
-      """Welcome, In this module you will learn how to open recent apps, 
-      recent apps are a handy way to quickly switch between frequently used apps. 
-      This can be done in two different ways, 
-      firstly perform a swipe left then up gesture in one motion, 
-      once completely return to the tutorial.
-      """;
-  String middleSpeech =
-      """Great job, you have correctly opened the recent app menu and returned 
-      to the tutorial, now to try with a different method. 
-      Try to open the recent apps menu using the recent button in the bottom right 
-      or bottom left corner of your phone, you can double tap this button to open 
-      the recent apps menu, if your device does not support the recent button or 
-      you are unsure, perform a swipe left then up gesture again to open the recent 
-      apps menu, then return to the tutorial.
-      """;
-  String endSpeech =
-      """You have completed the open recent apps module, sending you to 
-      the lessons screen.
-      """;
-  bool isIntro = true;
-  bool isMiddle = false;
-  bool isEnd = false;
+class OpenRecent2 extends _OpenRecent {
+  const OpenRecent2({super.key})
+      : super(
+      instruction:
+      "Try to open the recents menu using the recents button in the bottom right or bottom left corner of your phone. You can double tap this button to open the recent apps menu. If your device does not support a recents button, or you are unsure, perform a swipe left, then up gesture again to open the recents menu. Then return to the tutorial once again. You may now start.",
+      nextSubmodule: const OpenRecent3());
+}
 
-  FlutterTts? flutterTts;
+class OpenRecent3 extends _OpenRecent {
+  const OpenRecent3({super.key})
+      : super(
+      instruction:
+      "Well done! You have completed the open recent apps module.",
+      nextSubmodule: null);
+}
+
+
+
+class _OpenRecent extends StatefulWidget {
+  final String instruction;
+  final _OpenRecent? nextSubmodule;
+
+  const _OpenRecent(
+      {super.key,
+        required this.instruction,
+        required this.nextSubmodule});
 
   @override
-  void initState() {
+  State<StatefulWidget> createState() {
+    return _OpenRecentSubmoduleState();
+  }
+}
+
+class _OpenRecentSubmoduleState extends State<_OpenRecent> {
+  late AppLifecycleListener listener = AppLifecycleListener(
+      onResume: () {
+        if (widget.nextSubmodule != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => widget.nextSubmodule!));
+        }
+      }
+  );
+
+  @override
+  initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    listener;
+    if (widget.nextSubmodule == null) {
+      Timer(Duration(seconds: 6), () {
+        Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
+      });
+    }
 
-    // Initilizing tts engine
-    _initTextToSpeech().then((value) {
-      flutterTts = value;
-      _speakLines(flutterTts!, introSpeech);
-    });
-  }
-
-  Future<FlutterTts> _initTextToSpeech() async {
-    String lang = 'en-US';
-    double narrationSpeed = 0.45;
-
-    FlutterTts flutterTts = FlutterTts();
-    flutterTts.setLanguage(lang);
-    flutterTts.setSpeechRate(narrationSpeed);
-    return flutterTts;
-  }
-
-  void _speakLines(FlutterTts flutterTts, String message) async {
-    String line =
-        message.replaceAll('\n', ' '); // Multi line str into str array
-
-    flutterTts.speak(line);
   }
 
   @override
   void dispose() {
-    flutterTts!.stop();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      changeStage();
-    }
-  }
-
-  void changeStage() {
-    if (isMiddle) {
-      setState(() {
-        isMiddle = false;
-        isEnd = true;
-      });
-    }
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isMiddle = true;
-      });
-    }
+    listener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // Body
+        appBar: AppBar(
+          title: const Text('Open Recent'),
+        ),
         body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          // All the elements of the page
-          children: [
-            if (isIntro)
-              // This speaks the intro
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, introSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(introSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-            if (isMiddle)
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, middleSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(middleSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-            if (isEnd)
-              FutureBuilder<FlutterTts>(
-                  future: _initTextToSpeech(),
-                  builder: (context, snapshot) {
-                    // This reades instructions and checks for successfull
-                    // execution of said instructions.
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        _speakLines(snapshot.data!, endSpeech);
-                      }
-                      return Column(
-                        children: [
-                          const SizedBox(),
-                          Text(endSpeech), // Display the speech content
-                        ],
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }),
-          ],
-        )));
+            child: Column(children: [
+              InstructionsCard(instruction: widget.instruction),
+            ])));
   }
 }
