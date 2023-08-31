@@ -1,144 +1,95 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:application/common/instruction_card.dart';
 import 'package:application/routes.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
-import 'package:flutter_tts/flutter_tts.dart';
-
-class OpenVoiceCommand extends StatefulWidget {
-  const OpenVoiceCommand({Key? key}) : super(key: key);
-
-  @override
-  State<OpenVoiceCommand> createState() => _OpenVoiceCommand();
+class OpenVoiceCommand extends _OpenVoiceCommand {
+  const OpenVoiceCommand({super.key})
+      : super(
+      instruction:
+      "Welcome. In this module, you will learn how to enable voice commands. To do this, you need to perform a swipe right, then up gesture in one motion. When prompted for a voice command, say help. This will take you to the voice command help section. Explore the voice command help section, then return the tutorial by using a go back gesture or a back button if supported on your device. You may now start.",
+      nextSubmodule: const OpenVoiceCommand2());
 }
 
-class _OpenVoiceCommand extends State<OpenVoiceCommand>
-    with WidgetsBindingObserver {
-  String introMessage = """
-    Welcome, in this module you will learn to enabel voice commands.
-    To do this, you need to perform a swipe right then up gestrue in one motion. 
-    When prompted for a voice command, say "HELP". 
-    This will take you to the voice command help section.
-    Return to the tutorial whenever you want by going back. 
-    Good luck!
-    """;
+class OpenVoiceCommand2 extends _OpenVoiceCommand {
+  const OpenVoiceCommand2({super.key})
+      : super(
+      instruction:
+      "Well done! Now that you know some voice commands, you will learn how to increase talkback's reading speed by using the voice command.",
+      nextSubmodule: const OpenVoiceCommand3());
+}
 
-  String instructionMessage = """
-    Well Done!
-    Next we will put some voice commands into action.
-    Now that you know some voice commands, we will show you how to increase Talk
-    Backs reading speed using voice command.
-    Swipe right when ready.
-    """;
+class OpenVoiceCommand3 extends _OpenVoiceCommand {
+  const OpenVoiceCommand3({super.key})
+      : super(
+      instruction:
+      "Swipe right then up with one finger to open voice command again. Do this gesture, then say speak faster to make me speak faster. Move to the next element when you are done. You may now start.",
+      nextSubmodule: const OpenVoiceCommand4());
+}
 
-  String fasterSpeechTitle = "Swipe right";
+class OpenVoiceCommand4 extends _OpenVoiceCommand {
+  const OpenVoiceCommand4({super.key})
+      : super(
+      instruction:
+      "I am now speaking faster. When you have completed listening to this text, go to the next element and select the finish button to finish the module.",
+      nextSubmodule: null);
+}
 
-  String fasterSpeechOne = """
-    To make me speak faster swipe right then up with one finger to open voice command
-    gain. Do this gesture, then say speak faster. And move to the next element when 
-    you are done. Good luck!
-    """;
 
-  String fasterSpeechTwo = """
-    I am now speaking faster. When you have compleated listening to this text go 
-    to the next element and select the button to finish the module.
-    """;
 
-  bool isIntro = true;
-  bool isFasterSpee = false;
-  bool isEnd = false;
-  FlutterTts? flutterTts;
+class _OpenVoiceCommand extends StatefulWidget {
+  final String instruction;
+  final _OpenVoiceCommand? nextSubmodule;
+
+  const _OpenVoiceCommand(
+      {super.key,
+        required this.instruction,
+        required this.nextSubmodule});
 
   @override
-  void initState() {
+  State<StatefulWidget> createState() {
+    return _OpenVoiceCommandSubmoduleState();
+  }
+}
+
+class _OpenVoiceCommandSubmoduleState extends State<_OpenVoiceCommand> {
+  late AppLifecycleListener listener = AppLifecycleListener(
+      onResume: () {
+        if (widget.nextSubmodule != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => widget.nextSubmodule!));
+        }
+      }
+  );
+
+  @override
+  initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    listener;
+    if (widget.nextSubmodule == null) {
+      Timer(Duration(seconds: 15), () {
+        Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
+      });
+    }
 
-    flutterTts = initTts();
-  }
-
-  FlutterTts initTts() {
-    String lang = 'en-US';
-    double narrationSpeed = 0.45;
-
-    FlutterTts flutterTts = FlutterTts();
-    flutterTts.setLanguage(lang);
-    flutterTts.setSpeechRate(narrationSpeed);
-    return flutterTts;
-  }
-
-  void speak(int duration, String message) async {
-    String line = message.replaceAll('\n', ' ');
-
-    await Future.delayed(Duration(seconds: duration));
-
-    flutterTts?.speak(line);
   }
 
   @override
   void dispose() {
-    flutterTts!.stop();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+    listener.dispose();
   }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state != AppLifecycleState.resumed) {
-      return;
-    }
-
-    changeStage();
-  }
-
-  void changeStage() {
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isFasterSpee = true;
-      });
-    }
-  }
-
-  String returnPause = " " * 10;
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style =
-        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-
-    if (isIntro) {
-      speak(0, introMessage);
-    } else if (isFasterSpee) {
-      speak(2, instructionMessage);
-      return Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(fasterSpeechTitle.replaceAll('\n', ' ')),
-              Text(fasterSpeechOne.replaceAll('\n', ' ')),
-              Text(fasterSpeechTwo.replaceAll('\n', ' ')),
-              ElevatedButton(
-                style: style,
-                onPressed: () =>
-                    {Navigator.pushNamed(context, Routes.tutorialFive)},
-                child: const Text('Finish module'),
-              ),
-            ],
-          ),
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Open Voice Command'),
         ),
-      );
-    }
-
-    return Scaffold(body: Container());
-
-    /*// This attempts to read instructions to user before talkBack
-      // reads screen elements to user.
-      if (isSpeaking) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      */
+        body: Center(
+            child: Column(children: [
+              InstructionsCard(instruction: widget.instruction),
+            ])));
   }
 }
