@@ -1,3 +1,4 @@
+import 'package:application/tutorial/five/module/end_of_lesson_challenge.dart';
 import 'package:application/tutorial/five/module/go_home.dart';
 import 'package:application/tutorial/five/module/open_notfication.dart';
 import 'package:application/tutorial/five/module/open_recent.dart';
@@ -67,8 +68,14 @@ class TutorialFive extends StatelessWidget {
               },
               child: const Text("Open Voice Command"),
             ),
-            const ElevatedButton(
-              onPressed: null,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Challenge()),
+                );
+              },
               child: Text("End of Lesson Challenge"),
             ),
           ],

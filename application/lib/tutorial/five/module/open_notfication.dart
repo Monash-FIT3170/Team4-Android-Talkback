@@ -135,9 +135,9 @@ class _OpenNotification extends State<OpenNotification> with WidgetsBindingObser
                             _speakLines(snapshot.data!, introSpeech);
                           }
                           return Column(
-                            children: [
-                              const SizedBox(),
-                              Text(introSpeech), // Display the speech content
+                            children: const [
+                              SizedBox()//,
+                              //Text(introSpeech), // Display the speech content
                             ],
                           );
                         } else {
@@ -155,9 +155,9 @@ class _OpenNotification extends State<OpenNotification> with WidgetsBindingObser
                             _speakLines(snapshot.data!, feedbackSpeech1);
                           }
                           return Column(
-                            children: [
-                              const SizedBox(),
-                              Text(feedbackSpeech1), // Display the speech content
+                            children: const [
+                              SizedBox(),
+                              //Text(feedbackSpeech1), // Display the speech content
                             ],
                           );
                         } else {
