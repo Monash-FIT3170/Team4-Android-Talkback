@@ -129,7 +129,7 @@ class _WinPage extends State<WinPage> with WidgetsBindingObserver {
                   return Column(
                     children: [
                       const SizedBox(),
-                      Text(middleSpeech), // Display the speech content
+                      //Text(middleSpeech), // Display the speech content
                       FutureBuilder<FlutterTts>(
                 future: _initTextToSpeech(),
                 builder: (context, snapshot) {

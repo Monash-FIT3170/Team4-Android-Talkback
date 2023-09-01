@@ -130,15 +130,15 @@ class _Challenge extends State<Challenge> with WidgetsBindingObserver {
                     if (snapshot.hasData) {
                       _speakLines(snapshot.data!, introSpeech);
                       LocalNotification.challengeOneNotification(
-                          title: "Ricky",
-                          body: "3170",
+                          title: "Hi, its Ricky",
+                          body: "My secret number is 3170!",
                           flutterLocalNotificationsPlugin:
                               flutterLocalNotificationsPlugin);
                     }
                     return Column(
                       children: [
                         const SizedBox(), //,
-                        Text(introSpeech), // Display the speech content
+                        //Text(introSpeech), // Display the speech content
                       ],
                     );
                   } else {
