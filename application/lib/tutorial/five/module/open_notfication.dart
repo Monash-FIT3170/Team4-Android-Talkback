@@ -1,119 +1,84 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:application/common/instruction_card.dart';
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
-class OpenNotification extends StatefulWidget {
-  const OpenNotification({Key? key}) : super(key: key);
-
-  @override
-  State<OpenNotification> createState() => _OpenNotification();
+class OpenNotification extends _OpenNotification {
+  const OpenNotification({super.key})
+      : super(
+      instruction:
+      "Welcome. In this module, you will learn how to open your notification panel. Notifications are a way of letting you know that something new has happened. This is useful so you do not miss anything that might be worth your immediate attention. Notifications will appear on your device whether you are using an application or not. There are two ways to do this. First, open the notification panel by swiping down with two fingers from the top of your screen. Then swipe back up from the bottom of your screen to close the panel",
+      nextSubmodule: const OpenNotification2());
 }
 
-class _OpenNotification extends State<OpenNotification> with WidgetsBindingObserver {
-  String introSpeech =
-  """
-      Welcome. In this module, you will learn how to open your notification panel. Notifications are a way of letting you know that something new has happened. This is useful so you do not miss anything that might be worth your immediate attention. Notifications will appear on your device whether you are using an application or not. There are two ways to do this. First, open the notification panel by swiping down with two fingers from the top of your screen. Once you opened the notification panel, Talkback will start talking for a few seconds. Please wait until Talkback is done then follow the next instruction. You may now start.
-      """;
-  String feedbackSpeech1 =
-  """
-  Good job. You have opened the notification panel. Now try to close it by doing the same gesture but this time, start from the bottom of the notification tray and swipe up with two fingers.
-      """;
-  String feedbackSpeech2 =
-  """
-  Well done. The notification panel has been closed. Let's try to open it one more time. This time, open it by swiping right, then down in a single motion with one finger. Once again, please wait until Talkback is done, then follow the next instruction.
-      """;
-  String feedbackSpeech3 =
-  """
-  Excellent. Now close it again by swiping up from the bottom of the notification tray with two fingers
-      """;
-  String endSpeech =
-  """
-  Well done! You now know how to open and close your notification panel. The notification panel can also be used to perform many shortcuts. For example, connecting to wifi and bluetooth. You have completed the lesson. Double tap to return to the lesson page.
-      """;
-  bool isIntro = true;
-  bool isFeedbackSpeech1 = false;
-  bool isFeedbackSpeech2 = false;
-  bool isFeedbackSpeech3 = false;
-  bool isEnd = false;
+class OpenNotification2 extends _OpenNotification {
+  const OpenNotification2({super.key})
+      : super(
+      instruction:
+      "Well done. The notification panel has been closed. Let's try to open it one more time. This time, open it by swiping right, then down in a single motion with one finger. Once done, you can close it again by swiping up from the bottom of the notification tray with two fingers",
+      nextSubmodule: const OpenNotification3());
+}
 
-  FlutterTts? flutterTts;
+class OpenNotification3 extends _OpenNotification {
+  const OpenNotification3({super.key})
+      : super(
+      instruction:
+      "Well done! You now know how to open and close your notification panel. The notification panel can also be used to perform many shortcuts. For example, connecting to wifi and bluetooth. You have completed the lesson.",
+      nextSubmodule: null);
+}
+
+
+
+class _OpenNotification extends StatefulWidget {
+  final String instruction;
+  final _OpenNotification? nextSubmodule;
+
+  const _OpenNotification(
+      {super.key,
+        required this.instruction,
+        required this.nextSubmodule});
 
   @override
-  void initState() {
+  State<StatefulWidget> createState() {
+    return _OpenNotificationSubmoduleState();
+  }
+}
+
+class _OpenNotificationSubmoduleState extends State<_OpenNotification> {
+  late AppLifecycleListener listener = AppLifecycleListener(
+    onResume: () {
+      if (widget.nextSubmodule != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => widget.nextSubmodule!));
+      }
+    }
+  );
+
+  @override
+  initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    listener;
+    if (widget.nextSubmodule == null) {
+      Timer(Duration(seconds: 20), () {
+        Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
+      });
+    }
 
-    // Initilizing tts engine
-    _initTextToSpeech().then((value) {
-      flutterTts = value;
-      _speakLines(flutterTts!, introSpeech);
-    });
-  }
-
-  Future<FlutterTts> _initTextToSpeech() async {
-    String lang = 'en-US';
-    double narrationSpeed = 0.45;
-
-    FlutterTts flutterTts = FlutterTts();
-    flutterTts.setLanguage(lang);
-    flutterTts.setSpeechRate(narrationSpeed);
-    return flutterTts;
-  }
-
-  void _speakLines(FlutterTts flutterTts, String message) async {
-    String line =
-    message.replaceAll('\n', ' '); // Multi line str into str array
-
-    flutterTts.speak(line);
   }
 
   @override
   void dispose() {
-    flutterTts!.stop();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      changeStage();
-    }
-  }
-
-  void changeStage() {
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isFeedbackSpeech1 = true;
-      });
-    }
-    else if (isFeedbackSpeech1) {
-      setState(() {
-        isFeedbackSpeech1 = false;
-        isFeedbackSpeech2 = true;
-      });
-    }
-    else if (isFeedbackSpeech2) {
-      setState(() {
-        isFeedbackSpeech2 = false;
-        isFeedbackSpeech3 = true;
-      });
-    }
-    else if (isFeedbackSpeech3) {
-      setState(() {
-        isFeedbackSpeech3 = false;
-        isEnd = true;
-      });
-    }
+    listener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Body
+        appBar: AppBar(
+          title: const Text('Open Notification'),
+        ),
         body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.

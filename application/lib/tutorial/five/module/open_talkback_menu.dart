@@ -1,174 +1,80 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:application/common/instruction_card.dart';
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
-class OpenTalkbackMenu extends StatefulWidget {
-  const OpenTalkbackMenu({Key? key}) : super(key: key);
-
-  @override
-  State<OpenTalkbackMenu> createState() => _OpenTalkbackMenu();
+class OpenTalkback extends _OpenTalkback {
+  const OpenTalkback({super.key})
+      : super(
+      instruction:
+      "Welcome. In this module, you will learn how to open the Talkback Menu. The Talkback menu allows you use commands to read, edit text, control speech output, change Talkback settings, and more. To open the menu, perform a swipe up, then right gesture in one motion. Or a swipe down, then right gesture. You may now start.",
+      nextSubmodule: const OpenTalkback2());
 }
 
-class _OpenTalkbackMenu extends State<OpenTalkbackMenu> with WidgetsBindingObserver {
-  String introSpeech =
-  """
-  Welcome. In this module, you will learn how to open the Talkback Menu. The Talkback menu allows you use commands to read, edit text, control speech output, change Talkback settings, and more. To open the menu, perform a swipe up, then right gesture in one motion. Or a swipe down, then right gesture. You may now start.
-      """;
-  String feedbackSpeech =
-  """
-  Great job. You have opened the Talkback menu. Feel free to navigate around to see what you can do. Once you are done, go to the bottom of the menu and exit. You may now start.
-      """;
-  String endSpeech =
-  """
-  Well done! You now know how to open and close the Talkback Menu. Once again, to do this you have to swipe up, or a swipe down gesture then swipe right immediately. You have completed the lesson. Double tap to return to the main menu.
-       """;
-  bool isIntro = true;
-  bool isFeedback = false;
-  bool isEnd = false;
+class OpenTalkback2 extends _OpenTalkback {
+  const OpenTalkback2({super.key})
+      : super(
+      instruction:
+      "Well done! You now know how to open and close the Talkback Menu. Once again, to do this you have to swipe up, or a swipe down gesture then swipe right immediately. You have completed the lesson.",
+      nextSubmodule: null);
+}
 
-  FlutterTts? flutterTts;
+
+
+
+class _OpenTalkback extends StatefulWidget {
+  final String instruction;
+  final _OpenTalkback? nextSubmodule;
+
+  const _OpenTalkback(
+      {super.key,
+        required this.instruction,
+        required this.nextSubmodule});
 
   @override
-  void initState() {
+  State<StatefulWidget> createState() {
+    return _OpenTalkbackSubmoduleState();
+  }
+}
+
+class _OpenTalkbackSubmoduleState extends State<_OpenTalkback> {
+  late AppLifecycleListener listener = AppLifecycleListener(
+      onResume: () {
+        if (widget.nextSubmodule != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => widget.nextSubmodule!));
+        }
+      }
+  );
+
+  @override
+  initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    listener;
+    if (widget.nextSubmodule == null) {
+      Timer(Duration(seconds: 15), () {
+        Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
+      });
+    }
 
-    // Initilizing tts engine
-    _initTextToSpeech().then((value) {
-      flutterTts = value;
-      _speakLines(flutterTts!, introSpeech);
-    });
-  }
-
-  Future<FlutterTts> _initTextToSpeech() async {
-    String lang = 'en-US';
-    double narrationSpeed = 0.45;
-
-    FlutterTts flutterTts = FlutterTts();
-    flutterTts.setLanguage(lang);
-    flutterTts.setSpeechRate(narrationSpeed);
-    return flutterTts;
-  }
-
-  void _speakLines(FlutterTts flutterTts, String message) async {
-    String line =
-    message.replaceAll('\n', ' '); // Multi line str into str array
-
-    flutterTts.speak(line);
   }
 
   @override
   void dispose() {
-    flutterTts!.stop();
-    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      changeStage();
-    }
-  }
-
-  void changeStage() {
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isFeedback = true;
-      });
-    }
-    else if (isFeedback) {
-      setState(() {
-        isFeedback = false;
-        isEnd = true;
-      });
-    }
-    else if (isEnd) {
-      setState(() {
-        isFeedback = false;
-        isEnd = true;
-      });
-    }
+    listener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Body
+        appBar: AppBar(
+          title: const Text('Open Talkback Menu'),
+        ),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              // All the elements of the page
-              children: [
-                if (isIntro)
-                // This speaks the intro
-                  FutureBuilder<FlutterTts>(
-                      future: _initTextToSpeech(),
-                      builder: (context, snapshot) {
-                        // This reads instructions and checks for successful
-                        // execution of said instructions.
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasData) {
-                            _speakLines(snapshot.data!, introSpeech);
-                          }
-                          return Column(
-                            children: [
-                              const SizedBox(),
-                              Text(introSpeech), // Display the speech content
-                            ],
-                          );
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      }),
-                if (isFeedback)
-                  FutureBuilder<FlutterTts>(
-                      future: _initTextToSpeech(),
-                      builder: (context, snapshot) {
-                        // This reads instructions and checks for successful
-                        // execution of said instructions.
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasData) {
-                            _speakLines(snapshot.data!, feedbackSpeech);
-                          }
-                          return Column(
-                            children: [
-                              const SizedBox(),
-                              Text(feedbackSpeech), // Display the speech content
-                            ],
-                          );
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
-                      })
-                  else if (isEnd)
-                      FutureBuilder<FlutterTts>(
-                          future: _initTextToSpeech(),
-                          builder: (context, snapshot) {
-                            // This reads instructions and checks for successful
-                            // execution of said instructions.
-                            if (snapshot.connectionState == ConnectionState.done) {
-                              if (snapshot.hasData) {
-                                _speakLines(snapshot.data!, endSpeech);
-                              }
-                              return Column(
-                                children: [
-                                  const SizedBox(),
-                                  Text(endSpeech), // Display the speech content
-                                ],
-                              );
-                            } else {
-                              return const CircularProgressIndicator();
-                            }
-                          }),
-              ],
-            )));
+            child: Column(children: [
+              InstructionsCard(instruction: widget.instruction),
+            ])));
   }
 }
