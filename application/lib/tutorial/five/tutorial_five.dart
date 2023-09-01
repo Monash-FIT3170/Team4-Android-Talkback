@@ -1,9 +1,7 @@
 import 'package:application/tutorial/five/module/end_of_lesson_challenge.dart';
-import 'package:application/tutorial/five/module/end_of_lesson2.dart';
 import 'package:application/tutorial/five/module/go_home.dart';
 import 'package:application/tutorial/five/module/open_notfication.dart';
 import 'package:application/tutorial/five/module/open_recent.dart';
-import 'package:application/tutorial/five/module/open_notification.dart';
 import 'package:application/tutorial/five/module/open_talkbackmenu.dart';
 import 'package:flutter/material.dart';
 
