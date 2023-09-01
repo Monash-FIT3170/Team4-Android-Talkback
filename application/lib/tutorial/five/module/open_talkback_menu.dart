@@ -21,9 +21,6 @@ class OpenTalkback2 extends _OpenTalkback {
       nextSubmodule: null);
 }
 
-
-
-
 class _OpenTalkback extends StatefulWidget {
   final String instruction;
   final _OpenTalkback? nextSubmodule;

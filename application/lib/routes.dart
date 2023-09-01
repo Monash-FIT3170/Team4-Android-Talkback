@@ -9,6 +9,7 @@ class Routes {
   static const String tutorialFive = "$tutorials/five";
   static const String tutorialSix = "$tutorials/six";
   static const String tutorialSeven = "$tutorials/seven";
+  static const String winPage = "$tutorialFive/winPage";
 
   static const String gestures = "$home/gestures";
 }
