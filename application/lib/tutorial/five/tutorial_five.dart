@@ -3,7 +3,8 @@ import 'package:application/tutorial/five/module/end_of_lesson2.dart';
 import 'package:application/tutorial/five/module/go_home.dart';
 import 'package:application/tutorial/five/module/open_notfication.dart';
 import 'package:application/tutorial/five/module/open_recent.dart';
-import 'package:application/tutorial/five/module/open_talkback_menu.dart';
+import 'package:application/tutorial/five/module/open_notification.dart';
+import 'package:application/tutorial/five/module/open_talkbackmenu.dart';
 import 'package:flutter/material.dart';
 
 import 'package:application/tutorial/five/module/open_voice_command.dart';
@@ -48,13 +49,14 @@ class TutorialFive extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const OpenNotification()),
                 );
               },
-              child: Text("Open Notification"),
+              child: const Text("Open Notification"),
             ),
-            ElevatedButton(
+
+             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OpenTalkback()),
+                  MaterialPageRoute(builder: (context) => const OpenTalkbackmenu()),
                 );
               },
               child: Text("Open Talkback Menu"),
