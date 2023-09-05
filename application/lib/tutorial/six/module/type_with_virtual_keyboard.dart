@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 
 class TypeWithKeyboard extends StatefulWidget {
   const TypeWithKeyboard({Key? key}) : super(key: key);
@@ -10,6 +9,7 @@ class TypeWithKeyboard extends StatefulWidget {
 //announce: enter hello
 //check the word
 //announce
+  @override
   _TypeWithKeyBoard createState() => _TypeWithKeyBoard();
 }
 
@@ -63,7 +63,7 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
     if (input == "hello") {
       speakDuringLesson(
           "Great job! You have typed the word hello with the on screen keyboard. Congratulations on completing this lesson. In this lesson you have successfully learnt how to type with the on screen keyboard.");
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5), () {
         endLesson();
       });
     } else {

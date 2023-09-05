@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 import 'chat_model.dart';
 
 class ChatView extends StatefulWidget {
+  const ChatView({super.key});
+
   @override
   _ChatViewState createState() => _ChatViewState();
 }
@@ -28,13 +29,13 @@ class _ChatViewState extends State<ChatView> {
             child: TextField(
               controller: textEditor,
               //onSubmitted: _handleSubmit,
-              decoration: InputDecoration.collapsed(
+              decoration: const InputDecoration.collapsed(
                 hintText: "Send a message",
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () =>
                 _handleSubmit(textEditor.text, messages.length + 1),
           ),
@@ -59,7 +60,7 @@ class _ChatViewState extends State<ChatView> {
     if (containMessage) {
       speakDuringLesson(
           "you have successfully complete the lesson, now navigate back to tutorial 6");
-      Future.delayed(Duration(seconds: 8), () {
+      Future.delayed(const Duration(seconds: 8), () {
         Navigator.pop(context);
       });
     }
@@ -97,7 +98,7 @@ class _ChatViewState extends State<ChatView> {
                   vertical: 10.0,
                   horizontal: 16.0,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
@@ -108,7 +109,7 @@ class _ChatViewState extends State<ChatView> {
                 child: Text(
                   message.message,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -128,7 +129,7 @@ class _ChatViewState extends State<ChatView> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text("Send Message"),
+        title: const Text("Send Message"),
       ),
       body: Column(
         children: [
@@ -141,10 +142,11 @@ class _ChatViewState extends State<ChatView> {
                 } else {
                   debugPrint("unable to print");
                 }
+                return null;
               },
             ),
           ),
-          Divider(height: 1),
+          const Divider(height: 1),
           Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,

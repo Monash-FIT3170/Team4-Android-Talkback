@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
+import 'package:application/tutorial/seven/tutorial_seven.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialThree: (context) => tutorialThree,
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialSix: (context) => tutorialSix,
+          Routes.tutorialSeven: (context) => tutorialSeven
         });
   }
 }
@@ -75,6 +77,8 @@ class HomePage extends StatelessWidget {
             //     title: 'Tutorial 5', routeName: Routes.tutorialFive),
             MainMenuTutorialButton(
                 title: 'Tutorial 6', routeName: Routes.tutorialSix),
+            MainMenuTutorialButton(
+                title: 'Tutorial 7', routeName: Routes.tutorialSeven),
           ],
         ),
       ),

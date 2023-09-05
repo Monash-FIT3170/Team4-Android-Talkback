@@ -10,10 +10,10 @@ class GoBack extends StatelessWidget {
         automaticallyImplyLeading: false, // Disable back button
         title: const Text("Go Back Module"),
       ),
-      body: Card(
+      body: const Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
+          children: <Widget>[
             ListTile(
               title: Focus(
                 autofocus: true,
