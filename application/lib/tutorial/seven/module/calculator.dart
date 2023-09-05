@@ -11,7 +11,7 @@ class CalculatorPage extends StatefulWidget {
 
 class _CalculatorPageState extends State<CalculatorPage> {
   static const String _introText =
-      "Welcome! In this module, you will learn how to use a calculator. You can select each button by holding your finger on the screen and moving it over another button you'd like to select. To complete the lesson, use the calculator to find the result of [equation]. Remember to drag your finger in any direction slowly around the screen, and make sure your finger is touching the screen at all times. You may now start.";
+      "Welcome! In this module, you will learn how to use a calculator. Select each button by holding your finger on the screen and moving it over another button you'd like to select. To complete the lesson, calculator the result of \"64+36=\".";
 
     var userInput = '';
   var answer = '';
@@ -37,13 +37,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
         children: <Widget>[
           Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.blueAccent, width: 5)),
-              child: const Text(
-                _introText,
+            child: Container(
+            color: Colors.white, // Set the background color to white
+            child: const Text(
+          _introText,
               ),
             ),
+          ),
           Expanded(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -171,7 +171,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return false;
   }
  
-// function to calculate the input operation
+  // function to calculate the input operation
   void equalPressed() {
     String finaluserinput = userInput;
     finaluserinput = userInput.replaceAll('x', '*');
@@ -181,6 +181,11 @@ class _CalculatorPageState extends State<CalculatorPage> {
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
     answer = eval.toString();
+
+    if (finaluserinput == '64+36' || finaluserinput == '36+64') {
+    // Check if the input matches the specific equation
+      Navigator.pop(context); // Close the current page
+    }
   }
 }
 
