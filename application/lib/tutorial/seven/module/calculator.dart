@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 
 class CalculatorPage extends StatefulWidget {
@@ -56,9 +57,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
-                  Semantics(
-                    label: answer, // Set the label to the answer text
-                    child: Container(
+                  Container(
                       padding: const EdgeInsets.all(15),
                       alignment: Alignment.centerRight,
                       child: Text(
@@ -70,7 +69,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         ),
                       ),
                     ),
-                  )
                 ]),
           ),
           Expanded(
@@ -218,17 +216,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
       if (match.group(0)!.length > 1) { // Add a null check with '?'
         return 'Syntax Error';
       } else {
-        return '/100*';
+        return '/100';
       }
     });
 
- 
     Parser p = Parser();
     try {
       Expression exp = p.parse(finaluserinput);
       ContextModel cm = ContextModel();
       double eval = exp.evaluate(EvaluationType.REAL, cm);
       answer = eval.toString();
+
     } catch (e) {
       answer = "Syntax Error";
     }
@@ -238,13 +236,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
       Navigator.pop(context); // Close the current page
     }
     else {
-        setState(() {
-        // Update the UI, including the Semantics widget with the new answer
-        userInput = '';
-        calculationPerformed =  true;
-    });
+      setState(() {
+      userInput = '';
+      calculationPerformed =  true;
+      // Speak the result using FlutterTts
+      speakResult(answer);
+      });
     }
   }
+
+  Future<void> speakResult(String text) async {
+    FlutterTts flutterTts = FlutterTts();
+    await flutterTts.speak(answer);
+  }
+
 }
 
 // creating Stateless Widget for buttons
