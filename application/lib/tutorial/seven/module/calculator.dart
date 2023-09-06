@@ -212,14 +212,26 @@ class _CalculatorPageState extends State<CalculatorPage> {
     String finaluserinput = userInput;
     finaluserinput = userInput.replaceAll('x', '*');
 
-    // Handle % operation
-    finaluserinput = finaluserinput.replaceAll('%', '/100');
+    // Handle the '%' operation
+    finaluserinput = finaluserinput.replaceAllMapped(RegExp(r'%+'), (match) {
+      // Check for invalid syntax with multiple % symbols and replace with 'Syntax Error'
+      if (match.group(0)!.length > 1) { // Add a null check with '?'
+        return 'Syntax Error';
+      } else {
+        return '/100*';
+      }
+    });
+
  
     Parser p = Parser();
-    Expression exp = p.parse(finaluserinput);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-    answer = eval.toString();
+    try {
+      Expression exp = p.parse(finaluserinput);
+      ContextModel cm = ContextModel();
+      double eval = exp.evaluate(EvaluationType.REAL, cm);
+      answer = eval.toString();
+    } catch (e) {
+      answer = "Syntax Error";
+    }
 
     if (finaluserinput == '64+36' || finaluserinput == '36+64') {
     // Check if the input matches the specific equation
