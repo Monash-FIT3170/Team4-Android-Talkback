@@ -56,15 +56,19 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      answer,
-                      style: const TextStyle(
+                  Semantics(
+                    label: answer, // Set the label to the answer text
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        answer,
+                        style: const TextStyle(
                           fontSize: 30,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   )
                 ]),
@@ -93,11 +97,23 @@ class _CalculatorPageState extends State<CalculatorPage> {
  
                   // +/- button
                   else if (index == 1) {
-                    return MyButton(
-                      buttonText: buttons[index],
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
+                      return MyButton(
+                        buttontapped: () {
+                          setState(() {
+                            // Check if userInput is not empty and the first character is "-"
+                            if (userInput.isNotEmpty && userInput[0] == '-') {
+                              // Remove the "-" sign if it's already negative
+                              userInput = userInput.substring(1);
+                            } else {
+                              // Add a "-" sign if it's positive or empty
+                              userInput = '-$userInput';
+                            }
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.blue[50],
+                        textColor: Colors.black,
+                      );
                   }
                   // % Button
                   else if (index == 2) {
@@ -139,7 +155,24 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       textColor: Colors.white,
                     );
                   }
- 
+                  // Inside the MyButton widget for number buttons (0-9)
+                  else if (index >= 4 && index <= 17) { // Check if a number button is pressed
+                    return MyButton(
+                      buttontapped: () {
+                        setState(() {
+                          // Reset the answer to '0' when a new number is pressed after a calculation
+                          if (calculationPerformed) {
+                            answer = '0';
+                            calculationPerformed = false; // Reset the flag
+                          }
+                          userInput += buttons[index];
+                        });
+                      },
+                      buttonText: buttons[index],
+                      color: Colors.blue[50],
+                      textColor: Colors.black,
+                    );
+                  }
                   //  other buttons
                   else {
                     return MyButton(
@@ -170,11 +203,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
     }
     return false;
   }
+
+  // Flag to track if a calculation has been performed
+  bool calculationPerformed = false;
  
   // function to calculate the input operation
   void equalPressed() {
     String finaluserinput = userInput;
     finaluserinput = userInput.replaceAll('x', '*');
+
+    // Handle % operation
+    finaluserinput = finaluserinput.replaceAll('%', '/100');
  
     Parser p = Parser();
     Expression exp = p.parse(finaluserinput);
@@ -186,15 +225,25 @@ class _CalculatorPageState extends State<CalculatorPage> {
     // Check if the input matches the specific equation
       Navigator.pop(context); // Close the current page
     }
+    else {
+        setState(() {
+        // Update the UI, including the Semantics widget with the new answer
+        userInput = '';
+        calculationPerformed =  true;
+    });
+    }
   }
 }
 
 // creating Stateless Widget for buttons
 class MyButton extends StatelessWidget {
   // declaring variables
+  // ignore: prefer_typing_uninitialized_variables
   final color;
+  // ignore: prefer_typing_uninitialized_variables
   final textColor;
   final String buttonText;
+  // ignore: prefer_typing_uninitialized_variables
   final buttontapped;
  
   //Constructor
@@ -207,7 +256,6 @@ class MyButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(0.2),
         child: ClipRRect(
-          // borderRadius: BorderRadius.circular(25),
           child: Container(
             color: color,
             child: Center(
