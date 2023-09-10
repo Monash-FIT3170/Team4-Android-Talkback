@@ -14,17 +14,24 @@ class _PhonePadState extends State<PhonePad> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Phone Keyboard'),
+        automaticallyImplyLeading: true, // Disable back button
+        title: Focus(
+          child: Semantics(
+            focused: true, // Indicate that this widget is focused
+            child: Text("tutorial8_lesson_title",  semanticsLabel: "tutorial8")
+          ),
+          ),
       ),
       body: Column(
         children: <Widget>[
+          Text('Entered Number: $enteredNumber', style: TextStyle(fontSize: 24)),
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
               ),
               itemBuilder: (BuildContext context, int index) {
-                if (index == 9) {
+                if (index == 12) {
                   // This is the 'Call' button
                   return ElevatedButton(
                     onPressed: () {
@@ -32,7 +39,7 @@ class _PhonePadState extends State<PhonePad> {
                     },
                     child: Text('Call'),
                   );
-                } else if (index == 11) {
+                } else if (index == 13) {
                   // This is the 'Backspace' button
                   return ElevatedButton(
                     onPressed: () {
@@ -40,7 +47,7 @@ class _PhonePadState extends State<PhonePad> {
                     },
                     child: Icon(Icons.backspace),
                   );
-                }  else if (index <= 8)  {
+                }  else if (index <= 11)  {
                   // These are the numeric buttons
                   List<String> keypad = [
                     '1', '2', '3',
@@ -59,7 +66,7 @@ class _PhonePadState extends State<PhonePad> {
               },
             ),
           ),
-          Text('Entered Number: $enteredNumber'),
+          
         ],
       ),
     );
