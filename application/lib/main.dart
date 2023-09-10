@@ -5,6 +5,7 @@ import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:application/tutorial/eight/tutorial_eight.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialThree: (context) => tutorialThree,
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialSix: (context) => tutorialSix,
+          Routes.tutorialEight: (context) => tutorialEight,
         });
   }
 }
