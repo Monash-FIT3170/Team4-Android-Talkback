@@ -16,10 +16,32 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
     initializeGame();
   }
 
-  void initializeGame() {}
+  void initializeGame() {
+    board = List.generate(3, (i) => List.generate(3, (j) => ''));
+    currentPlayer = 'X';
+    winner = "";
+  }
 
-  void makeMove(int row, int col) {}
+  void makeMove(int row, int col) {
+    if (board[row][col].isEmpty && winner == "") {
+      setState(() {
+        board[row][col] = currentPlayer;
+        if (checkForWin(row, col)) {
+          winner = currentPlayer;
+        } else if (isBoardFull()) {
+          winner = 'Draw';
+        } else {
+          currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+        }
+      });
+    }
+  }
 
+  bool isBoardFull() {
+    return board.every((row) => row.every((cell) => cell.isNotEmpty));
+  }
+
+  
   void resetGame() {}
 
   Widget buildCell(int row, int col) {
