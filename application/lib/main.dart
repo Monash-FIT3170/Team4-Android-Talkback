@@ -4,9 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [
+          Locale('en'),
+          Locale('es'),
+          Locale('ar'),
+          Locale('zh', 'CN'),
+          Locale('ru'),
+        ],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +32,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Teach Me Talkback',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -64,17 +83,20 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // MainMenuTutorialButton(title: 'Tutorial 1', routeName: null),
             MainMenuTutorialButton(
-                title: 'Tutorial 2', routeName: Routes.tutorialTwo),
+                title: 'tutorial'.tr(args: ["2"]),
+                routeName: Routes.tutorialTwo),
             MainMenuTutorialButton(
-                title: 'Tutorial 3', routeName: Routes.tutorialThree),
+                title: 'tutorial'.tr(args: ["3"]),
+                routeName: Routes.tutorialThree),
             MainMenuTutorialButton(
-                title: 'Tutorial 4', routeName: Routes.tutorialFour),
+                title: 'tutorial'.tr(args: ["4"]),
+                routeName: Routes.tutorialFour),
             // MainMenuTutorialButton(
             //     title: 'Tutorial 5', routeName: Routes.tutorialFive),
             MainMenuTutorialButton(
-                title: 'Tutorial 6', routeName: Routes.tutorialSix),
+                title: 'tutorial'.tr(args: ["6"]),
+                routeName: Routes.tutorialSix),
           ],
         ),
       ),
