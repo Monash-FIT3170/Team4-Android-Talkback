@@ -41,11 +41,38 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
     return board.every((row) => row.every((cell) => cell.isNotEmpty));
   }
 
-  
-  void resetGame() {}
+
+  bool checkForWin(int row, int col) {
+    // Check row, column, and diagonals for a win
+    return (board[row].every((cell) => cell == currentPlayer) ||
+        List.generate(3, (i) => board[i][col]).every((cell) => cell == currentPlayer) ||
+        (row == col && List.generate(3, (i) => board[i][i]).every((cell) => cell == currentPlayer)) ||
+        (row + col == 2 && List.generate(3, (i) => board[i][2 - i]).every((cell) => cell == currentPlayer)));
+  }
+
+  void resetGame() {
+    setState(() {
+      initializeGame();
+    });
+  }
 
   Widget buildCell(int row, int col) {
-    return const SizedBox();
+    return GestureDetector(
+      onTap: () => makeMove(row, col),
+      child: Container(
+        width: 80.0,
+        height: 80.0,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+        ),
+        child: Center(
+          child: Text(
+            board[row][col],
+            style: TextStyle(fontSize: 40.0),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
