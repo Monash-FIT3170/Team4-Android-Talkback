@@ -2,7 +2,9 @@ import 'package:application/tutorial/five/module/end_of_lesson_challenge.dart';
 import 'package:application/tutorial/five/module/go_home.dart';
 import 'package:application/tutorial/five/module/open_notfication.dart';
 import 'package:application/tutorial/five/module/open_recent.dart';
-import 'package:application/tutorial/five/module/open_talkbackmenu.dart';
+import 'package:application/tutorial/five/module/open_talkback_menu.dart';
+import 'package:application/tutorial/five/module/crossKnots.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:application/tutorial/five/module/open_voice_command.dart';
@@ -54,7 +56,7 @@ class TutorialFive extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OpenTalkbackmenu()),
+                  MaterialPageRoute(builder: (context) => const OpenTalkback()),
                 );
               },
               child: Text("Open Talkback Menu"),
@@ -78,6 +80,16 @@ class TutorialFive extends StatelessWidget {
                 );
               },
               child: Text("End of Lesson Challenge"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TicTacToeGame()),
+                );
+              },
+              child: const Text("Tic-Tac-Toe"),
             ),
           ],
         ),
