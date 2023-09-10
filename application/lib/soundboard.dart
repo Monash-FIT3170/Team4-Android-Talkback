@@ -55,8 +55,9 @@ class _SoundboardState extends State<Soundboard> {
           // Generates 6 buttons in the grid    - NO of buttons can be changed here
           children: List.generate(6, (index) {
             return ElevatedButton(
-              //When pushed play mp3 file
+              // When pushed play mp3 file
               onPressed: playSound,
+              // Can change name of button here right now it is just button 1,2,3... 
               child: Text('Button ${index + 1}'),
             );
           }),
