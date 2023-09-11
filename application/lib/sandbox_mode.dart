@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -12,56 +13,68 @@ class SandBox extends StatefulWidget {
 }
 
 class GesturesState extends State<SandBox> {
-  // Timer? timer;
-
+  int maxPointerCounter = 0;
+  Timer? timer;
   void doubleTap() => {
         setState(() => {gestureText = "Double tap"})
       };
   void longPress() => {
         setState(() => {gestureText = "Long press"})
       };
-  void handleSwipe(ScaleUpdateDetails details) => {
-        if (details.pointerCount == 1)
-          if (details.focalPointDelta.dx.abs() >
-              details.focalPointDelta.dy.abs())
+  void handleSwipe(ScaleEndDetails details) => {
+        maxPointerCounter = max(maxPointerCounter, details.pointerCount),
+        if (maxPointerCounter == 0)
+          if (details.velocity.pixelsPerSecond.dx.abs() >
+              details.velocity.pixelsPerSecond.dy.abs())
             {
               setState(() => {gestureText = "Horizontal swipe"})
             }
-          else if (details.focalPointDelta.dx.abs() <=
-              details.focalPointDelta.dy.abs())
+          else if (details.velocity.pixelsPerSecond.dx.abs() <=
+              details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = "Vertical swipe"})
+              setState(
+                  () => {gestureText = "Vertical swipe ", details.pointerCount})
             },
-        if (details.pointerCount == 2)
-          if (details.focalPointDelta.dx.abs() >
-              details.focalPointDelta.dy.abs())
+        if (maxPointerCounter == 1)
+          if (details.velocity.pixelsPerSecond.dx.abs() >
+              details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = "Two finger horizontal swipe"}),
-              // timer = Timer(const Duration(milliseconds: 500), () {})
+              timer = Timer(const Duration(milliseconds: 100), () {
+                setState(() => {gestureText = "Two finger horizontal swipe"});
+                maxPointerCounter = 0;
+              }),
             }
-          else if (details.focalPointDelta.dx.abs() <=
-              details.focalPointDelta.dy.abs())
+          else if (details.velocity.pixelsPerSecond.dx.abs() <=
+              details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = "Two finger vertical swipe"}),
-              // timer = Timer(const Duration(milliseconds: 500), () {})
+              timer = Timer(const Duration(milliseconds: 100), () {
+                setState(() => {gestureText = "Two finger vertical swipe"});
+                maxPointerCounter = 0;
+              }),
             },
-        if (details.pointerCount == 3)
-          if (details.focalPointDelta.dx.abs() >
-              details.focalPointDelta.dy.abs())
+        if (maxPointerCounter == 2)
+          if (details.velocity.pixelsPerSecond.dx.abs() >
+              details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = "Three finger horizontal swipe"})
+              timer = Timer(const Duration(milliseconds: 100), () {
+                setState(() => {gestureText = "Three finger horizontal swipe"});
+                maxPointerCounter = 0;
+              }),
             }
-          else if (details.focalPointDelta.dx.abs() <=
-              details.focalPointDelta.dy.abs())
+          else if (details.velocity.pixelsPerSecond.dx.abs() <=
+              details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = "Three finger vertical swipe"})
+              timer = Timer(const Duration(milliseconds: 100), () {
+                setState(() => {gestureText = "Three finger vertical swipe"});
+                maxPointerCounter = 0;
+              }),
             }
       };
   String gestureText = 'No gestures yet';
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onScaleUpdate: handleSwipe,
+      onScaleEnd: handleSwipe,
       onDoubleTap: doubleTap,
       onLongPress: longPress,
       child: Scaffold(
