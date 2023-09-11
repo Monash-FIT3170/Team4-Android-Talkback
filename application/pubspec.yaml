@@ -38,6 +38,7 @@ dependencies:
   flutter_tts: ^3.6.3
   just_audio: ^0.9.13
   xml: ^6.2.2
+  audioplayers: ^4.1.0
 
 dev_dependencies:
   flutter_test:
