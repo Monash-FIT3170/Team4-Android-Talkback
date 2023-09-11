@@ -1,4 +1,5 @@
 import 'package:application/routes.dart';
+import 'package:application/soundboard.dart';
 import 'package:application/tutorial/six/tutorial_six.dart';
 import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialThree: (context) => tutorialThree,
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialSix: (context) => tutorialSix,
+          Routes.soundBoard: (context) => const SoundBoard(),
         });
   }
 }
@@ -75,6 +77,8 @@ class HomePage extends StatelessWidget {
             //     title: 'Tutorial 5', routeName: Routes.tutorialFive),
             MainMenuTutorialButton(
                 title: 'Tutorial 6', routeName: Routes.tutorialSix),
+            MainMenuTutorialButton(
+                title: 'Music Keys', routeName: Routes.soundBoard),
           ],
         ),
       ),

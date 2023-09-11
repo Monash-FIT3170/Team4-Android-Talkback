@@ -10,5 +10,6 @@ class Routes {
   static const String tutorialSix = "$tutorials/six";
   static const String tutorialSeven = "$tutorials/seven";
 
+  static const String soundBoard = "$home/soundBoard";
   static const String gestures = "$home/gestures";
 }
