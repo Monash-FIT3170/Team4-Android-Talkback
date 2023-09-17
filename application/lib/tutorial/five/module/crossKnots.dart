@@ -57,23 +57,31 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
   }
 
   Widget buildCell(int row, int col) {
-    return GestureDetector(
-      onTap: () => makeMove(row, col),
-      child: Container(
-        width: 80.0,
-        height: 80.0,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
-        ),
-        child: Center(
-          child: Text(
-            board[row][col],
-            style: TextStyle(fontSize: 40.0),
-          ),
-        ),
+  return GestureDetector(
+    onTap: () => makeMove(row, col),
+    child: Container(
+      width: 80.0,
+      height: 80.0,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
       ),
-    );
-  }
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Text(
+            board[row][col],
+            style: TextStyle(fontSize: 40.0, color: Colors.black), // Set the text color to black for 'X' and 'O'
+          ),
+          Text(
+            'Row ${row + 1}, Column ${col + 1}',
+            style: TextStyle(fontSize: 10.0, color: Colors.white), // Keep the text color for "Row x, Column y" white
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
