@@ -14,12 +14,16 @@ class CalculatorChallengePage extends StatefulWidget {
 
 class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
   static const String _introText =
-      "To complete this challenge, select three correct answers to the given equations to pass the challenge. Three incorrect answers will result in failure.";
+      "To complete this challenge, calculate the correct answer three times. Three incorrect answers will result in failure.";
 
   var userInput = '';
   var answer = '';
   var equationResult = 0;
-  var correctAnswers = 0;
+  int correctAnswers = 0;
+  int incorrectAnswers = 0;
+  int totalEquations = -1;
+  bool answeredCorrectly =
+      false; // Flag to track if the user answered correctly
 
   static String _equation = "";
 
@@ -31,6 +35,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
 
   void _generateRandomEquation() {
     final Random random = Random();
+    totalEquations += 1;
 
     final List<String> operators = ['+', '-', 'x', '/'];
     final List<String> operators_str = [
@@ -154,6 +159,16 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
               color: Colors.white, // Set the background color to white
               child: Text(
                 "Equation: $_equation",
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              color: Colors.white, // Set the background color to white
+              child: Text(
+                "Correct Answers: $correctAnswers of $totalEquations",
               ),
             ),
           ),
@@ -320,17 +335,17 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
 
   // function to calculate the input operation
   void equalPressed() {
-    String finaluserinput = userInput;
+    String finalUserInput = userInput;
 
     // Check if userInput is empty
-    if (finaluserinput.isEmpty) {
+    if (finalUserInput.isEmpty) {
       return; // Do nothing if userInput is empty
     }
 
-    finaluserinput = finaluserinput.replaceAll('x', '*');
+    finalUserInput = finalUserInput.replaceAll('x', '*');
 
     // Handle the '%' operation
-    finaluserinput = finaluserinput.replaceAllMapped(RegExp(r'%+'), (match) {
+    finalUserInput = finalUserInput.replaceAllMapped(RegExp(r'%+'), (match) {
       // Check for invalid syntax with multiple % symbols and replace with 'Syntax Error'
       if (match.group(0)!.length > 1) {
         // Add a null check with '?'
@@ -342,25 +357,110 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
 
     Parser p = Parser();
     try {
-      Expression exp = p.parse(finaluserinput);
+      Expression exp = p.parse(finalUserInput);
       ContextModel cm = ContextModel();
       double eval = exp.evaluate(EvaluationType.REAL, cm);
       answer = eval.toString();
+
+      // Check if the user's answer matches the equation result
+      if (eval == equationResult) {
+        // User answered correctly, generate a new equation
+        _generateRandomEquation();
+        answeredCorrectly = true; // Set the flag to true
+        correctAnswers += 1;
+
+        // Check if the user has passed the challenge
+        if (correctAnswers == 3) {
+          // Display a message and navigate back when the challenge is passed
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Challenge Passed"),
+                content:
+                    const Text("You've successfully completed the challenge."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close the dialog
+                      Navigator.pop(context); // Go back a page
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      } else {
+        answeredCorrectly = false; // Set the flag to false
+        incorrectAnswers += 1;
+
+        // Check if the user has failed the challenge
+        if (incorrectAnswers == 3) {
+          // Display a message and navigate back when the challenge is failed
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Challenge Failed"),
+                content: const Text(
+                    "You failed to calculate three correct answers."),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close the dialog
+                      Navigator.pop(context); // Go back a page
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          // Generate a new equation when the user answers incorrectly
+          _generateRandomEquation();
+        }
+      }
     } catch (e) {
       answer = "Syntax Error";
+      answeredCorrectly = false; // Set the flag to false
+      incorrectAnswers += 1;
+
+      // Check if the user has failed the challenge
+      if (incorrectAnswers == 3) {
+        // Display a message and navigate back when the challenge is failed
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Challenge Failed"),
+              content: const Text("You've failed the challenge."),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the dialog
+                    Navigator.pop(context); // Go back a page
+                  },
+                  child: const Text("OK"),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        // Generate a new equation when the user answers incorrectly
+        _generateRandomEquation();
+      }
     }
 
-    if (finaluserinput == '64+36' || finaluserinput == '36+64') {
-      // Check if the input matches the specific equation
-      Navigator.pop(context); // Close the current page
-    } else {
-      setState(() {
-        userInput = '';
-        calculationPerformed = true;
-        // Speak the result using FlutterTts
-        speakResult(answer);
-      });
-    }
+    setState(() {
+      userInput = '';
+      calculationPerformed = true;
+      // Speak the result using FlutterTts
+      speakResult(answer);
+    });
   }
 
   void speakResult(String text) async {

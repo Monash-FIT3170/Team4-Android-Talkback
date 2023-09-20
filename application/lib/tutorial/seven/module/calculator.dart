@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({super.key});
 
@@ -14,34 +13,49 @@ class _CalculatorPageState extends State<CalculatorPage> {
   static const String _introText =
       "Welcome! In this module, you will learn how to use a calculator. Select each button by holding your finger on the screen and moving it over another button you'd like to select. To complete the lesson, calculator the result of \"64+36=\".";
 
-    var userInput = '';
+  var userInput = '';
   var answer = '';
- 
+
   // Array of button
   final List<String> buttons = [
-    'C','+/-','%','DEL',
-    '7', '8', '9', '/',
-    '4', '5', '6', 'x',
-    '1', '2', '3', '-',
-    '0', '.', '=', '+',
+    'C',
+    '+/-',
+    '%',
+    'DEL',
+    '7',
+    '8',
+    '9',
+    '/',
+    '4',
+    '5',
+    '6',
+    'x',
+    '1',
+    '2',
+    '3',
+    '-',
+    '0',
+    '.',
+    '=',
+    '+',
   ];
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false, // Disable back button
-          title: const Text("Calculator Module"),
-        ),  //AppBar
+        automaticallyImplyLeading: false, // Disable back button
+        title: const Text("Calculator Module"),
+      ), //AppBar
       backgroundColor: Colors.white38,
       body: Column(
         children: <Widget>[
           Container(
             alignment: Alignment.center,
             child: Container(
-            color: Colors.white, // Set the background color to white
-            child: const Text(
-          _introText,
+              color: Colors.white, // Set the background color to white
+              child: const Text(
+                _introText,
               ),
             ),
           ),
@@ -58,17 +72,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.all(15),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        answer,
-                        style: const TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    padding: const EdgeInsets.all(15),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      answer,
+                      style: const TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
                 ]),
           ),
           Expanded(
@@ -92,26 +106,26 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       textColor: Colors.black,
                     );
                   }
- 
+
                   // +/- button
                   else if (index == 1) {
-                      return MyButton(
-                        buttontapped: () {
-                          setState(() {
-                            // Check if userInput is not empty and the first character is "-"
-                            if (userInput.isNotEmpty && userInput[0] == '-') {
-                              // Remove the "-" sign if it's already negative
-                              userInput = userInput.substring(1);
-                            } else {
-                              // Add a "-" sign if it's positive or empty
-                              userInput = '-$userInput';
-                            }
-                          });
-                        },
-                        buttonText: buttons[index],
-                        color: Colors.blue[50],
-                        textColor: Colors.black,
-                      );
+                    return MyButton(
+                      buttontapped: () {
+                        setState(() {
+                          // Check if userInput is not empty and the first character is "-"
+                          if (userInput.isNotEmpty && userInput[0] == '-') {
+                            // Remove the "-" sign if it's already negative
+                            userInput = userInput.substring(1);
+                          } else {
+                            // Add a "-" sign if it's positive or empty
+                            userInput = '-$userInput';
+                          }
+                        });
+                      },
+                      buttonText: buttons[index],
+                      color: Colors.blue[50],
+                      textColor: Colors.black,
+                    );
                   }
                   // % Button
                   else if (index == 2) {
@@ -154,7 +168,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     );
                   }
                   // Inside the MyButton widget for number buttons (0-9)
-                  else if (index >= 4 && index <= 17) { // Check if a number button is pressed
+                  else if (index >= 4 && index <= 17) {
+                    // Check if a number button is pressed
                     return MyButton(
                       buttontapped: () {
                         setState(() {
@@ -194,7 +209,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       ),
     );
   }
- 
+
   bool isOperator(String x) {
     if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
       return true;
@@ -204,16 +219,23 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   // Flag to track if a calculation has been performed
   bool calculationPerformed = false;
- 
+
   // function to calculate the input operation
   void equalPressed() {
     String finaluserinput = userInput;
-    finaluserinput = userInput.replaceAll('x', '*');
+
+    // Check if userInput is empty
+    if (finaluserinput.isEmpty) {
+      return; // Do nothing if userInput is empty
+    }
+
+    finaluserinput = finaluserinput.replaceAll('x', '*');
 
     // Handle the '%' operation
     finaluserinput = finaluserinput.replaceAllMapped(RegExp(r'%+'), (match) {
       // Check for invalid syntax with multiple % symbols and replace with 'Syntax Error'
-      if (match.group(0)!.length > 1) { // Add a null check with '?'
+      if (match.group(0)!.length > 1) {
+        // Add a null check with '?'
         return 'Syntax Error';
       } else {
         return '/100';
@@ -226,21 +248,19 @@ class _CalculatorPageState extends State<CalculatorPage> {
       ContextModel cm = ContextModel();
       double eval = exp.evaluate(EvaluationType.REAL, cm);
       answer = eval.toString();
-
     } catch (e) {
       answer = "Syntax Error";
     }
 
     if (finaluserinput == '64+36' || finaluserinput == '36+64') {
-    // Check if the input matches the specific equation
+      // Check if the input matches the specific equation
       Navigator.pop(context); // Close the current page
-    }
-    else {
+    } else {
       setState(() {
-      userInput = '';
-      calculationPerformed =  true;
-      // Speak the result using FlutterTts
-      speakResult(answer);
+        userInput = '';
+        calculationPerformed = true;
+        // Speak the result using FlutterTts
+        speakResult(answer);
       });
     }
   }
@@ -249,7 +269,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
     FlutterTts flutterTts = FlutterTts();
     await flutterTts.speak(answer);
   }
-
 }
 
 // creating Stateless Widget for buttons
@@ -262,10 +281,15 @@ class MyButton extends StatelessWidget {
   final String buttonText;
   // ignore: prefer_typing_uninitialized_variables
   final buttontapped;
- 
+
   //Constructor
-  const MyButton({super.key, this.color, this.textColor, required this.buttonText, this.buttontapped});
- 
+  const MyButton(
+      {super.key,
+      this.color,
+      this.textColor,
+      required this.buttonText,
+      this.buttontapped});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
