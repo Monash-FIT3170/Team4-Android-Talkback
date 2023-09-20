@@ -99,6 +99,9 @@ class HomePage extends StatelessWidget {
             MainMenuTutorialButton(
                 title: 'tutorial'.tr(args: ["6"]),
                 routeName: Routes.tutorialSix),
+            MainMenuTutorialButton(
+                title: 'tutorial'.tr(args: ["8"]),
+                routeName: Routes.tutorialEight),
           ],
         ),
       ),

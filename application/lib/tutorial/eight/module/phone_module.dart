@@ -17,14 +17,15 @@ class _PhonePadState extends State<PhonePad> {
         automaticallyImplyLeading: true, // Disable back button
         title: Focus(
           child: Semantics(
-            focused: true, // Indicate that this widget is focused
-            child: Text("tutorial8_lesson_title",  semanticsLabel: "tutorial8")
-          ),
-          ),
+              focused: true, // Indicate that this widget is focused
+              child:
+                  Text("tutorial8_lesson_title", semanticsLabel: "tutorial8")),
+        ),
       ),
       body: Column(
         children: <Widget>[
-          Text('Entered Number: $enteredNumber', style: TextStyle(fontSize: 24)),
+          Text('Entered Number: $enteredNumber',
+              style: TextStyle(fontSize: 24)),
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -47,7 +48,7 @@ class _PhonePadState extends State<PhonePad> {
                     },
                     child: Icon(Icons.backspace),
                   );
-                }  else if (index <= 11)  {
+                } else if (index <= 11) {
                   // These are the numeric buttons
                   List<String> keypad = [
                     '1', '2', '3',
@@ -55,7 +56,7 @@ class _PhonePadState extends State<PhonePad> {
                     '7', '8', '9',
                     '*', '0', '#',
                   ];
-                  
+
                   return ElevatedButton(
                     onPressed: () {
                       _handleNumericInput(int.parse(keypad[index]));
@@ -66,7 +67,6 @@ class _PhonePadState extends State<PhonePad> {
               },
             ),
           ),
-          
         ],
       ),
     );
