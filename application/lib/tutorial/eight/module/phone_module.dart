@@ -3,68 +3,88 @@ import 'package:flutter/material.dart';
 class PhonePad extends StatefulWidget {
   const PhonePad({Key? key}) : super(key: key);
   @override
-  _PhonePadState createState() => _PhonePadState();
+  PhonePadState createState() => PhonePadState();
 }
 
-class _PhonePadState extends State<PhonePad> {
-  TextEditingController phoneNumberController = TextEditingController();
-  String enteredNumber = '';
+class PhonePadState extends State<PhonePad> {
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  String _enteredNumber = '';
 
   @override
   Widget build(BuildContext context) {
+    Widget empty = ElevatedButton(
+      onPressed: () {},
+      child: const Text(""),
+    );
+
+    Widget call = ElevatedButton(
+      onPressed: () {
+        _handleCall();
+      },
+      child: const Text('Call'),
+    );
+    Widget backspace = ElevatedButton(
+      onPressed: () {
+        _handleBackspace();
+      },
+      child: const Icon(Icons.backspace),
+    );
+
+    Widget asterisk = ElevatedButton(
+      onPressed: () {},
+      child: const Text("*"),
+    );
+
+    Widget hash = ElevatedButton(
+      onPressed: () {},
+      child: const Text("#"),
+    );
+
+    Widget key(int k) {
+      return ElevatedButton(
+        onPressed: () {
+          _handleNumericInput(k);
+        },
+        child: Text(k.toString()),
+      );
+    }
+
+    // These are the numeric buttons
+    final List<Widget> keypad = [
+      [key(1), key(2), key(3)],
+      [key(4), key(5), key(6)],
+      [key(7), key(8), key(9)],
+      [asterisk, key(0), hash],
+      [empty, call, backspace]
+    ].expand((x) => x).toList();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true, // Disable back button
         title: Focus(
           child: Semantics(
-              focused: true, // Indicate that this widget is focused
-              child:
-                  Text("tutorial8_lesson_title", semanticsLabel: "tutorial8")),
+            focused: true, // Indicate that this widget is focused
+            child: const Text(
+              "tutorial8_lesson_title",
+              semanticsLabel: "tutorial8",
+            ),
+          ),
         ),
       ),
       body: Column(
         children: <Widget>[
-          Text('Entered Number: $enteredNumber',
-              style: TextStyle(fontSize: 24)),
+          Text(
+            'Entered Number: $_enteredNumber',
+            style: const TextStyle(fontSize: 24),
+          ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
               ),
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 12) {
-                  // This is the 'Call' button
-                  return ElevatedButton(
-                    onPressed: () {
-                      _handleCall();
-                    },
-                    child: Text('Call'),
-                  );
-                } else if (index == 13) {
-                  // This is the 'Backspace' button
-                  return ElevatedButton(
-                    onPressed: () {
-                      _handleBackspace();
-                    },
-                    child: Icon(Icons.backspace),
-                  );
-                } else if (index <= 11) {
-                  // These are the numeric buttons
-                  List<String> keypad = [
-                    '1', '2', '3',
-                    '4', '5', '6',
-                    '7', '8', '9',
-                    '*', '0', '#',
-                  ];
-
-                  return ElevatedButton(
-                    onPressed: () {
-                      _handleNumericInput(int.parse(keypad[index]));
-                    },
-                    child: Text(keypad[index]),
-                  );
-                }
-              },
+              itemBuilder: (BuildContext context, int index) =>
+                  index < keypad.length ? keypad[index] : null,
             ),
           ),
         ],
@@ -74,18 +94,18 @@ class _PhonePadState extends State<PhonePad> {
 
   void _handleNumericInput(int digit) {
     setState(() {
-      enteredNumber += digit.toString();
+      _enteredNumber += digit.toString();
     });
   }
 
   void _handleCall() {
     // Check if the entered number matches the expected number
     String expectedNumber = '1234567890'; // Replace with the expected number
-    if (enteredNumber == expectedNumber) {
+    if (_enteredNumber == expectedNumber) {
       // Call successful
       showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (_) => const AlertDialog(
           title: Text('Call Successful'),
           content: Text('You have successfully called the number.'),
         ),
@@ -94,7 +114,7 @@ class _PhonePadState extends State<PhonePad> {
       // Call failed
       showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (_) => const AlertDialog(
           title: Text('Call Failed'),
           content: Text('Please enter the correct phone number and try again.'),
         ),
@@ -104,17 +124,17 @@ class _PhonePadState extends State<PhonePad> {
 
   void _handleBackspace() {
     setState(() {
-      if (enteredNumber.isNotEmpty) {
-        enteredNumber = enteredNumber.substring(0, enteredNumber.length - 1);
+      if (_enteredNumber.isNotEmpty) {
+        _enteredNumber = _enteredNumber.substring(0, _enteredNumber.length - 1);
       }
     });
   }
 
   @override
   void dispose() {
-    phoneNumberController.dispose();
+    _phoneNumberController.dispose();
     super.dispose();
   }
 }
 
-void main() => runApp(MaterialApp(home: PhonePad()));
+void main() => runApp(const MaterialApp(home: PhonePad()));
