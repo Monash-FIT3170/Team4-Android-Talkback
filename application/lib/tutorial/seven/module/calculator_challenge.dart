@@ -62,27 +62,36 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
     int result = 0; // Initialize result with a default value
 
     // Ensure the result is always an integer
-    if (operator1 == '+') {
-      result = operand1 + operand2;
-    } else if (operator1 == '-') {
-      result = operand1 - operand2;
-    } else if (operator1 == 'x') {
-      result = operand1 * operand2;
-    } else if (operator1 == '/') {
-      // Avoid division by zero
-      result = operand1 ~/ operand2;
-    }
+    if (operator2 == 'x' && operator1 != 'x' && operator1 != '/') {
+      result = operand2 * operand3;
+      if (operator1 == '+') {
+        result = operand1 + result;
+      } else if (operator1 == '-') {
+        result = operand1 - result;
+      }
+    } else {
+      if (operator1 == '+') {
+        result = operand1 + operand2;
+      } else if (operator1 == '-') {
+        result = operand1 - operand2;
+      } else if (operator1 == 'x') {
+        result = operand1 * operand2;
+      } else if (operator1 == '/') {
+        // Avoid division by zero
+        result = operand1 ~/ operand2;
+      }
 
-    // Ensure the result is always an integer
-    if (operator2 == '+') {
-      result = result + operand3;
-    } else if (operator2 == '-') {
-      result = result - operand3;
-    } else if (operator2 == 'x') {
-      result = result * operand3;
-    } else if (operator2 == '/') {
-      // Avoid division by zero
-      result = result ~/ operand3;
+      // Ensure the result is always an integer
+      if (operator2 == '+') {
+        result = result + operand3;
+      } else if (operator2 == '-') {
+        result = result - operand3;
+      } else if (operator2 == 'x') {
+        result = result * operand3;
+      } else if (operator2 == '/') {
+        // Avoid division by zero
+        result = result ~/ operand3;
+      }
     }
 
     equationResult = result;
