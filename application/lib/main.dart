@@ -6,6 +6,7 @@ import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
 import 'package:application/sandbox_mode.dart';
+import 'package:application/gesture_game.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void main() async {
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialSix: (context) => tutorialSix,
           Routes.sandBox: (context) => const SandBox(),
+          Routes.gestures: (context) => GestureMiniGame(),
           Routes.soundBoard: (context) => const SoundBoard(),
         });
   }
@@ -103,6 +105,8 @@ class HomePage extends StatelessWidget {
                   routeName: Routes.tutorialSix),
               MainMenuTutorialButton(
                   title: "Sandbox", routeName: Routes.sandBox),
+              MainMenuTutorialButton(
+                  title: "Gesture game", routeName: Routes.gestures),
               MainMenuTutorialButton(
                   title: "Soundboard", routeName: Routes.soundBoard)
             ],
