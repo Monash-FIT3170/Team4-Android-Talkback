@@ -1,4 +1,5 @@
 import 'package:application/routes.dart';
+import 'package:application/soundboard.dart';
 import 'package:application/tutorial/six/tutorial_six.dart';
 import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialSix: (context) => tutorialSix,
           Routes.sandBox: (context) => const SandBox(),
           Routes.gestures: (context) => GestureMiniGame(),
+          Routes.soundBoard: (context) => const SoundBoard(),
         });
   }
 }
@@ -104,7 +106,9 @@ class HomePage extends StatelessWidget {
               MainMenuTutorialButton(
                   title: "Sandbox", routeName: Routes.sandBox),
               MainMenuTutorialButton(
-                  title: "Gesture game", routeName: Routes.gestures)
+                  title: "Gesture game", routeName: Routes.gestures),
+              MainMenuTutorialButton(
+                  title: "Soundboard", routeName: Routes.soundBoard)
             ],
           ),
         ));

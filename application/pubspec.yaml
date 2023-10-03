@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_tts: ^3.6.3
   just_audio: ^0.9.13
+  audioplayers: ^4.1.0
   xml: ^6.3.0
   flutter_localizations:
     sdk: flutter
