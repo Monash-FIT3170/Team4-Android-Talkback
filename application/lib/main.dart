@@ -1,4 +1,5 @@
 import 'package:application/routes.dart';
+import 'package:application/soundboard.dart';
 import 'package:application/tutorial/six/tutorial_six.dart';
 import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialSix: (context) => tutorialSix,
           Routes.sandBox: (context) => const SandBox(),
+          Routes.soundBoard: (context) => const SoundBoard(),
         });
   }
 }
@@ -100,7 +102,9 @@ class HomePage extends StatelessWidget {
                   title: 'tutorial'.tr(args: ["6"]),
                   routeName: Routes.tutorialSix),
               MainMenuTutorialButton(
-                  title: "Sandbox", routeName: Routes.sandBox)
+                  title: "Sandbox", routeName: Routes.sandBox),
+              MainMenuTutorialButton(
+                  title: "Soundboard", routeName: Routes.soundBoard)
             ],
           ),
         ));
