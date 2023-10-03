@@ -105,7 +105,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
     operator1 = operators_str[operators.indexOf(operator1)];
     operator2 = operators_str[operators.indexOf(operator2)];
 
-    _equation = "$operand1 $operator1 $operand2 $operator2 $operand3 = $result";
+    _equation = "$operand1 $operator1 $operand2 $operator2 $operand3";
   }
 
   // Array of button
@@ -362,6 +362,12 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
       double eval = exp.evaluate(EvaluationType.REAL, cm);
       answer = eval.toString();
 
+      if (eval == equationResult) {
+        answer += ' is correct';
+      } else {
+        answer += ' is incorrect';
+      }
+
       // Check if the user's answer matches the equation result
       if (eval == equationResult) {
         // User answered correctly, generate a new equation
@@ -455,16 +461,29 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
       }
     }
 
+    // Speak the result using FlutterTts
+    if (!(correctAnswers == 3) && !(incorrectAnswers == 3)) {
+      speakResult(answer);
+    }
+
     setState(() {
       userInput = '';
       calculationPerformed = true;
-      // Speak the result using FlutterTts
-      speakResult(answer);
     });
   }
 
   void speakResult(String text) async {
     FlutterTts flutterTts = FlutterTts();
+    await Future.delayed(
+        const Duration(seconds: 1)); // Introduce a pause of 1 second
+    speakEquation(_equation);
+    await flutterTts.speak(text);
+  }
+
+  void speakEquation(String text) async {
+    FlutterTts flutterTts = FlutterTts();
+    await Future.delayed(
+        const Duration(seconds: 1)); // Introduce a pause of 1 second
     await flutterTts.speak(text);
   }
 }

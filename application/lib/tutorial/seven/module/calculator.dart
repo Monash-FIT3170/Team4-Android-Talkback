@@ -267,6 +267,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   Future<void> speakResult(String text) async {
     FlutterTts flutterTts = FlutterTts();
+    await Future.delayed(
+        const Duration(seconds: 1)); // Introduce a pause of 1 second
     await flutterTts.speak(answer);
   }
 }
