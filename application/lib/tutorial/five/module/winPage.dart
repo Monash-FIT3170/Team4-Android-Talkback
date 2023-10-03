@@ -15,16 +15,14 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class _WinPage extends State<WinPage> with WidgetsBindingObserver {
-
-    String middleSpeech =
+  String middleSpeech =
       """Welcome back, now select the correct number form the following by
       swiping right to go over the numbers and then double tapping to select it.
       """;
 
-    String wrongButton = """Wrong number, try again""";
+  String wrongButton = """Wrong number, try again""";
 
-  bool isIntro = true;
-  bool isFeedbackSpeech1 = false;
+  bool isFeedbackSpeech1 = true;
   bool isFeedbackSpeech2 = false;
   bool isFeedbackSpeech3 = false;
   bool isEnd = false;
@@ -79,12 +77,7 @@ class _WinPage extends State<WinPage> with WidgetsBindingObserver {
   }
 
   void changeStage() {
-    if (isIntro) {
-      setState(() {
-        isIntro = false;
-        isFeedbackSpeech1 = true;
-      });
-    } else if (isFeedbackSpeech1) {
+    if (isFeedbackSpeech1) {
       setState(() {
         isFeedbackSpeech1 = false;
         isFeedbackSpeech2 = true;
@@ -115,66 +108,67 @@ class _WinPage extends State<WinPage> with WidgetsBindingObserver {
 
       // All the elements of the page
       children: [
-        if (isIntro)
-          // This speaks the intro
-          FutureBuilder<FlutterTts>(
-              future: _initTextToSpeech(),
-              builder: (context, snapshot) {
-                // This reads instructions and checks for successful
-                // execution of said instructions.
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    _speakLines(snapshot.data!, middleSpeech);
-                  }
-                  return Column(
-                    children: [
-                      const SizedBox(),
-                      //Text(middleSpeech), // Display the speech content
-                      FutureBuilder<FlutterTts>(
-                future: _initTextToSpeech(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      _speakLines(snapshot.data!, middleSpeech);
-                    }
-                    return Column(
-                      children: [
-                        const SizedBox(),
-                        //Text(middleSpeech), // Display the speech content
-                        ElevatedButton(
-                          onPressed: () {
-                            _speakLines(snapshot.data!, wrongButton);
-                          },
-                          child: const Text("4"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Challenge2()),
-                            );
-                          },
-                          child: const Text("3170"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _speakLines(snapshot.data!, wrongButton);
-                          },
-                          child: const Text("2023"),
-                        )
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                })
-                    ],
-                  );
-                } else {
-                  return const CircularProgressIndicator();
+        // This speaks the intro
+        FutureBuilder<FlutterTts>(
+            future: _initTextToSpeech(),
+            builder: (context, snapshot) {
+              // This reads instructions and checks for successful
+              // execution of said instructions.
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  _speakLines(snapshot.data!, middleSpeech);
                 }
-              }),
+                return Column(
+                  children: [
+                    const SizedBox(),
+                    //Text(middleSpeech), // Display the speech content
+                    FutureBuilder<FlutterTts>(
+                        future: _initTextToSpeech(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              _speakLines(snapshot.data!, middleSpeech);
+                            }
+                            return Column(
+                              children: [
+                                const SizedBox(),
+                                //Text(middleSpeech), // Display the speech content
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _speakLines(snapshot.data!, wrongButton);
+                                  },
+                                  child: const Text("4"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Challenge2()),
+                                    );
+                                  },
+                                  child: const Text("3170"),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _speakLines(snapshot.data!, wrongButton);
+                                  },
+                                  child: const Text("2023"),
+                                )
+                              ],
+                            );
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        })
+                  ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            })
       ],
     )));
   }

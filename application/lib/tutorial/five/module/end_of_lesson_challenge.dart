@@ -25,7 +25,6 @@ class _Challenge extends State<Challenge> with WidgetsBindingObserver {
       Return to the challenge and select the number from her notification.
       """;
 
-
   bool isIntro = true;
   bool isFeedbackSpeech1 = false;
   bool isFeedbackSpeech2 = false;

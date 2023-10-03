@@ -14,8 +14,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class _Challenge2 extends State<Challenge2> with WidgetsBindingObserver {
-  String introSpeech =
-      """Congratulatinos on completing the previous challenge. 
+  String introSpeech = """Congratulatinos on completing the previous challenge. 
       Welcome to challenge two. In this challenge you'll perform a 
       series of task. First go to the home screen and back to this app to recieve
       your next task.
@@ -23,9 +22,6 @@ class _Challenge2 extends State<Challenge2> with WidgetsBindingObserver {
   String middleSpeech =
       """Welcome back, now a new message will be sent from billy. Open the 
       notification to hear your next task.
-      Billies message:
-        Hello it's billy, complete this challenge by interacting with my message
-        in the notification panel.
       """;
   String billiesMessage =
       """Hello, it's billy. Complete this challenge by interacting with this 
@@ -159,14 +155,15 @@ class _Challenge2 extends State<Challenge2> with WidgetsBindingObserver {
                     _speakLines(snapshot.data!, middleSpeech);
                     LocalNotification2.challengeOneNotification(
                         title: "Billy's message",
-                        body: "Hello it's Billy. Complete this challenge by clicking on this notification.",
+                        body:
+                            "Hello it's Billy. Complete this challenge by clicking on this notification.",
                         flutterLocalNotificationsPlugin:
                             flutterLocalNotificationsPlugin);
                   }
                   return Column(
                     children: [
                       const SizedBox(),
-                      Text(middleSpeech), // Display the speech content
+                      // Text(middleSpeech), // Display the speech content
                     ],
                   );
                 } else {
