@@ -49,14 +49,14 @@ class PhonePadState extends State<PhonePad> {
         child: Text(k.toString()),
       );
     }
-
+  Widget placeholder = Container();
     // These are the numeric buttons
     final List<Widget> keypad = [
       [key(1), key(2), key(3)],
       [key(4), key(5), key(6)],
       [key(7), key(8), key(9)],
       [asterisk, key(0), hash],
-      [empty, call, backspace]
+      [placeholder, call, backspace]
     ].expand((x) => x).toList();
 
     return Scaffold(
@@ -66,27 +66,37 @@ class PhonePadState extends State<PhonePad> {
           child: Semantics(
             focused: true, // Indicate that this widget is focused
             child: const Text(
-              "tutorial8_lesson_title",
-              semanticsLabel: "tutorial8",
+              "Phone challenge",
+              semanticsLabel:
+                  "In this tutorial, you will learn how to call by typing phone number. Please enter 1234567890",
             ),
           ),
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            'Entered Number: $_enteredNumber',
-            style: const TextStyle(fontSize: 24),
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
-              itemBuilder: (BuildContext context, int index) =>
-                  index < keypad.length ? keypad[index] : null,
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Text(
+              'Entered Number:\n $_enteredNumber',
+              style: const TextStyle(fontSize: 30),
             ),
           ),
+          Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width - 50, // Set the maximum width of the GridView
+            height: MediaQuery.of(context).size.height - 190, // Set the maximum height of the GridView
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0),
+                itemBuilder: (BuildContext context, int index) =>
+                    index < keypad.length ? keypad[index] : null,
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -106,15 +116,18 @@ class PhonePadState extends State<PhonePad> {
       showDialog(
         context: context,
         builder: (_) => const AlertDialog(
-          title: Text('Call Successful'),
-          content: Text('You have successfully called the number.'),
-        ),
+            title: Text('Call Successful'),
+            content: Text('You have successfully called the number.'),
+            semanticLabel:
+                "Call Sucessful, You have successfully called the number."),
       );
     } else {
       // Call failed
       showDialog(
         context: context,
         builder: (_) => const AlertDialog(
+          semanticLabel:
+              "Call Failed, Please enter the correct phone number and try agian. double tap to retry",
           title: Text('Call Failed'),
           content: Text('Please enter the correct phone number and try again.'),
         ),
