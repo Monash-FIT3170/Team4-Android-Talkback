@@ -1,0 +1,15 @@
+<lesson6>
+    <title>Typing Lesson</title>
+    <decs>These cover the gestures and actions needed to use the virtual keyboard through Talkback</decs>
+    <!-- Virtual Keyboard !-->
+    <virtual_keyboard>
+        <string name ="virtual_keyboard_hello">hello</string>
+        <string namespace="virtual_keyboard_part1_on_finish_typing">Great job! You have typed the word hello with the on screen keyboard. Congratulations on completing this lesson. In this lesson you have successfully learnt how to type with the on screen keyboard.</string>
+        <string namespace="virtual_keyboard_part1_on_finish_typing_fail">Looks like you have not typed the word hello. Double tap on the screen to bring up the keyboard. Tap on the backspace button to delete the previously typed word and try typing the word hello again.</string>
+        <string namespace="virtual_keyboard_part1_intro">In this tutorial, you will be learning how to open the on-screen virtual keyboard and type using it. To start, double tap on the screen to open the virtual keyboard. </string>
+        <string namespace="virtual_keyboard_navigation_bar_height">navigation_bar_height</string>
+        <string namespace="virtual_keyboard_status_bar_height">status_bar_height</string>
+        <string namespace="virtual_keyboard_dimen">dimen</string>
+        <string namespace="virtual_keyboard_part1_on_show_keyboard">Great job! You opened up the on screen virtual keyboard. Explore by touch to type hello using the keyboard</string>
+    </virtual_keyboard>
+</lesson6>
