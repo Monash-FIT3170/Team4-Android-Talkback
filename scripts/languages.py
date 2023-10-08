@@ -6,18 +6,19 @@ from pathlib import Path
 import json
 import os
 
-import dotenv
-import openai
-
-dotenv.load_dotenv()
-
-
 ASK_GPT = True
 TRANSLATIONS_DIR = Path("application/assets/translations")
+
+
 if ASK_GPT:
+    import dotenv
+    import openai
+
+    dotenv.load_dotenv()
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
+# Just some type aliases for better type-hinting
 LanguageCode = str
 TranslationDict = dict[str, str]
 
@@ -55,6 +56,17 @@ def _find_missing_keys(translation_dict: TranslationDict, unique_keys: set[str])
 
 
 def _generate_chatgpt_prompt(language_code: str, keys: list[str], translation_dicts: dict[LanguageCode, TranslationDict], preferred_language: str="en") -> str:
+    """
+    Generate a prompt to ask ChatGPT to translate all of the given 'keys' to 
+    the desired language based on their existing values in some other language
+    (presumably English).
+
+    In practice, we'd always be starting from English values, but if for some
+    reason someone started with a different language, this function would use
+    that language's existing value for that key. The chosen language is either
+    'preferred_language' or, if the key is not found there, the *first* language
+    in 'translation_dicts' that has that key.
+    """
     prompt = f"Could you please translate only the *values* of the following JSON into the language corresponding to '{language_code}'?\n"
     prompt_dict = {}
     for key in keys:
