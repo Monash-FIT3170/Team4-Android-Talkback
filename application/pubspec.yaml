@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_local_notifications: ^15.1.1
   firebase_messaging: ^14.2.2
+  shared_preferences: 2.2.0
+  percent_indicator: 4.2.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +41,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_tts: ^3.6.3
   just_audio: ^0.9.13
+  audioplayers: ^4.1.0
   xml: ^6.3.0
   flutter_localizations:
     sdk: flutter

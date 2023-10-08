@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class ItemData {
   final String id;
   final String name;
@@ -25,72 +27,65 @@ class ItemData {
 var data = [
   {
     "id": "0",
-    "name": "Tennis Ball",
+    "name": "tennis_ball".tr(),
     "rating": 3.0,
     "price": 200,
-    "description":
-        "This extra duty tennis ball is ideal for longer play on the courts. Perfect for all levels of tournament and recreational play.",
+    "description": "tennis_ball_desc".tr(),
   },
   {
     "id": "1",
-    "name": "Basketball",
+    "name": "basketball".tr(),
     "rating": 4.5,
     "price": 300,
-    "description":
-        "This basketball is designed for indoor or outdoor play. It features a deep channel design for easier hand alignment and ball control.",
+    "description": "basketball_desc".tr(),
   },
   {
     "id": "2",
-    "name": "Soccer Ball",
+    "name": "soccer_ball".tr(),
     "rating": 4.0,
     "price": 1000,
-    "description": "This soccer ball is designed for indoor or outdoor play.",
+    "description": "soccer_ball_desc".tr(),
   },
   {
     "id": "3",
-    "name": "Baseball",
+    "name": "baseball".tr(),
     "rating": 4.5,
     "price": 500,
-    "description": "This baseball has a cork core and a leather cover.",
+    "description": "baseball_desc".tr(),
   },
   {
     "id": "4",
-    "name": "Football",
+    "name": "football".tr(),
     "rating": 4.0,
     "price": 1000,
-    "description":
-        "This football is ideal for recreational play or practice. It features a leather cover for durability and a deep pebble surface for grip.",
+    "description": "football_desc".tr(),
   },
   {
     "id": "5",
-    "name": "Train Set",
+    "name": "train_set".tr(),
     "rating": 4.0,
     "price": 10000,
-    "description":
-        "This train set is ideal for children. It features a train, tracks, and a station.",
+    "description": "train_set_desc".tr(),
   },
   {
     "id": "6",
-    "name": "Doll",
+    "name": "doll".tr(),
     "rating": 4.0,
     "price": 2000,
-    "description":
-        "This doll is ideal for children. It can be dressed up in different outfits. Outfits sold separately.",
+    "description": "doll_desc".tr()
   },
   {
     "id": "7",
-    "name": "Unicorn Plush",
+    "name": "unicorn_plush".tr(),
     "rating": 4.0,
     "price": 8000,
-    "description":
-        "This unicorn plush is ideal for children. It is soft and cuddly.",
+    "description": "unicorn_plush_desc".tr(),
   },
   {
     "id": "8",
-    "name": "Plastic Castle",
+    "name": "plastic_castle".tr(),
     "rating": 4.0,
     "price": 5000,
-    "description":
-        "Contains multiple pieces to build a castle including walls, towers, and a gate. For children ages 3 and up. Choking hazard.",
+    "description": "plastic_castle_desc".tr(),
   },
 ].map(ItemData.fromJson).toList();

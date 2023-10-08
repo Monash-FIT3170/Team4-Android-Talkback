@@ -1,5 +1,6 @@
 import 'package:application/tutorial/two/practical/data_item.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Item extends StatelessWidget {
   final ItemData data;
@@ -31,8 +32,8 @@ class Item extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Price: \$${data.priceCents / 100}"),
-                Text("Rating: ${data.rating}"),
+                Text("${'price'.tr()}: \$${data.priceCents / 100}"),
+                Text("${'rating'.tr()}: ${data.rating}"),
               ],
             ),
           ),
@@ -46,7 +47,7 @@ class Item extends StatelessWidget {
                     onAddToCart!(data);
                     Navigator.pop(context);
                   },
-                  child: const Text('Add to Cart'),
+                  child: const Text('add_to_cart').tr(),
                 ),
               if (onAddToWatchList != null)
                 ElevatedButton(
@@ -54,7 +55,7 @@ class Item extends StatelessWidget {
                     onAddToWatchList!(data);
                     Navigator.pop(context);
                   },
-                  child: const Text('Add to Watch List'),
+                  child: const Text('add_to_watchlist').tr(),
                 ),
             ],
           )
