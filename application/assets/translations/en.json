@@ -95,5 +95,13 @@
     "vertical_swipe": "Vertical Swipe",
     "horizontal_swipe": "Horizontal Swipe",
     "gesture_minigame_get_ready": "Get Ready!",
-    "gesture_minigame_wrong_gesture": "Wrong Gesture. Try again. expecting"
+    "gesture_minigame_wrong_gesture": "Wrong Gesture. Try again. expecting",
+    "media_volume_control": "Media volume control",
+    "tutorial4_intro": "In this tutorial, you will be learning how to control media volume sliders to adjust volume. To start, find the play button then double tap to play the music.",
+    "tutorial4_increase_volume": "Great job! Now, go back to the slider and increase the media's volume above 75 by swiping up.",
+    "tutorial4_decrease_volume": "Current volume is set above 75. Now that you've learned how to increase the volume, we will try decreasing the volume below 25. To decrease the volume, swipe down.",
+    "tutorial4_outro": "Current volume is set below 25. Congratulations on completing this lesson. Sending you back to the lesson page.",
+    "tutorial4_play_music": "Play music",
+    "tutorial4_pause": "Pause",
+    "tutorial4_media_volume_control_module": "Media Volume Control Module"
 }

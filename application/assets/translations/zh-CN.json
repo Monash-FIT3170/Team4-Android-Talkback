@@ -95,5 +95,13 @@
     "gesture_minigame_stop_game": "结束游戏",
     "horizontal_swipe": "水平滑动",
     "gesture_minigame": "手势小游戏",
-    "gesture_minigame_wrong_gesture": "错误的手势。请重试。预期"
+    "gesture_minigame_wrong_gesture": "错误的手势。请重试。预期",
+    "tutorial4_media_volume_control_module": "媒体音量控制模块",
+    "tutorial4_decrease_volume": "当前音量设置超过75。现在您已经学会如何增加音量，我们将尝试将音量减少到25以下。要减少音量，请向下滑动。",
+    "media_volume_control": "媒体音量控制",
+    "tutorial4_intro": "在本教程中，您将学习如何通过调整媒体音量滑块来调节音量。首先，找到播放按钮，然后双击以播放音乐。",
+    "tutorial4_play_music": "播放音乐",
+    "tutorial4_pause": "暂停",
+    "tutorial4_outro": "当前音量设置小于25。恭喜您完成本课程。返回课程页面。",
+    "tutorial4_increase_volume": "做得好！现在，返回滑块并向上滑动，将媒体音量增加到75以上。"
 }
