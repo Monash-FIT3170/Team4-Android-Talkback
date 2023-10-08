@@ -34,12 +34,14 @@ dependencies:
   firebase_messaging: ^14.2.2
   shared_preferences: 2.2.0
   percent_indicator: 4.2.3
+  video_player: ^2.7.0
+  chewie: ^1.7.0
+  flutter_tts: ^3.7.0
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_tts: ^3.6.3
   just_audio: ^0.9.13
   audioplayers: ^4.1.0
   xml: ^6.3.0
