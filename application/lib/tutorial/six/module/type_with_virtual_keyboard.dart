@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
+import 'package:flutter/semantics.dart';
 
 class TypeWithKeyboard extends StatefulWidget {
   const TypeWithKeyboard({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
   @override
   void initState() {
     super.initState();
-    speakIntro();
 
     // Add a listener to the text field controller to listen for focus changes
     textController.addListener(() {
@@ -30,7 +30,7 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
         // The text field has focus and the cursor is not selecting text
         // Call the speakDuringLesson function
         speakDuringLesson(
-            "Great job! You opened up the on screen virtual keyboard. Explore by touch to type hello using the keyboard");
+            "tutorial6_virtual_keyboard_part1_on_show_keyboard".tr());
       }
     });
   }
@@ -42,33 +42,21 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
     textController.dispose();
   }
 
-  void speakIntro() {
-    SemanticsService.announce(
-      "In this tutorial, you will be learning how to open the on-screen virtual keyboard and type using it.",
-      TextDirection.ltr,
-    );
-    speakDuringLesson(
-        "To start, double tap on the screen to open the virtual keyboard.");
-  }
-
   void speakDuringLesson(String text) async {
-    SemanticsService.announce(
-      text,
-      TextDirection.ltr,
-    );
+    SemanticsService.announce( text.tr(), TextDirection.ltr);
   }
 
   void onFinishTyping() {
     String input = textController.text.toLowerCase();
-    if (input == "hello") {
+    if (input == "tutorial6_virtual_keyboard_hello".tr()) {
       speakDuringLesson(
-          "Great job! You have typed the word hello with the on screen keyboard. Congratulations on completing this lesson. In this lesson you have successfully learnt how to type with the on screen keyboard.");
+          "tutorial6_virtual_keyboard_part1_on_finish_typing".tr());
       Future.delayed(Duration(seconds: 5), () {
         endLesson();
       });
     } else {
       speakDuringLesson(
-          "Looks like you have not typed the word hello. Double tap on the screen to bring up the keyboard. Tap on the backspace button to delete the previously typed word and try typing the word hello again.");
+          "tutorial6_virtual_keyboard_part1_on_finish_typing_fail".tr());
     }
   }
 
@@ -79,16 +67,18 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
   @override
   Widget build(BuildContext context) {
     if (isFirstTime) {
-      speakIntro();
       isFirstTime = false;
     }
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   SemanticsService.announce("In this tutorial, you will be learning how to open the on-screen virtual keyboard and type using it. To start, double tap on the screen to open the virtual keyboard.", TextDirection.ltr);
-    // });
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Disable back button
-        title: const Text("Typing with a virtual keyboard"),
+        automaticallyImplyLeading: true, // Disable back button
+        title: Focus(
+          child: Semantics(
+            focused: true, // Indicate that this widget is focused
+            child: Text("tutorial6_lesson_title".tr(),  semanticsLabel: "tutorial6_virtual_keyboard_part1_intro".tr())
+          ),
+          ),
       ),
       body: Center(
         child: Column(

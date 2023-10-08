@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ExploreMenuPage extends StatefulWidget {
   const ExploreMenuPage({super.key});
@@ -10,24 +11,24 @@ class ExploreMenuPage extends StatefulWidget {
 class _ExploreMenuPageState extends State<ExploreMenuPage> {
   static const BorderSide _borderSideStyle =
       BorderSide(width: 2.0, color: Colors.black);
-  static const String _introText =
-      "Welcome! In this module, you will learn how to use explore by touch. You can select different elements by holding your finger on the screen and moving it over another element you'd like to select. To complete the lesson, use explore by touch to find the Finish Lesson button. Remember to drag your finger in any direction slowly around screen, and make sure your finger is touching the screen at all times. You may now start.";
-  static const String _finishButtonText = 'Finish Lesson';
+  static const String _introText = 'tutorial2_explore_menu_instr1';
+  static const String _finishButtonText =
+      'tutorial2_explore_menu_finish_lesson';
 
   // Define the list of button titles
   List<String> buttonTitles = [
-    'Apple',
-    'Ant',
-    'January',
-    'Banana',
-    'Bee',
-    'February',
-    'Cherry',
-    'Cricket',
-    'March',
-    'Elderberry',
+    'tutorial2_explore_menu_apple',
+    'tutorial2_explore_menu_ant',
+    'tutorial2_explore_menu_january',
+    'tutorial2_explore_menu_banana',
+    'tutorial2_explore_menu_bee',
+    'tutorial2_explore_menu_february',
+    'tutorial2_explore_menu_cherry',
+    'tutorial2_explore_menu_cricket',
+    'tutorial2_explore_menu_march',
+    'tutorial2_explore_menu_elderberry',
     _finishButtonText,
-    'May',
+    'tutorial2_explore_menu_may'
   ];
 
   @override
@@ -35,7 +36,7 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false, // Disable back button
-          title: const Text("Explore Menu Module"),
+          title: const Text('tutorial2_explore_menu').tr(),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +49,7 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
                   border: Border.all(color: Colors.blueAccent, width: 5)),
               child: const Text(
                 _introText,
-              ),
+              ).tr(),
             ),
             Expanded(
                 child: GridView.count(
@@ -103,7 +104,7 @@ class _ExploreMenuPageState extends State<ExploreMenuPage> {
                         }
                       },
                       child: Text(
-                        title,
+                        title.tr(),
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),

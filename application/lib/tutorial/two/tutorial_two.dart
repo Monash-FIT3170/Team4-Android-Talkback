@@ -1,74 +1,21 @@
+import 'package:application/common/tutorial.dart';
 import 'package:application/tutorial/two/module/adjust_slider.dart';
+import 'package:application/tutorial/two/module/explore_menu.dart';
 import 'package:application/tutorial/two/module/go_back.dart';
 import 'package:application/tutorial/two/module/scroll.dart';
-import 'package:application/tutorial/two/module/explore_menu.dart';
 import 'package:application/tutorial/two/practical/homepage.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-class TutorialTwo extends StatelessWidget {
-  const TutorialTwo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // scaffold page
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Tutorial 2"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const GoBack()),
-                );
-              },
-              child: const Text("Go Back Module"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VerticalScrollSubmodule()),
-                );
-              },
-              child: const Text("Scrolling Module"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ExploreMenuPage()),
-                );
-              },
-              child: const Text("Explore Menu Module"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AdjustSlider()),
-                );
-              },
-              child: const Text("Adjust slide module"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-              },
-              child: const Text("Practical Application"),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+TutorialMenu tutorialTwo =
+    TutorialMenu(title: 'tutorial'.tr(args: ['2']), moduleButtons: [
+  TutorialMenuButton(title: 'tutorial2_go_back'.tr(), module: const GoBack()),
+  TutorialMenuButton(
+      title: 'tutorial2_scrolling'.tr(),
+      module: const VerticalScrollSubmodule()),
+  TutorialMenuButton(
+      title: 'tutorial2_explore_menu'.tr(), module: const ExploreMenuPage()),
+  TutorialMenuButton(
+      title: 'tutorial2_adjust_slider'.tr(), module: const AdjustSlider()),
+  TutorialMenuButton(
+      title: 'practical_application'.tr(), module: const Tutorial2Practical()),
+]);
