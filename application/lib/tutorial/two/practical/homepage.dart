@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'item.dart';
 import 'data_item.dart' show ItemData, data;
@@ -17,9 +18,7 @@ class _Instructions extends StatelessWidget {
     return ListTile(
       title: Focus(
         autofocus: true,
-        child: Text(
-          'This module represents a practical scenario that requires navigating a menu, moving a slider, and activating buttons. The scenario is that we want to add some items from an online shop to the watch list. To complete this module, add the following items to your watch list: $items.',
-        ),
+        child: const Text('tutorial2_practical_instr1').tr(args: [items]),
       ),
     );
   }
@@ -30,10 +29,8 @@ class _ControlsReminder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
-      title: Text(
-        'Reminder that you can swipe left to navigate to the previous item, swipe right to navigate to the next item, and double tap to activate an element. To interact with a slider, navigate until the slider is selected and swipe up or down to move the slider.',
-      ),
+    return ListTile(
+      title: const Text('tutorial2_practical_instr2').tr(),
     );
   }
 }
@@ -43,15 +40,15 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      child: Text(
-        "Price Range",
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: const Text(
+        'price_range',
         style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
-      ),
+      ).tr(),
     );
   }
 }
@@ -61,15 +58,15 @@ class _ItemsHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      child: Text(
-        "Items",
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: const Text(
+        'items',
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w500,
         ),
-      ),
+      ).tr(),
     );
   }
 }
@@ -114,8 +111,8 @@ class _ItemCard extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Rating: ${data.rating}"),
-                  Text("Price: ${data.priceCents / 100}"),
+                  Text("${'rating'.tr()}: ${data.rating}"),
+                  Text("${'price'.tr()}: ${data.priceCents / 100}"),
                 ],
               ),
             ),
@@ -131,29 +128,29 @@ class _Completed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Focus(
         autofocus: true,
-        child: Text(
-          "You have completed this module!",
+        child: const Text(
+          'completed_module',
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
           ),
-        ),
+        ).tr(),
       ),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Tutorial2Practical extends StatefulWidget {
+  const Tutorial2Practical({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Tutorial2Practical> createState() => _Tutorial2PracticalState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _Tutorial2PracticalState extends State<Tutorial2Practical> {
   static const double minRange = 0;
   static const double maxRange = 100;
   static const int divisions = 10;
@@ -166,7 +163,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> _targetKeys = ["3"];
 
-  _HomePageState()
+  _Tutorial2PracticalState()
       : _cart = {},
         _watchList = {};
 
@@ -207,7 +204,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tutorial 2 Practical Exercise"),
+        title: Text(
+            "${'tutorial'.tr(args: ['2'])} ${'practical_application'.tr()}"),
       ),
       body: !isCompleted()
           ? Center(

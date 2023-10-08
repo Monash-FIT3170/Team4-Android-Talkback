@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strings>
+    <languages>
+        <language name="english">
+            <tutorials>
+                <tutorial name="2">
+                    <modules>
+                        <module name="adjust_slider">
+                            <string name="title">Adjust slider</string>
+                            <string name="instruction1">Welcome, in this module you'll learn how to  increase and decrease slider value. A slider is a track that contains values between a minimum and a maximum. Sliders are often used to adjust times. For example: song times or video times. You can also adjust this phone's volume using a slider. To start you will try and increase a slider's value. To increase the value, swipe up. To continue, increase the slider value to 100%</string>
+                            <string name="instruction2">Now we will try and move the slider back down. To do this swipe down with one finger to reduce the value. Continue until the value is back to 50%</string>
+                            <string name="instruction3">An alternative way of changing the volume is to double tap and hold the slider. From here you can swipe left and right to adjust it in that direction. Try and go back to 100%</string>
+                        </module>
+                    </modules>
+                </tutorial>
+                <tutorial name="3">
+                    <modules>
+                        <module name="challenge">
+                            <string name="instruction">Welcome to Lesson 3's challenge. In this challenge you will be presented with a page containing baking recipes. Feel free to navigate through the different page elements using the appropriate reading controls. To complete the challenge, navigate to the cookie recipe and check the checkbox for the following ingredient … 1 egg</string>
+                        </module>
+                    </modules>
+                </tutorial>
+            </tutorials>
+        </language>
+    </languages>
+</strings>
