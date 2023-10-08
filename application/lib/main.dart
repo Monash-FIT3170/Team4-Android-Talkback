@@ -75,7 +75,7 @@ class MainMenuTutorialButton extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final String title = 'Tutorials';
+  final String title = 'tutorials';
 
   const HomePage({super.key});
 
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(title).tr(),
         ),
         body: Center(
           child: Column(
@@ -104,11 +104,11 @@ class HomePage extends StatelessWidget {
                   title: 'tutorial'.tr(args: ["6"]),
                   routeName: Routes.tutorialSix),
               MainMenuTutorialButton(
-                  title: "Sandbox", routeName: Routes.sandBox),
+                  title: "sandbox".tr(), routeName: Routes.sandBox),
               MainMenuTutorialButton(
-                  title: "Gesture game", routeName: Routes.gestures),
+                  title: "gesture_minigame".tr(), routeName: Routes.gestures),
               MainMenuTutorialButton(
-                  title: "Soundboard", routeName: Routes.soundBoard)
+                  title: "soundboard".tr(), routeName: Routes.soundBoard)
             ],
           ),
         ));
