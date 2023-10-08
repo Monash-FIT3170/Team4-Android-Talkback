@@ -6,7 +6,14 @@ from pathlib import Path
 import json
 import os
 
+# Whether or not you want the option to use ChatGPT's API
 ASK_GPT = True
+# If True, won't prompt you for user input and will automatically translate all 
+# missing keys for every language
+TRANSLATE_ALL = True
+# If True, won't prompt you for user input and will automatically *write* all
+# new translations to respective JSON files
+WRITE_ALL = True
 TRANSLATIONS_DIR = Path("application/assets/translations")
 
 
@@ -103,14 +110,34 @@ def _get_chatgpt_response(prompt: str):
     return message
 
 
-def _update_translation_file(language_code: str, translation_dict: TranslationDict, gpt_translation: str):
+def _update_translation_file(language_code: str, translation_dict: TranslationDict, gpt_translation: str, reference_dict: TranslationDict = None):
     """Appends ChatGPT translation to existing translation file."""
     output_file = TRANSLATIONS_DIR / f"{language_code}.json"
     print(f"Updating {output_file}...")
     new_dict = json.loads(gpt_translation)
     translation_dict.update(new_dict)
+    
+    # Sort keys to be in same order as 'reference_dict'
+    if reference_dict:
+        print(f"Sorting '{language_code}' to have same key ordering as 'reference_dict'")
+        translation_dict = _sort_in_same_order(translation_dict=translation_dict, reference_dict=reference_dict)
+    
     with open(output_file, "w") as f:
         json.dump(translation_dict, f, ensure_ascii=False, indent=4)
+
+
+def _sort_in_same_order(translation_dict: TranslationDict, reference_dict: TranslationDict) -> TranslationDict:
+    """Sorts 'translation_dict's keys in same order as 'reference_dict'."""
+    keys1 = set(translation_dict.keys())
+    keys2 = set(reference_dict.keys())
+    if len(keys1.difference(keys2)) > 0 or len(keys2.difference(keys1)) > 0:
+        raise ValueError("Expect both dicts to have exact same keys")
+
+    new_d = {}
+    for key in reference_dict.keys():
+        new_d[key] = translation_dict[key]
+
+    return new_d
 
 
 def _get_user_response(question: str, options: list[str]) -> str:
@@ -145,14 +172,18 @@ if __name__ == "__main__":
             # In this case, user would manually copy-paste so they need to see the prompt
             if ASK_GPT:
                 print()
-                want_gpt = _get_user_response(f"Do you want ChatGPT to translate these into '{language_code}' [y/n]?: ", options=["y", "n"])
-                if want_gpt == "y":
+
+                # Check if user wants to plug this into ChatGPT automatically
+                if TRANSLATE_ALL or (_get_user_response(f"Do you want ChatGPT to translate these into '{language_code}' [y/n]?: ", options=["y", "n"]) == "y"):
+                    print("Getting translation from ChatGPT...")
                     gpt_translation = _get_chatgpt_response(prompt=prompt)
                     
                     print(gpt_translation)
-                    is_good_response = _get_user_response("Received response from ChatGPT. Do you want to write this to file (y/n)?: ", ["y", "n"])
-                    if is_good_response == "y":
-                        _update_translation_file(language_code=language_code, translation_dict=translation_dict, gpt_translation=gpt_translation)
+                    
+                    # Check if user wants to write to file
+                    if WRITE_ALL or (_get_user_response("Received response from ChatGPT. Do you want to write this to file (y/n)?: ", ["y", "n"]) == "y"):
+                        print("Writing new translations to file...")
+                        _update_translation_file(language_code=language_code, translation_dict=translation_dict, gpt_translation=gpt_translation, reference_dict=translation_dicts["en"])
                     else:
                         print("Not writing to file")
                 else:
