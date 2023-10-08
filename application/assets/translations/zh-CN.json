@@ -123,6 +123,12 @@
     "long_press": "长按",
     "vertical_swipe": "垂直滑动",
     "horizontal_swipe": "水平滑动",
+    "two_finger_horizontal_swipe": "两指水平滑动",
+    "two_finger_vertical_swipe": "两指垂直滑动",
+    "three_finger_horizontal_swipe": "三指水平滑动",
+    "three_finger_vertical_swipe": "三指垂直滑动",
+    "no_gestures_yet": "尚无手势",
+    "return_home": "返回主页",
     "gesture_minigame_get_ready": "准备好了！",
     "gesture_minigame_wrong_gesture": "错误的手势。请重试。预期",
     "media_volume_control": "媒体音量控制",
@@ -132,5 +138,7 @@
     "tutorial4_outro": "当前音量设置小于25。恭喜您完成本课程。返回课程页面。",
     "tutorial4_play_music": "播放音乐",
     "tutorial4_pause": "暂停",
-    "tutorial4_media_volume_control_module": "媒体音量控制模块"
+    "tutorial4_media_volume_control_module": "媒体音量控制模块",
+    "sandbox": "沙箱",
+    "soundboard": "声音面板"
 }

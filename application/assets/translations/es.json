@@ -123,6 +123,12 @@
     "long_press": "Pulsación Prolongada",
     "vertical_swipe": "Deslizamiento Vertical",
     "horizontal_swipe": "Deslizamiento Horizontal",
+    "two_finger_horizontal_swipe": "Deslizamiento horizontal con dos dedos",
+    "two_finger_vertical_swipe": "Deslizamiento vertical con dos dedos",
+    "three_finger_horizontal_swipe": "Deslizamiento horizontal con tres dedos",
+    "three_finger_vertical_swipe": "Deslizamiento vertical con tres dedos",
+    "no_gestures_yet": "Aún no hay gestos",
+    "return_home": "Volver a inicio",
     "gesture_minigame_get_ready": "¡Prepárate!",
     "gesture_minigame_wrong_gesture": "Gesto incorrecto. Inténtalo de nuevo. esperando",
     "media_volume_control": "Control de volumen multimedia",
@@ -132,5 +138,7 @@
     "tutorial4_outro": "El volumen actual está configurado por debajo del 25. Felicitaciones por completar esta lección. Te enviamos de vuelta a la página de la lección.",
     "tutorial4_play_music": "Reproducir música",
     "tutorial4_pause": "Pausa",
-    "tutorial4_media_volume_control_module": "Módulo de control de volumen multimedia"
+    "tutorial4_media_volume_control_module": "Módulo de control de volumen multimedia",
+    "sandbox": "Área de pruebas",
+    "soundboard": "Tabla de sonidos"
 }

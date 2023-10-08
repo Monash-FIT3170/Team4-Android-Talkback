@@ -186,9 +186,8 @@ class GestureMiniGameState extends State<GestureMiniGame> {
       sequenceIdx++;
     } else if (detectedGesture != gestureSequence[sequenceIdx]) {
       // Incorrect gesture
-      await flutterTts.speak('$detectedGesture' +
-          'gesture_minigame_wrong_gesture'.tr() +
-          ' ${gestureSequence[sequenceIdx]}');
+      await flutterTts.speak(
+          "$detectedGesture ${'gesture_minigame_wrong_gesture'.tr()} ${gestureSequence[sequenceIdx]}");
       sequenceIdx = 0;
     }
     if (sequenceIdx == gestureSequence.length) {

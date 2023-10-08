@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // This SoundBoard currently has 6 identical buttons that all plays the exact same sound
 // It uses the audio players package to play a mp3 file when the button is pressed
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: SoundBoard(),
-//     );
-//   }
-// }
 
 // SoundBoard StatefulWidget
 class SoundBoard extends StatefulWidget {
@@ -46,7 +38,7 @@ class _SoundBoardState extends State<SoundBoard> {
     return Scaffold(
       // AppBar top of the screen
       appBar: AppBar(
-        title: Text('SoundBoard Minigame'),
+        title: const Text('soundboard').tr(),
       ),
       body: Center(
           child: Semantics(

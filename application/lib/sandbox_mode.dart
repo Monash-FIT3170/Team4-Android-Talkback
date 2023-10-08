@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SandBox extends StatefulWidget {
   const SandBox({Key? key}) : super(key: key);
@@ -15,32 +15,28 @@ class SandBox extends StatefulWidget {
 class GesturesState extends State<SandBox> {
   int maxPointerCounter = 0;
   Timer? timer;
-  void doubleTap() => {
-        setState(() => {gestureText = "Double tap"})
-      };
-  void longPress() => {
-        setState(() => {gestureText = "Long press"})
-      };
+  void doubleTap() => {setState(() => gestureText = 'double_tap'.tr())};
+  void longPress() => {setState(() => gestureText = 'long_press'.tr())};
   void handleSwipe(ScaleEndDetails details) => {
         maxPointerCounter = max(maxPointerCounter, details.pointerCount),
         if (maxPointerCounter == 0)
           if (details.velocity.pixelsPerSecond.dx.abs() >
               details.velocity.pixelsPerSecond.dy.abs())
-            {
-              setState(() => {gestureText = "Horizontal swipe"})
-            }
+            {setState(() => gestureText = 'horizontal_swipe'.tr())}
           else if (details.velocity.pixelsPerSecond.dx.abs() <=
               details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(
-                  () => {gestureText = "Vertical swipe ", details.pointerCount})
+              setState(() => {
+                    {gestureText = 'vertical_swipe'.tr(), details.pointerCount}
+                  })
             },
         if (maxPointerCounter == 1)
           if (details.velocity.pixelsPerSecond.dx.abs() >
               details.velocity.pixelsPerSecond.dy.abs())
             {
               timer = Timer(const Duration(milliseconds: 100), () {
-                setState(() => {gestureText = "Two finger horizontal swipe"});
+                setState(
+                    () => {gestureText = 'two_finger_horizontal_swipe'.tr()});
                 maxPointerCounter = 0;
               }),
             }
@@ -48,7 +44,8 @@ class GesturesState extends State<SandBox> {
               details.velocity.pixelsPerSecond.dy.abs())
             {
               timer = Timer(const Duration(milliseconds: 100), () {
-                setState(() => {gestureText = "Two finger vertical swipe"});
+                setState(
+                    () => {gestureText = 'two_finger_vertical_swipe'.tr()});
                 maxPointerCounter = 0;
               }),
             },
@@ -57,7 +54,8 @@ class GesturesState extends State<SandBox> {
               details.velocity.pixelsPerSecond.dy.abs())
             {
               timer = Timer(const Duration(milliseconds: 100), () {
-                setState(() => {gestureText = "Three finger horizontal swipe"});
+                setState(
+                    () => {gestureText = 'three_finger_horizontal_swipe'.tr()});
                 maxPointerCounter = 0;
               }),
             }
@@ -65,12 +63,13 @@ class GesturesState extends State<SandBox> {
               details.velocity.pixelsPerSecond.dy.abs())
             {
               timer = Timer(const Duration(milliseconds: 100), () {
-                setState(() => {gestureText = "Three finger vertical swipe"});
+                setState(
+                    () => {gestureText = 'three_finger_vertical_swipe'.tr()});
                 maxPointerCounter = 0;
               }),
             }
       };
-  String gestureText = 'No gestures yet';
+  String gestureText = 'no_gestures_yet'.tr();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -78,7 +77,7 @@ class GesturesState extends State<SandBox> {
       onDoubleTap: doubleTap,
       onLongPress: longPress,
       child: Scaffold(
-          appBar: AppBar(title: const Text("SandBox")),
+          appBar: AppBar(title: const Text('sandbox').tr()),
           body: Center(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +86,7 @@ class GesturesState extends State<SandBox> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Return home")),
+                    child: const Text('return_home').tr()),
                 Text(gestureText)
               ]))),
     );

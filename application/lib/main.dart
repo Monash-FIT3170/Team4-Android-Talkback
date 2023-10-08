@@ -104,11 +104,11 @@ class HomePage extends StatelessWidget {
                   title: 'tutorial'.tr(args: ["6"]),
                   routeName: Routes.tutorialSix),
               MainMenuTutorialButton(
-                  title: "Sandbox", routeName: Routes.sandBox),
+                  title: "sandbox".tr(), routeName: Routes.sandBox),
               MainMenuTutorialButton(
-                  title: "Gesture game", routeName: Routes.gestures),
+                  title: "gesture_minigame".tr(), routeName: Routes.gestures),
               MainMenuTutorialButton(
-                  title: "Soundboard", routeName: Routes.soundBoard)
+                  title: "soundboard".tr(), routeName: Routes.soundBoard)
             ],
           ),
         ));

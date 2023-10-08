@@ -123,6 +123,12 @@
     "long_press": "الضغط المطول",
     "vertical_swipe": "التمرير الرأسي",
     "horizontal_swipe": "التمرير الأفقي",
+    "two_finger_horizontal_swipe": "سحب أفقي بإصبعين",
+    "two_finger_vertical_swipe": "سحب رأسي بإصبعين",
+    "three_finger_horizontal_swipe": "سحب أفقي بثلاثة أصابع",
+    "three_finger_vertical_swipe": "سحب رأسي بثلاثة أصابع",
+    "no_gestures_yet": "لا توجد إيماءات حتى الآن",
+    "return_home": "العودة إلى الصفحة الرئيسية",
     "gesture_minigame_get_ready": "استعد!",
     "gesture_minigame_wrong_gesture": "إيماءة خاطئة. حاول مرة أخرى. في انتظار",
     "media_volume_control": "تحكم في مستوى الصوت الوسائط",
@@ -132,5 +138,7 @@
     "tutorial4_outro": "الصوت الحالي مضبوط أدناه 25. تهانينا على اكتمال هذا الدرس. سنقوم بإعادتك إلى صفحة الدرس.",
     "tutorial4_play_music": "تشغيل الموسيقى",
     "tutorial4_pause": "إيقاف مؤقت",
-    "tutorial4_media_volume_control_module": "وحدة التحكم في مستوى الصوت الوسائط"
+    "tutorial4_media_volume_control_module": "وحدة التحكم في مستوى الصوت الوسائط",
+    "sandbox": "صندوق تجريبي",
+    "soundboard": "لوحة الصوت"
 }

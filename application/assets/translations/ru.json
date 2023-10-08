@@ -123,6 +123,12 @@
     "long_press": "Долгое нажатие",
     "vertical_swipe": "Вертикальный свайп",
     "horizontal_swipe": "Горизонтальный свайп",
+    "two_finger_horizontal_swipe": "Горизонтальный свайп двумя пальцами",
+    "two_finger_vertical_swipe": "Вертикальный свайп двумя пальцами",
+    "three_finger_horizontal_swipe": "Горизонтальный свайп тремя пальцами",
+    "three_finger_vertical_swipe": "Вертикальный свайп тремя пальцами",
+    "no_gestures_yet": "Пока нет жестов",
+    "return_home": "Вернуться на главную",
     "gesture_minigame_get_ready": "Готовьтесь!",
     "gesture_minigame_wrong_gesture": "Неправильный жест. Попробуйте снова. ожидание",
     "media_volume_control": "Управление громкостью медиа",
@@ -132,5 +138,7 @@
     "tutorial4_outro": "Текущая громкость установлена ниже 25. Поздравляю с завершением этого урока. Возвращаю вас на страницу урока.",
     "tutorial4_play_music": "Воспроизвести музыку",
     "tutorial4_pause": "Пауза",
-    "tutorial4_media_volume_control_module": "Модуль управления громкостью медиа"
+    "tutorial4_media_volume_control_module": "Модуль управления громкостью медиа",
+    "sandbox": "Песочница",
+    "soundboard": "Звукопанель"
 }

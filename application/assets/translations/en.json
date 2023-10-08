@@ -123,6 +123,12 @@
     "long_press": "Long Press",
     "vertical_swipe": "Vertical Swipe",
     "horizontal_swipe": "Horizontal Swipe",
+    "two_finger_horizontal_swipe": "Two-Finger Horizontal Swipe",
+    "two_finger_vertical_swipe": "Two-Finger Vertical Swipe",
+    "three_finger_horizontal_swipe": "Three-Finger Horizontal Swipe",
+    "three_finger_vertical_swipe": "Three-Finger Vertical Swipe",
+    "no_gestures_yet": "No gestures yet",
+    "return_home": "Return home",
     "gesture_minigame_get_ready": "Get Ready!",
     "gesture_minigame_wrong_gesture": "Wrong Gesture. Try again. expecting",
     "media_volume_control": "Media volume control",
@@ -132,5 +138,7 @@
     "tutorial4_outro": "Current volume is set below 25. Congratulations on completing this lesson. Sending you back to the lesson page.",
     "tutorial4_play_music": "Play music",
     "tutorial4_pause": "Pause",
-    "tutorial4_media_volume_control_module": "Media Volume Control Module"
+    "tutorial4_media_volume_control_module": "Media Volume Control Module",
+    "sandbox": "Sandbox",
+    "soundboard": "Soundboard"
 }
