@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MediaVolumeControlPage extends StatefulWidget {
@@ -37,6 +38,11 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
     await tts.speak('tutorial4_intro'.tr());
   }
 
+  Future<void> setActivityCompleted() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('mediaVolumeControlModule', true);
+  }
+
   void _speakIncreaseVolume() {
     tts.stop();
     tts.speak('tutorial4_increase_volume'.tr());
@@ -51,6 +57,7 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
     tts.stop();
     tts.speak('tutorial4_outro'.tr());
     await tts.awaitSpeakCompletion(true);
+    setActivityCompleted();
   }
 
   @override
@@ -95,7 +102,7 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
                 if (value <= 25 && _hasSpokenDecreaseVolume) {
                   await _speakOutro();
                   await player.pause();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 }
 
                 setState(() {
@@ -128,5 +135,11 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
             ]),
           ]),
         ));
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    player.dispose();
+    tts.stop();
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
+import 'package:application/progression_tracker.dart';
 import 'package:application/sandbox_mode.dart';
 import 'package:application/gesture_game.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           Routes.sandBox: (context) => const SandBox(),
           Routes.gestures: (context) => GestureMiniGame(),
           Routes.soundBoard: (context) => const SoundBoard(),
+          Routes.progression: (context) => const ProgressionTracker(),
         });
   }
 }
@@ -111,6 +113,34 @@ class HomePage extends StatelessWidget {
                   title: "soundboard".tr(), routeName: Routes.soundBoard)
             ],
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.gesture),
+            label: 'Gesture',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Progression',
+            backgroundColor: Colors.blue,
+          ),
+        ],
+        onTap: ((index) {
+          String path = Routes.home;
+          switch (index) {
+            case 0:
+              //home
+              break;
+            case 1:
+              // business
+              break;
+            case 2:
+              // Progression Tracker
+              path = Routes.progression;
+              break;
+          }
+          Navigator.pushNamed(context, path);
+        }),
+      ),
+    );
   }
 }

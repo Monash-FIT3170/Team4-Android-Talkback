@@ -13,4 +13,5 @@ class Routes {
   static const String soundBoard = "$home/soundBoard";
   static const String sandBox = "$home/sandBox";
   static const String gestures = "$home/gestures";
+  static const String progression = "$home/progression";
 }
