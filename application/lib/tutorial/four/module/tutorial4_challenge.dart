@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
@@ -56,11 +58,9 @@ class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
         "In this challenge, you'll be presented an article with an embedded video already playing. To complete the challenge, pause the video, then replay it. You may now start.");
   }
 
-
-
   void checkPause() {
     if (!playerWidget.controller.videoPlayerController.value.isPlaying) {
-      _speakOutro();
+      // _speakOutro();
       Timer(Duration(seconds: 15), () {
         Navigator.pop(context);
       });

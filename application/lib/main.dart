@@ -86,39 +86,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title).tr(),
-        ),
-        body: Center(
+      appBar: AppBar(
+        title: Text(title).tr(),
+      ),
+      body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MainMenuTutorialButton(
-                  title: 'tutorial'.tr(args: ["2"]),
-                  routeName: Routes.tutorialTwo),
-              MainMenuTutorialButton(
-                  title: 'tutorial'.tr(args: ["3"]),
-                  routeName: Routes.tutorialThree),
-              MainMenuTutorialButton(
-                  title: 'tutorial'.tr(args: ["4"]),
-                  routeName: Routes.tutorialFour),
-              MainMenuTutorialButton(
-                  title: 'tutorial'.tr(args: ["5"]),
-                  routeName: Routes.tutorialFive),
-              MainMenuTutorialButton(
-                  title: 'tutorial'.tr(args: ["6"]),
-                  routeName: Routes.tutorialSix),
-              MainMenuTutorialButton(
-                  title: "sandbox".tr(), routeName: Routes.sandBox),
-              MainMenuTutorialButton(
-                  title: "gesture_minigame".tr(), routeName: Routes.gestures),
-              MainMenuTutorialButton(
-                  title: "soundboard".tr(), routeName: Routes.soundBoard)
-            ],
-          ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["2"]), routeName: Routes.tutorialTwo),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["3"]),
+              routeName: Routes.tutorialThree),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["4"]),
+              routeName: Routes.tutorialFour),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["5"]),
+              routeName: Routes.tutorialFive),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["6"]), routeName: Routes.tutorialSix),
+          MainMenuTutorialButton(
+              title: "sandbox".tr(), routeName: Routes.sandBox),
+          MainMenuTutorialButton(
+              title: "gesture_minigame".tr(), routeName: Routes.gestures),
+          MainMenuTutorialButton(
+              title: "soundboard".tr(), routeName: Routes.soundBoard)
+        ],
+      )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.gesture),
-            label: 'Gesture',
+            icon: Icon(Icons.home),
+            label: 'Tutorials',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
@@ -128,20 +128,14 @@ class HomePage extends StatelessWidget {
           ),
         ],
         onTap: ((index) {
-          String path = Routes.home;
           switch (index) {
             case 0:
-              //home
+              // Main tutorials page, already here!
               break;
             case 1:
-              // business
-              break;
-            case 2:
-              // Progression Tracker
-              path = Routes.progression;
-              break;
+              // Progression tracker
+              Navigator.pushNamed(context, Routes.progression);
           }
-          Navigator.pushNamed(context, path);
         }),
       ),
     );

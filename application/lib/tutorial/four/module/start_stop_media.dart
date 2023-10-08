@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +24,6 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     'assets/video_test.mp4',
   );
 
-
   late final chewieController = ChewieController(
     videoPlayerController: videoPlayerController,
     autoPlay: false,
@@ -39,8 +40,6 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     controller: chewieController,
   );
 
-
-
   StartStopMediaPageState() async {
     tts.setLanguage("en-US");
     tts.setSpeechRate(0.5);
@@ -53,7 +52,6 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     // var file = File("${directory.path}/media_sound.mp3");
     // file.writeAsBytesSync(content.buffer.asUint8List());
     // await player.setFilePath(file.path);
-
 
     await tts.speak(
         "In this tutorial, you will be learning how to start and stop a video. To start, double tap your screen to bring up the media controller and find the play button. Double tap to start playing the video.");
@@ -76,12 +74,16 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
   }
 
   void checkPause() {
-    if (playerWidget.controller.videoPlayerController.value.isPlaying && !_hasSpokenPause && _hasSpokenIntro) {
+    if (playerWidget.controller.videoPlayerController.value.isPlaying &&
+        !_hasSpokenPause &&
+        _hasSpokenIntro) {
       _speakPauseVideo();
       _hasSpokenPause = true;
-    } else if (!playerWidget.controller.videoPlayerController.value.isPlaying && _hasSpokenPause && !_hasSpokenOutro) {
-        _speakOutro();
-        _hasSpokenOutro = true;
+    } else if (!playerWidget.controller.videoPlayerController.value.isPlaying &&
+        _hasSpokenPause &&
+        !_hasSpokenOutro) {
+      _speakOutro();
+      _hasSpokenOutro = true;
     }
   }
 
@@ -95,21 +97,22 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     playerWidget.controller.videoPlayerController.addListener(checkPause);
 
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false, // Disable back button
-          title: const Text("Start Stop Media Module"),
-        ),
-        body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Container(
-              height: 640,
-              width: 360,
-              child:  playerWidget,
-                ),
-              ]),
-            ),
-          );
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // Disable back button
+        title: const Text("Start Stop Media Module"),
+      ),
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(
+            height: 640,
+            width: 360,
+            child: playerWidget,
+          ),
+        ]),
+      ),
+    );
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -118,4 +121,3 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     tts.stop();
   }
 }
-

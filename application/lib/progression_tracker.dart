@@ -195,31 +195,31 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "Total Progress:\n${(progress([
-                      exploreMenuByTouchModule,
-                      scrollingModule,
-                      goBackModule,
-                      adjustSliderModule,
-                      tutorialTwoChallenge,
-                      adjustReadingControlsModule,
-                      jumpTextModule,
-                      jumpControlsModule,
-                      jumpHeadersModule,
-                      jumpLinksModule,
-                      tutorialThreeChallenge,
-                      startStopMediaModule,
-                      mediaVolumeControlModule,
-                      tutorialFourChallenge,
-                      openRecentAppsModule,
-                      goToHomeScreenModule,
-                      openNotificationsModule,
-                      openTalkbackMenuModule,
-                      openVoiceCommandModule,
-                      tutorialFiveChallenge,
-                      virtualKeyboardModule,
-                      tutorialSixChallenge,
-                      calculatorAppModule,
-                      voiceRecorderAppModule,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              exploreMenuByTouchModule,
+                              scrollingModule,
+                              goBackModule,
+                              adjustSliderModule,
+                              tutorialTwoChallenge,
+                              adjustReadingControlsModule,
+                              jumpTextModule,
+                              jumpControlsModule,
+                              jumpHeadersModule,
+                              jumpLinksModule,
+                              tutorialThreeChallenge,
+                              startStopMediaModule,
+                              mediaVolumeControlModule,
+                              tutorialFourChallenge,
+                              openRecentAppsModule,
+                              goToHomeScreenModule,
+                              openNotificationsModule,
+                              openTalkbackMenuModule,
+                              openVoiceCommandModule,
+                              tutorialFiveChallenge,
+                              virtualKeyboardModule,
+                              tutorialSixChallenge,
+                              calculatorAppModule,
+                              voiceRecorderAppModule,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -246,8 +246,8 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      tutorialTwoChallenge, // placeholder since we havent added tut 1
-                    ]) * 100).toStringAsFixed(0)}%",
+                              tutorialTwoChallenge, // placeholder since we havent added tut 1
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
@@ -277,12 +277,12 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      exploreMenuByTouchModule,
-                      scrollingModule,
-                      goBackModule,
-                      adjustSliderModule,
-                      tutorialTwoChallenge,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              exploreMenuByTouchModule,
+                              scrollingModule,
+                              goBackModule,
+                              adjustSliderModule,
+                              tutorialTwoChallenge,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
@@ -313,13 +313,13 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      adjustReadingControlsModule,
-                      jumpTextModule,
-                      jumpControlsModule,
-                      jumpHeadersModule,
-                      jumpLinksModule,
-                      tutorialThreeChallenge,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              adjustReadingControlsModule,
+                              jumpTextModule,
+                              jumpControlsModule,
+                              jumpHeadersModule,
+                              jumpLinksModule,
+                              tutorialThreeChallenge,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
@@ -347,10 +347,10 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      startStopMediaModule,
-                      mediaVolumeControlModule,
-                      tutorialFourChallenge,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              startStopMediaModule,
+                              mediaVolumeControlModule,
+                              tutorialFourChallenge,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
@@ -381,13 +381,13 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      openRecentAppsModule,
-                      goToHomeScreenModule,
-                      openNotificationsModule,
-                      openTalkbackMenuModule,
-                      openVoiceCommandModule,
-                      tutorialFiveChallenge,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              openRecentAppsModule,
+                              goToHomeScreenModule,
+                              openNotificationsModule,
+                              openTalkbackMenuModule,
+                              openVoiceCommandModule,
+                              tutorialFiveChallenge,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
@@ -414,9 +414,9 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      virtualKeyboardModule,
-                      tutorialSixChallenge,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              virtualKeyboardModule,
+                              tutorialSixChallenge,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
@@ -443,9 +443,9 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                   ]),
                   center: Text(
                     "${(progress([
-                      calculatorAppModule,
-                      voiceRecorderAppModule,
-                    ]) * 100).toStringAsFixed(0)}%",
+                              calculatorAppModule,
+                              voiceRecorderAppModule,
+                            ]) * 100).toStringAsFixed(0)}%",
                     style: TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
@@ -453,25 +453,22 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                 ),
               ),
               SizedBox(height: 30),
-              ElevatedButton(onPressed: () => {
-                resetProgress(),
-                Navigator.pushNamed(context, Routes.progression)
-                },
+              ElevatedButton(
+                  onPressed: () => {
+                        resetProgress(),
+                        Navigator.pushNamed(context, Routes.progression)
+                      },
                   child: const Text('Reset Progress'))
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.gesture),
-            label: 'Gesture',
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
@@ -481,20 +478,15 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
           ),
         ],
         onTap: ((index) {
-          String path = Routes.home;
           switch (index) {
             case 0:
-            //home
+              //home
+              Navigator.pushNamed(context, Routes.home);
               break;
             case 1:
-            // business
-              break;
-            case 2:
-            // Progression Tracker
-              path = Routes.progression;
+              // Progression Tracker, already here!
               break;
           }
-          Navigator.pushNamed(context, path);
         }),
       ),
     );

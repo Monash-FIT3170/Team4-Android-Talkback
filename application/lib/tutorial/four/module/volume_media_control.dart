@@ -1,3 +1,4 @@
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -102,6 +103,8 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
                 if (value <= 25 && _hasSpokenDecreaseVolume) {
                   await _speakOutro();
                   await player.pause();
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(Routes.tutorialFour));
                   // Navigator.pop(context);
                 }
 
@@ -136,6 +139,7 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
           ]),
         ));
   }
+
   @override
   void dispose() {
     super.dispose();
