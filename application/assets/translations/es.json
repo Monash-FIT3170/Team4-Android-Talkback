@@ -1,6 +1,7 @@
 {
     "title": "Enséñame Talkback",
     "tutorial": "Tutorial {}",
+    "tutorials": "Tutoriales",
     "challenge": "Desafío",
     "instructions_button_text": "INSTRUCCIONES",
     "instructions_button_label": "Botón, instrucciones. Toca dos veces para escuchar las instrucciones",
@@ -65,7 +66,6 @@
     "tutorial3_challenge_cookie_step1": "Paso 1: Precalienta el horno a 180°C o 160°C con ventilador. Cubre 2 bandejas de hornear con papel de hornear. Con una batidora eléctrica o batiendo a mano, bate la mantequilla y los azúcares durante 1-2 minutos hasta que estén suaves y bien combinados. Agrega el huevo y la vainilla y bate hasta que estén combinados.",
     "tutorial3_challenge_cookie_step2": "Paso 2: Agrega la harina y las chispas de chocolate. Forma bolas con 2 cucharadas de masa y colócalas en las bandejas preparadas, a una distancia de 3 cm entre ellas. Presiona ligeramente. Decora con chispas de chocolate adicionales.",
     "tutorial3_challenge_cookie_step3": "Paso 3: Hornea durante 15-18 minutos o hasta que estén doradas y cocidas. Transfiere a una rejilla para enfriar. Almacena en un recipiente hermético durante hasta 1 semana.",
-
     "tutorial6_lesson_title": "Lección de Escritura",
     "tutorial6_lesson_decs": "Estos cubren los gestos y acciones necesarios para usar el teclado virtual a través de Talkback.",
     "tutorial6_virtual_keyboard_hello": "hola",
@@ -81,6 +81,19 @@
     "tutorial6_challenge_intro": "Bienvenido al desafío de la Lección 6. En este desafío, se te pedirá enviar un mensaje a tu amigo Bob en una sala de chat. Ahora, comencemos.",
     "tutorial6_challenge_fragment1_intro": "Para completar este desafío, envía un mensaje a Bob e incluye su nombre.",
     "tutorial6_challenge_text_message": "bob",
-    "tutorial6_challenge_completion_message": "Has completado exitosamente la lección. Ahora, navega de regreso a la Lección 6."
-
+    "tutorial6_challenge_completion_message": "Has completado exitosamente la lección. Ahora, navega de regreso a la Lección 6.",
+    "double_tap": "Doble Toque",
+    "gesture_minigame_follow_sequence": "Sigue la secuencia: ",
+    "vertical_swipe": "Deslizamiento Vertical",
+    "gesture_minigame_get_ready": "¡Prepárate!",
+    "gesture_minigame_start_game": "Comenzar Juego",
+    "single_tap": "Toque Sencillo",
+    "long_press": "Pulsación Prolongada",
+    "game_starting": "Comenzando el Juego...",
+    "gesture_minigame_highscore": "Puntuación Máxima: {}",
+    "gesture_minigame_round": "Ronda: {}",
+    "gesture_minigame_stop_game": "Detener Juego",
+    "horizontal_swipe": "Deslizamiento Horizontal",
+    "gesture_minigame": "Mini-Juego de Gestos",
+    "gesture_minigame_wrong_gesture": "Gesto incorrecto. Inténtalo de nuevo. esperando"
 }

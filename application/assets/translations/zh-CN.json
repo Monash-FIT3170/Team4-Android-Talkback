@@ -1,6 +1,7 @@
 {
     "title": "教我Talkback",
     "tutorial": "教程{}",
+    "tutorials": "教程",
     "challenge": "挑战",
     "instructions_button_text": "说明",
     "instructions_button_label": "按钮，说明。双击以听取说明",
@@ -65,9 +66,6 @@
     "tutorial3_challenge_cookie_step1": "第1步：将烤箱预热至180摄氏度或160摄氏度风力逼迫。在2个烤盘上铺上烘焙纸。使用电动搅拌器或手动搅拌，将黄油和糖搅打1-2分钟，直到变得光滑和均匀。加入鸡蛋和香草，搅拌均匀。",
     "tutorial3_challenge_cookie_step2": "第2步：加入面粉。加入巧克力豆。将2勺混合物滚成球状，放在准备好的烤盘上，相隔3厘米。稍微按压。用额外的巧克力豆装饰。",
     "tutorial3_challenge_cookie_step3": "第3步：烘烤15-18分钟，或直到变淡金色并熟透。移到金属架上冷却。在密封容器中保存，保持新鲜1周。",
-
-
-
     "tutorial6_lesson_title": "打字课程",
     "tutorial6_lesson_decs": "这些内容涵盖了通过Talkback使用虚拟键盘所需的手势和动作。",
     "tutorial6_virtual_keyboard_hello": "你好",
@@ -83,6 +81,19 @@
     "tutorial6_challenge_intro": "欢迎来到第6课的挑战。在这个挑战中，你将被要求在聊天室里给你的朋友Bob发送一条消息。现在让我们开始吧。",
     "tutorial6_challenge_fragment1_intro": "完成这个挑战，向Bob发送一条消息并包含他的名字。",
     "tutorial6_challenge_text_message": "鲍勃",
-    "tutorial6_challenge_completion_message": "你已经成功完成了这节课，现在导航回教程 6。"
-
+    "tutorial6_challenge_completion_message": "你已经成功完成了这节课，现在导航回教程 6。",
+    "double_tap": "双击",
+    "gesture_minigame_follow_sequence": "跟随顺序：",
+    "vertical_swipe": "垂直滑动",
+    "gesture_minigame_get_ready": "准备好了！",
+    "gesture_minigame_start_game": "开始游戏",
+    "single_tap": "单击",
+    "long_press": "长按",
+    "game_starting": "游戏即将开始...",
+    "gesture_minigame_highscore": "最高分：{}",
+    "gesture_minigame_round": "回合：{}",
+    "gesture_minigame_stop_game": "结束游戏",
+    "horizontal_swipe": "水平滑动",
+    "gesture_minigame": "手势小游戏",
+    "gesture_minigame_wrong_gesture": "错误的手势。请重试。预期"
 }

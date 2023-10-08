@@ -1,6 +1,7 @@
 {
     "title": "علمني الكلام الصوتي",
     "tutorial": "الدرس التعليمي {}",
+    "tutorials": "الدروس",
     "challenge": "تحدي",
     "instructions_button_text": "التعليمات",
     "instructions_button_label": "زر، التعليمات. انقر مرتين لسماع التعليمات",
@@ -65,7 +66,6 @@
     "tutorial3_challenge_cookie_step1": "الخطوة 1: سخن الفرن إلى 180 درجة مئوية أو 160 درجة مئوية للمروحة. قم بتبطير صينية خبز بورق الخبز. باستخدام مضرب كهربائي أو خفاقة يدوية، اخفق الزبدة والسكر لمدة 1-2 دقيقة حتى تصبح ناعمة ومتجانسة. أضف البيض وخلاصة الفانيليا واخفق حتى تتجانس.",
     "tutorial3_challenge_cookie_step2": "الخطوة 2: أضف الدقيق واخفقه جيدًا. أضف رقائق الشوكولاتة واخلطها. شكل ملعقتين كبيرتين من الخليط إلى كرات وضعها على الصواني المحضرة بمسافة 3 سم بينهما. اضغط قليلاً لتسطيحها قليلاً. زيّنها برقائق الشوكولاتة الإضافية.",
     "tutorial3_challenge_cookie_step3": "الخطوة 3: اخبز لمدة 15-18 دقيقة أو حتى يصبح لونها ذهبيًا فاتحًا وتنضج. انقلها إلى رف سلكي لتبرد. يمكن تخزينها في وعاء محكم الإغلاق لمدة تصل إلى أسبوع واحد.",
-
     "tutorial6_lesson_title": "درس الكتابة",
     "tutorial6_lesson_decs": "تغطي هذه الدروس الإيماءات والإجراءات اللازمة لاستخدام لوحة المفاتيح الظاهرية من خلال Talkback.",
     "tutorial6_virtual_keyboard_hello": "مرحباً",
@@ -81,6 +81,19 @@
     "tutorial6_challenge_intro": "مرحبًا بك في تحدي الدرس 6. في هذا التحدي، ستُطلب منك إرسال رسالة إلى صديقك بوب في غرفة الدردشة. الآن، دعونا نبدأ.",
     "tutorial6_challenge_fragment1_intro": "لإكمال هذا التحدي، قم بإرسال رسالة إلى بوب وقم بتضمين اسمه.",
     "tutorial6_challenge_text_message": "بوب",
-    "tutorial6_challenge_completion_message": "لقد أكملت الدرس بنجاح. الآن، انتقل مرة أخرى إلى الدرس 6."
-
+    "tutorial6_challenge_completion_message": "لقد أكملت الدرس بنجاح. الآن، انتقل مرة أخرى إلى الدرس 6.",
+    "double_tap": "النقر المزدوج",
+    "gesture_minigame_follow_sequence": "اتبع التسلسل: ",
+    "vertical_swipe": "التمرير الرأسي",
+    "gesture_minigame_get_ready": "استعد!",
+    "gesture_minigame_start_game": "بدء اللعبة",
+    "single_tap": "النقرة الواحدة",
+    "long_press": "الضغط المطول",
+    "game_starting": "جاري بدء اللعبة...",
+    "gesture_minigame_highscore": "الأعلى نقاط: {}",
+    "gesture_minigame_round": "الجولة: {}",
+    "gesture_minigame_stop_game": "إيقاف اللعبة",
+    "horizontal_swipe": "التمرير الأفقي",
+    "gesture_minigame": "لعبة الإيماءات الصغيرة",
+    "gesture_minigame_wrong_gesture": "إيماءة خاطئة. حاول مرة أخرى. في انتظار"
 }

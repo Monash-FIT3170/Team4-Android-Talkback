@@ -75,7 +75,7 @@ class MainMenuTutorialButton extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final String title = 'Tutorials';
+  final String title = 'tutorials';
 
   const HomePage({super.key});
 
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(title).tr(),
         ),
         body: Center(
           child: Column(

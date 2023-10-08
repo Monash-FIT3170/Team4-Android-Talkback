@@ -74,9 +74,17 @@ if __name__ == "__main__":
     print(f"Found language codes: {list(translation_dicts.keys())}")
     unique_keys = _get_all_unique_keys(translation_dicts)
     print(f"Found {len(unique_keys)} unique keys across all translation files")
+    
+    any_language_missing_keys = False
     for language_code, translation_dict in translation_dicts.items():
         missing_keys = _find_missing_keys(translation_dict=translation_dict, unique_keys=unique_keys)
         print(f"{language_code:<5} has {len(missing_keys):>2} missing keys")
         if len(missing_keys) > 0:
+            print("="*64, f"\nFOR CHATGPT! Language code='{language_code}'\n", "="*64, sep="")
             print(_generate_chatgpt_prompt(language_code=language_code, keys=missing_keys, translation_dicts=translation_dicts))
             print("\n\n")
+            any_language_missing_keys = True
+
+
+    if not any_language_missing_keys:
+        print("="*64, "\nSUCCESS! All language files are consistent\n", "="*64, sep="")

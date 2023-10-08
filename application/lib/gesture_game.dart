@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 FlutterTts flutterTts = FlutterTts();
 
 enum GestureType {
-  DoubleTap,
-  LongPress,
-  VerticalSwipe,
-  HorizontalSwipe,
-  SingleTap
+  doubleTap,
+  longPress,
+  verticalSwipe,
+  horizontalSwipe,
+  singleTap
 }
 
 class GestureMiniGame extends StatefulWidget {
+  const GestureMiniGame({super.key});
+
   @override
   State<StatefulWidget> createState() => GestureMiniGameState();
 }
 
 class GestureMiniGameState extends State<GestureMiniGame> {
-  GestureType currentGesture = GestureType.DoubleTap;
-  String instructionText = 'Game Starting...';
+  GestureType currentGesture = GestureType.doubleTap;
+  String instructionText = 'game_starting';
   bool isGameInProgress = false;
   int numRounds = 0;
   int highScore = 0;
@@ -30,86 +33,88 @@ class GestureMiniGameState extends State<GestureMiniGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Gesture Mini-Game")),
+      appBar: AppBar(title: const Text('gesture_minigame').tr()),
       // body as gesture detector so that it detects gestures on the screen not the child components
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onDoubleTap: () => checkGesture(GestureType.DoubleTap),
-        onLongPress: () => checkGesture(GestureType.LongPress),
-        onVerticalDragEnd: (_) => checkGesture(GestureType.VerticalSwipe),
-        onHorizontalDragEnd: (_) => checkGesture(GestureType.HorizontalSwipe),
-        onTap: () => checkGesture(GestureType.SingleTap),
+        onDoubleTap: () => checkGesture(GestureType.doubleTap),
+        onLongPress: () => checkGesture(GestureType.longPress),
+        onVerticalDragEnd: (_) => checkGesture(GestureType.verticalSwipe),
+        onHorizontalDragEnd: (_) => checkGesture(GestureType.horizontalSwipe),
+        onTap: () => checkGesture(GestureType.singleTap),
         child: Center(
           // check if game in progress
           child: isGameInProgress
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Highscore: $highScore',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Round: $numRounds',
-                style: TextStyle(
-                  fontSize: 36,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: stopGame,
-                child: Text(
-                  "Stop Game",
-                  style: TextStyle(fontSize: 24),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red, // Change button color
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    instructionText,
-                    style: TextStyle(
-                      fontSize: 40,
-                      color: Colors.green, // Change text color
-                      fontWeight: FontWeight.bold,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'gesture_minigame_highscore'.tr(args: ['$highScore']),
+                      style: const TextStyle(
+                        fontSize: 24,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          )
+                    const SizedBox(height: 20),
+                    Text(
+                      'gesture_minigame_round'.tr(args: ['$numRounds']),
+                      style: const TextStyle(
+                        fontSize: 36,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    ElevatedButton(
+                        onPressed: stopGame,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red, // Change button color
+                        ),
+                        child: const Text(
+                          'gesture_minigame_stop_game',
+                          style: TextStyle(fontSize: 24),
+                        ).tr()),
+                    SizedBox(height: 20),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          instructionText,
+                          style: const TextStyle(
+                            fontSize: 40,
+                            color: Colors.green, // Change text color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ).tr(),
+                      ),
+                    ),
+                  ],
+                )
               : Column(
-            // if false show start game button
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Highscore: $highScore',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,),),
-              ElevatedButton(
-                onPressed: startGame,
-                child: Text(
-                  "Start Game",
-                  style: TextStyle(fontSize: 24),
+                  // if false show start game button
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'gesture_minigame_highscore',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ).tr(args: ['$highScore']),
+                    ElevatedButton(
+                        onPressed: startGame,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green, // Change button color
+                        ),
+                        child: const Text(
+                          'gesture_minigame_start_game',
+                          style: TextStyle(fontSize: 24),
+                        ).tr()),
+                    const SizedBox(height: 20),
+                  ],
                 ),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green, // Change button color
-                ),
-              ),
-              SizedBox(height: 20),                  ],
-          ),
         ),
       ),
     );
@@ -139,8 +144,10 @@ class GestureMiniGameState extends State<GestureMiniGame> {
         for (int i = 0; i < sequenceLength; i++) {
           gestureSequence.add(getRandomGesture());
         }
-        instructionText = "Follow the sequence: " +
-            gestureSequence.map((g) => getGestureInstructionText(g)).join(", ");
+        instructionText = 'gesture_minigame_follow_sequence'.tr() +
+            gestureSequence
+                .map((g) => getGestureInstructionText(g).tr())
+                .join(", ");
       });
       await flutterTts.speak(instructionText);
     }
@@ -149,7 +156,7 @@ class GestureMiniGameState extends State<GestureMiniGame> {
   GestureType getRandomGesture() {
     var random = Random();
     GestureType temp =
-    GestureType.values[random.nextInt(GestureType.values.length)];
+        GestureType.values[random.nextInt(GestureType.values.length)];
     while (temp == currentGesture) {
       random = Random();
       temp = GestureType.values[random.nextInt(GestureType.values.length)];
@@ -159,18 +166,18 @@ class GestureMiniGameState extends State<GestureMiniGame> {
 
   String getGestureInstructionText(GestureType gesture) {
     switch (gesture) {
-      case GestureType.DoubleTap:
-        return "Double Tap";
-      case GestureType.LongPress:
-        return "Long Press";
-      case GestureType.VerticalSwipe:
-        return "Vertical Swipe";
-      case GestureType.HorizontalSwipe:
-        return "Horizontal Swipe";
-      case GestureType.SingleTap:
-        return "Single Tap";
+      case GestureType.doubleTap:
+        return 'double_tap';
+      case GestureType.longPress:
+        return 'long_press';
+      case GestureType.verticalSwipe:
+        return 'vertical_swipe';
+      case GestureType.horizontalSwipe:
+        return 'horizontal_swipe';
+      case GestureType.singleTap:
+        return 'single_tap';
       default:
-        return "Get Ready!";
+        return 'gesture_minigame_get_ready';
     }
   }
 
@@ -179,8 +186,9 @@ class GestureMiniGameState extends State<GestureMiniGame> {
       sequenceIdx++;
     } else if (detectedGesture != gestureSequence[sequenceIdx]) {
       // Incorrect gesture
-      await flutterTts.speak(
-          "$detectedGesture Wrong Gesture. Try again. expecting ${gestureSequence[sequenceIdx]}");
+      await flutterTts.speak('$detectedGesture' +
+          'gesture_minigame_wrong_gesture'.tr() +
+          ' ${gestureSequence[sequenceIdx]}');
       sequenceIdx = 0;
     }
     if (sequenceIdx == gestureSequence.length) {
@@ -196,10 +204,4 @@ class GestureMiniGameState extends State<GestureMiniGame> {
       getNextGesture(); // Load the next sequence
     }
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: GestureMiniGame(),
-  ));
 }
