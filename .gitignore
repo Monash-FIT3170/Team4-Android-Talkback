@@ -7,3 +7,6 @@ venv
 
 # dotenv file
 .env
+
+# MacOS cache
+.DS_Store
