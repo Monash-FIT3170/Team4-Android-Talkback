@@ -11,6 +11,7 @@ import 'package:application/progression_tracker.dart';
 import 'package:application/sandbox_mode.dart';
 import 'package:application/gesture_game.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:application/tutorial/eight/tutorial_eight.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           Routes.tutorialFive: (context) => const TutorialFive(),
           Routes.tutorialSix: (context) => tutorialSix,
           Routes.tutorialSeven: (context) => tutorialSeven,
+          Routes.tutorialEight: (context) => tutorialEight,
           Routes.sandBox: (context) => const SandBox(),
           Routes.gestures: (context) => const GestureMiniGame(),
           Routes.soundBoard: (context) => const SoundBoard(),
@@ -111,6 +113,9 @@ class HomePage extends StatelessWidget {
           MainMenuTutorialButton(
               title: 'tutorial'.tr(args: ["7"]),
               routeName: Routes.tutorialSeven),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["8"]),
+              routeName: Routes.tutorialEight),
           MainMenuTutorialButton(
               title: "sandbox".tr(), routeName: Routes.sandBox),
           MainMenuTutorialButton(
