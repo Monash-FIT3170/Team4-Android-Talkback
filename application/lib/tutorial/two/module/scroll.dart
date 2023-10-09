@@ -5,16 +5,16 @@
 // VerticalScrollSubmodule is the entry point to this lesson.
 import 'package:application/common/instruction_card.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class VerticalScrollSubmodule extends _ScrollPage {
   @override
   Axis get axis => Axis.vertical;
   @override
-  String get introInstruction =>
-      "To scroll down, place two fingers on the screen at the same time, then swipe upwards with both of them. To scroll up, swipe with two fingers in the opposite direction. To finish, find the Continue button at the bottom of this vertical menu, then double tap it to continue.";
+  String get introInstruction => 'tutorial2_scrolling_instr1';
   // TODO: Consider having more descriptive semantic text so screenreader says something about moving on to next submodule, while button still just shows "Continue"
   @override
-  String get successText => "Continue";
+  String get successText => 'tutorial2_scrolling_continue';
 
   const VerticalScrollSubmodule({super.key});
 
@@ -32,10 +32,9 @@ class HorizontalScrollModule extends _ScrollPage {
   @override
   Axis get axis => Axis.horizontal;
   @override
-  String get introInstruction =>
-      "To scroll right, swipe left with two fingers. To scroll left, swipe with two fingers in the opposite direction. To finish, tap the Finish button at the far right of this page.";
+  String get introInstruction => 'tutorial2_scrolling_instr2';
   @override
-  String get successText => "Finish";
+  String get successText => 'tutorial2_scrolling_finish';
 
   final BuildContext prevContext;
 
@@ -66,11 +65,11 @@ abstract class _ScrollPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false, // Disable back button
-          title: const Text("Scrolling Module"),
+          title: const Text('tutorial2_scrolling').tr(),
         ),
         body: Column(
           children: [
-            InstructionsCard(instruction: introInstruction),
+            InstructionsCard(instruction: introInstruction.tr()),
             Expanded(
                 child: ListView.separated(
               scrollDirection: axis,
@@ -87,9 +86,11 @@ abstract class _ScrollPage extends StatelessWidget {
                           onPressed: () {
                             onSuccess(context);
                           },
-                          child: Text(successText))
+                          child: Text(successText).tr())
                       : ElevatedButton(
-                          onPressed: null, child: Text('Item ${index + 1}')),
+                          onPressed: null,
+                          child: const Text('tutorial2_scrolling_item')
+                              .tr(args: ['${index + 1}'])),
                 );
               },
               separatorBuilder: (BuildContext context, int index) =>

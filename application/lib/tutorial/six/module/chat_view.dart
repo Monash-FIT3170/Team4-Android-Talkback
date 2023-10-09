@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'chat_model.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -29,8 +30,8 @@ class _ChatViewState extends State<ChatView> {
             child: TextField(
               controller: textEditor,
               //onSubmitted: _handleSubmit,
-              decoration: const InputDecoration.collapsed(
-                hintText: "Send a message",
+              decoration: InputDecoration.collapsed(
+                hintText: 'tutorial6_send_message'.tr(),
               ),
             ),
           ),
@@ -46,7 +47,8 @@ class _ChatViewState extends State<ChatView> {
 
   void _handleSubmit(String text, int id) {
     textEditor.clear();
-    bool containMessage = text.contains("bob");
+    bool containMessage =
+        text.contains("tutorial6_challenge_text_message".tr());
     ChatModel message = ChatModel(
       message: text,
       isMe: true,
@@ -58,8 +60,7 @@ class _ChatViewState extends State<ChatView> {
       debugPrint("added message");
     });
     if (containMessage) {
-      speakDuringLesson(
-          "you have successfully complete the lesson, now navigate back to tutorial 6");
+      speakDuringLesson("tutorial6_challenge_completion_message".tr());
       Future.delayed(const Duration(seconds: 8), () {
         Navigator.pop(context);
       });
@@ -68,11 +69,10 @@ class _ChatViewState extends State<ChatView> {
 
   void speakIntro() {
     SemanticsService.announce(
-      "Welcome to Lesson 6's challenge. In this challenge, you'll be asked to send a message to your friend, Bob, in a chat room. Now let's get started",
+      "tutorial6_challenge_intro".tr(),
       TextDirection.ltr,
     );
-    speakDuringLesson(
-        "To finish this challenge send a message to Bob and include his name.");
+    speakDuringLesson("tutorial6_challenge_fragment1_intro".tr());
   }
 
   void speakDuringLesson(String text) async {
@@ -123,13 +123,18 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
-    if (isFirstTime) {
-      speakIntro();
-      isFirstTime = false;
-    }
+    // if (isFirstTime) {
+    //   speakIntro();
+    //   isFirstTime = false;
+    // }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Send Message"),
+        title: Focus(
+          child: Semantics(
+              focused: true, // Indicate that this widget is focused
+              child: Text("tutorial6_challenge_title".tr(),
+                  semanticsLabel: "tutorial6_challenge_intro".tr())),
+        ),
       ),
       body: Column(
         children: [

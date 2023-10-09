@@ -1,10 +1,16 @@
+import 'package:application/tutorial/four/module/start_stop_media.dart';
+import 'package:application/tutorial/four/module/tutorial4_challenge.dart';
 import 'package:application/tutorial/four/module/volume_media_control.dart';
 import 'package:application/common/tutorial.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-const TutorialMenu tutorialFour =
-    TutorialMenu(title: 'Tutorial 4', moduleButtons: [
-  // TutorialMenuButton(title: 'Start and stop media', module: null),
+TutorialMenu tutorialFour =
+    TutorialMenu(title: 'tutorial'.tr(args: ['4']), moduleButtons: [
   TutorialMenuButton(
-      title: 'Media volume control', module: MediaVolumeControlPage()),
-  // TutorialMenuButton(title: 'Challenge', module: null)
+      title: 'media_volume_control'.tr(),
+      module: const MediaVolumeControlPage()),
+  // TutorialMenuButton(
+  //     title: 'start_stop_media'.tr(), module: const StartStopMediaPage()),
+  TutorialMenuButton(
+      title: 'challenge'.tr(), module: const Tutorial4ChallengePage()),
 ]);

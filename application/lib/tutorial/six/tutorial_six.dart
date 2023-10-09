@@ -1,9 +1,11 @@
 import 'package:application/common/tutorial.dart';
 import 'package:application/tutorial/six/module/chat_view.dart';
 import 'package:application/tutorial/six/module/type_with_virtual_keyboard.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-TutorialMenu tutorialSix = const TutorialMenu(title: 'Tutorial 6', moduleButtons: [
+TutorialMenu tutorialSix =
+    TutorialMenu(title: 'tutorial'.tr(args: ['6']), moduleButtons: [
   TutorialMenuButton(
-      title: 'Typing with a virtual keyboard', module: TypeWithKeyboard()),
-  TutorialMenuButton(title: 'Challenge', module: ChatView())
+      title: 'tutorial6_lesson_title'.tr(), module: const TypeWithKeyboard()),
+  TutorialMenuButton(title: 'challenge'.tr(), module: const ChatView())
 ]);

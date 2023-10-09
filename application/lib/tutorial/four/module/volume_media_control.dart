@@ -1,9 +1,12 @@
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MediaVolumeControlPage extends StatefulWidget {
   const MediaVolumeControlPage({super.key});
@@ -27,50 +30,35 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
   }
 
   Future<void> _speakIntro() async {
-    // SemanticsService.announce(
-    //   "In this tutorial, you will be learning how to control media volume sliders to adjust volume. To start, find the play button then double tap to play the music.",
-    //   TextDirection.ltr,
-    // );
-    // await player.setUrl("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
     var content = await rootBundle.load("assets/media_sound.mp3");
     final directory = await getApplicationDocumentsDirectory();
     var file = File("${directory.path}/media_sound.mp3");
     file.writeAsBytesSync(content.buffer.asUint8List());
 
     await player.setFilePath(file.path);
-    await tts.speak(
-        "In this tutorial, you will be learning how to control media volume sliders to adjust volume. To start, find the play button then double tap to play the music.");
+    await tts.speak('tutorial4_intro'.tr());
+  }
+
+  Future<void> setActivityCompleted() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('mediaVolumeControlModule', true);
   }
 
   void _speakIncreaseVolume() {
-    // SemanticsService.announce(
-    //   "Great job! Now, go back to the slider and increase the media's volume above 75 by swiping up.",
-    //   TextDirection.ltr,
-    // );
     tts.stop();
-    tts.speak(
-        "Great job! Now, go back to the slider and increase the media's volume above 75 by swiping up.");
+    tts.speak('tutorial4_increase_volume'.tr());
   }
 
   void _speakDecreaseVolume() {
-    // SemanticsService.announce(
-    //   "Current volume is set above 75. Now that you've learned how to increase the volume, we will try decreasing the volume below 25. To decrease the volume, swipe down.",
-    //   TextDirection.ltr,
-    // );
     tts.stop();
-    tts.speak(
-        "Current volume is set above 75. Now that you've learned how to increase the volume, we will try decreasing the volume below 25. To decrease the volume, swipe down.");
+    tts.speak('tutorial4_decrease_volume'.tr());
   }
 
   Future<void> _speakOutro() async {
-    // SemanticsService.announce(
-    //   "Current volume is set below 25. Congratulations on completing this lesson. Sending you back to the lesson page.",
-    //   TextDirection.ltr,
-    // );
     tts.stop();
-    tts.speak(
-        "Current volume is set below 25. Congratulations on completing this lesson. Sending you back to the lesson page.");
+    tts.speak('tutorial4_outro'.tr());
     await tts.awaitSpeakCompletion(true);
+    setActivityCompleted();
   }
 
   @override
@@ -84,7 +72,7 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false, // Disable back button
-          title: const Text("Media Volume Control Module"),
+          title: const Text('tutorial4_media_volume_control_module').tr(),
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -115,7 +103,9 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
                 if (value <= 25 && _hasSpokenDecreaseVolume) {
                   await _speakOutro();
                   await player.pause();
-                  Navigator.pop(context);
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(Routes.tutorialFour));
+                  // Navigator.pop(context);
                 }
 
                 setState(() {
@@ -132,20 +122,28 @@ class _MediaVolumeControlPageState extends State<MediaVolumeControlPage> {
                     _hasSpokenIncreaseVolume = true;
                   }
                 },
-                child: const Icon(Icons.play_arrow, semanticLabel: 'Play'),
+                child: Icon(Icons.play_arrow,
+                    semanticLabel: 'tutorial4_play_music'.tr()),
               ),
               const SizedBox(width: 25),
               ElevatedButton(
                 onPressed: () {
                   player.pause();
                 },
-                child: const Icon(
+                child: Icon(
                   Icons.pause,
-                  semanticLabel: 'Pause',
+                  semanticLabel: 'tutorial4_pause'.tr(),
                 ),
               ),
             ]),
           ]),
         ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    player.dispose();
+    tts.stop();
   }
 }
