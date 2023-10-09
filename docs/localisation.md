@@ -87,5 +87,44 @@ Translate the *values* in the following JSON to <language>:
 6. Copy the output of ChatGPT into the corresponding language translation file. E.g. for Spanish, we would copy the output into `es.json`. *Warning: The translation may not always be suitable for its context! E.g. for a baking recipe, ChatGPT translated "Method" into "Método". I'm not certain, but I believe "Preparación" is a better translation in this context so I manually changed it. It's unreasonable for us to do this for every language and every bit of text, but it's something to consider.*
 7. Repeat steps 5 and 6 for all supported languages. If you don't provide a translation for a particular entry, it will fallback to English.
 
+### Using automated script
+A python script called [languages.py](../scripts/languages.py) is available that can automate the ChatGPT translation process. It automatically identifies missing translations in your translation JSON files.
+
+There are two main ways of using this script.
+1. Manual: the script will print out prompts for you to copy-paste into ChatGPT. When you get the response from ChatGPT, add its translations to the relevant JSON file.
+2. Fully automatic: the script will ask if you want to ask ChatGPT for each language's required translations. If you say yes, then the script uses the OpenAI API to query ChatGPT. Once ChatGPT has finished the translation, you'll see it printed out. Then you'll be asked if you want to update the translation file.
+
+
+#### Manual mode
+You need:
+- Python>=3.6
+
+Steps:
+1. Set `ASK_GPT = False`
+2. Run the script: `python scripts/languages.py`
+3. The script should print out prompts for any languages that are missing translations. For each language: 
+   1. Copy-paste the prompt into ChatGPT.
+   2. Copy-paste ChatGPT's response into that language's JSON file, but exclude the "{" and "}".
+
+
+#### Fully automatic mode
+You need:
+- Python>=3.7.1
+- **Paid** OpenAI account.
+
+To set up your environment:
+1. Create a virtual environment with `python -m venv venv`.
+2. Activate it with `source venv/bin/activate` (assuming Linux/MacOS, Google it if on Windows).
+3. Install dependencies with `pip install -r scripts/requirements.txt`.
+4. Create a `.env` file and paste `OPENAI_API_KEY=<your OpenAI secret key>`.
+
+Steps:
+1. Set `ASK_GPT = True`
+2. Run the script: `python scripts/languages.py`
+3. For each language that is missing translations:
+   1. you'll be asked if you want ChatGPT's translation. Enter "y" for yes.
+   2. Wait for ChatGPT's response. This may take a minute or two.
+   3. Once you see ChatGPT's response, you'll be asked if you want to add these new translations to that language's file. If you enter "y", then that language's file will automaticalyl be updated with the new translations!
+
 ## Testing a language
 The best way to do this is probably to change the language of your test device. E.g. in Android, go to Settings and change the System Language, then rerun the app and you should see strings translated into that language.

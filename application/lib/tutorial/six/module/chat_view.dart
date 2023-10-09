@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 import 'chat_model.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 class ChatView extends StatefulWidget {
+  const ChatView({super.key});
+
   @override
   _ChatViewState createState() => _ChatViewState();
 }
@@ -30,12 +31,12 @@ class _ChatViewState extends State<ChatView> {
               controller: textEditor,
               //onSubmitted: _handleSubmit,
               decoration: InputDecoration.collapsed(
-                hintText: "Send a message",
+                hintText: 'tutorial6_send_message'.tr(),
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () =>
                 _handleSubmit(textEditor.text, messages.length + 1),
           ),
@@ -46,7 +47,8 @@ class _ChatViewState extends State<ChatView> {
 
   void _handleSubmit(String text, int id) {
     textEditor.clear();
-    bool containMessage = text.contains("tutorial6_challenge_text_message".tr());
+    bool containMessage =
+        text.contains("tutorial6_challenge_text_message".tr());
     ChatModel message = ChatModel(
       message: text,
       isMe: true,
@@ -58,9 +60,8 @@ class _ChatViewState extends State<ChatView> {
       debugPrint("added message");
     });
     if (containMessage) {
-      speakDuringLesson(
-          "tutorial6_challenge_completion_message".tr());
-      Future.delayed(Duration(seconds: 8), () {
+      speakDuringLesson("tutorial6_challenge_completion_message".tr());
+      Future.delayed(const Duration(seconds: 8), () {
         Navigator.pop(context);
       });
     }
@@ -71,8 +72,7 @@ class _ChatViewState extends State<ChatView> {
       "tutorial6_challenge_intro".tr(),
       TextDirection.ltr,
     );
-    speakDuringLesson(
-        "tutorial6_challenge_fragment1_intro".tr());
+    speakDuringLesson("tutorial6_challenge_fragment1_intro".tr());
   }
 
   void speakDuringLesson(String text) async {
@@ -98,7 +98,7 @@ class _ChatViewState extends State<ChatView> {
                   vertical: 10.0,
                   horizontal: 16.0,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
@@ -109,7 +109,7 @@ class _ChatViewState extends State<ChatView> {
                 child: Text(
                   message.message,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
@@ -132,8 +132,8 @@ class _ChatViewState extends State<ChatView> {
         title: Focus(
           child: Semantics(
               focused: true, // Indicate that this widget is focused
-              child: Text("tutorial6_challenge_title".tr(),  semanticsLabel: "tutorial6_challenge_intro".tr())
-          ),
+              child: Text("tutorial6_challenge_title".tr(),
+                  semanticsLabel: "tutorial6_challenge_intro".tr())),
         ),
       ),
       body: Column(
@@ -147,10 +147,11 @@ class _ChatViewState extends State<ChatView> {
                 } else {
                   debugPrint("unable to print");
                 }
+                return null;
               },
             ),
           ),
-          Divider(height: 1),
+          const Divider(height: 1),
           Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,

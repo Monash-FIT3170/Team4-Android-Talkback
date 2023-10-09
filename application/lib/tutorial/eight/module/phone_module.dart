@@ -1,3 +1,4 @@
+import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
 
 class PhonePad extends StatefulWidget {
@@ -49,7 +50,8 @@ class PhonePadState extends State<PhonePad> {
         child: Text(k.toString()),
       );
     }
-  Widget placeholder = Container();
+
+    Widget placeholder = Container();
     // These are the numeric buttons
     final List<Widget> keypad = [
       [key(1), key(2), key(3)],
@@ -84,9 +86,11 @@ class PhonePadState extends State<PhonePad> {
             ),
           ),
           Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width - 50, // Set the maximum width of the GridView
-            height: MediaQuery.of(context).size.height - 190, // Set the maximum height of the GridView
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width -
+                  50, // Set the maximum width of the GridView
+              height: MediaQuery.of(context).size.height -
+                  190, // Set the maximum height of the GridView
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -115,22 +119,47 @@ class PhonePadState extends State<PhonePad> {
       // Call successful
       showDialog(
         context: context,
-        builder: (_) => const AlertDialog(
-            title: Text('Call Successful'),
-            content: Text('You have successfully called the number.'),
-            semanticLabel:
-                "Call Sucessful, You have successfully called the number."),
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Challenge Passed"),
+            content: const Text("You've successfully completed the challenge."),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(Routes.tutorialEight));
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
       );
     } else {
       // Call failed
       showDialog(
         context: context,
-        builder: (_) => const AlertDialog(
-          semanticLabel:
-              "Call Failed, Please enter the correct phone number and try agian. double tap to retry",
-          title: Text('Call Failed'),
-          content: Text('Please enter the correct phone number and try again.'),
-        ),
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Call Failed"),
+            content: const Text(
+                "Please enter the correct phone number and try again."),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  // Pop this dialog so use can re-enter number
+                  Navigator.pop(context);
+                  // To reset phone number input
+                  setState(() {
+                    _enteredNumber = '';
+                  });
+                  ;
+                },
+                child: const Text("Retry"),
+              ),
+            ],
+          );
+        },
       );
     }
   }

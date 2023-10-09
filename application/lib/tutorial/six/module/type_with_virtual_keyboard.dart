@@ -11,6 +11,7 @@ class TypeWithKeyboard extends StatefulWidget {
 //announce: enter hello
 //check the word
 //announce
+  @override
   _TypeWithKeyBoard createState() => _TypeWithKeyBoard();
 }
 
@@ -43,7 +44,7 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
   }
 
   void speakDuringLesson(String text) async {
-    SemanticsService.announce( text.tr(), TextDirection.ltr);
+    SemanticsService.announce(text.tr(), TextDirection.ltr);
   }
 
   void onFinishTyping() {
@@ -51,7 +52,7 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
     if (input == "tutorial6_virtual_keyboard_hello".tr()) {
       speakDuringLesson(
           "tutorial6_virtual_keyboard_part1_on_finish_typing".tr());
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5), () {
         endLesson();
       });
     } else {
@@ -75,10 +76,11 @@ class _TypeWithKeyBoard extends State<TypeWithKeyboard> {
         automaticallyImplyLeading: true, // Disable back button
         title: Focus(
           child: Semantics(
-            focused: true, // Indicate that this widget is focused
-            child: Text("tutorial6_lesson_title".tr(),  semanticsLabel: "tutorial6_virtual_keyboard_part1_intro".tr())
-          ),
-          ),
+              focused: true, // Indicate that this widget is focused
+              child: Text("tutorial6_lesson_title".tr(),
+                  semanticsLabel:
+                      "tutorial6_virtual_keyboard_part1_intro".tr())),
+        ),
       ),
       body: Center(
         child: Column(
