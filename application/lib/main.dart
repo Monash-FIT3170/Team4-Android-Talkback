@@ -1,17 +1,21 @@
-import 'package:application/routes.dart';
-import 'package:application/soundboard.dart';
-import 'package:application/tutorial/six/tutorial_six.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:app_settings/app_settings.dart';
+
+import 'package:application/routes.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
-import 'package:application/tutorial/seven/tutorial_seven.dart';
 import 'package:application/tutorial/five/tutorial_five.dart';
+import 'package:application/tutorial/six/tutorial_six.dart';
+import 'package:application/tutorial/seven/tutorial_seven.dart';
+import 'package:application/tutorial/eight/tutorial_eight.dart';
 import 'package:application/progression_tracker.dart';
 import 'package:application/sandbox_mode.dart';
 import 'package:application/gesture_game.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:application/tutorial/eight/tutorial_eight.dart';
+import 'package:application/soundboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +32,7 @@ void main() async {
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
+        useFallbackTranslations: true,
         child: const MyApp()),
   );
 }
@@ -89,6 +94,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool screenReaderIsEnabled = MediaQuery.of(context).accessibleNavigation;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title).tr(),
@@ -97,6 +104,15 @@ class HomePage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          if (!screenReaderIsEnabled)
+            if (Platform.isAndroid)
+              ElevatedButton(
+                  onPressed: () => AppSettings.openAppSettings(
+                      type: AppSettingsType.accessibility),
+                  child: const Text('Enable Talkback'))
+            else if (Platform.isIOS)
+              const Text(
+                  'You should enable VoiceOver in your settings to best use this app'),
           MainMenuTutorialButton(
               title: 'tutorial'.tr(args: ["2"]), routeName: Routes.tutorialTwo),
           MainMenuTutorialButton(
