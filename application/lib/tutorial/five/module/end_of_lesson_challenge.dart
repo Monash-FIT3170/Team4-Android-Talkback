@@ -134,9 +134,9 @@ class _Challenge extends State<Challenge> with WidgetsBindingObserver {
                           flutterLocalNotificationsPlugin:
                               flutterLocalNotificationsPlugin);
                     }
-                    return Column(
+                    return const Column(
                       children: [
-                        const SizedBox(), //,
+                        SizedBox(), //,
                         //Text(introSpeech), // Display the speech content
                       ],
                     );

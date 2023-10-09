@@ -3,6 +3,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:math';
 
 class TicTacToeGame extends StatefulWidget {
+  const TicTacToeGame({super.key});
+
   @override
   _TicTacToeGameState createState() => _TicTacToeGameState();
 }
@@ -159,7 +161,7 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic-Tac-Toe'),
+        title: const Text('Tic-Tac-Toe'),
       ),
       body: Center(
         child: Column(
@@ -169,9 +171,9 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
               (winner == "")
                   ? 'Current Player: $currentPlayer'
                   : 'Winner: $winner',
-              style: TextStyle(fontSize: 20.0),
+              style: const TextStyle(fontSize: 20.0),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Column(
               children: List.generate(3, (row) {
                 return Row(
@@ -182,10 +184,10 @@ class _TicTacToeGameState extends State<TicTacToeGame> {
                 );
               }),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: resetGame,
-              child: Text('Restart Game'),
+              child: const Text('Restart Game'),
             ),
           ],
         ),

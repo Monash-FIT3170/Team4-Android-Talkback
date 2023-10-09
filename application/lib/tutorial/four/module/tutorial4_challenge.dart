@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
@@ -15,8 +14,8 @@ class Tutorial4ChallengePage extends StatefulWidget {
 
 class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
   bool _hasSpokenIntro = false;
-  bool _hasSpokenPause = false;
-  bool _hasSpokenOutro = false;
+  final bool _hasSpokenPause = false;
+  final bool _hasSpokenOutro = false;
 
   final FlutterTts tts = FlutterTts();
 
@@ -32,7 +31,7 @@ class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
     allowFullScreen: false,
     allowMuting: false,
     autoInitialize: true,
-    hideControlsTimer: Duration(seconds: 10),
+    hideControlsTimer: const Duration(seconds: 10),
     showOptions: false,
     showControlsOnInitialize: false,
   );
@@ -61,7 +60,7 @@ class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
   void checkPause() {
     if (!playerWidget.controller.videoPlayerController.value.isPlaying) {
       // _speakOutro();
-      Timer(Duration(seconds: 15), () {
+      Timer(const Duration(seconds: 15), () {
         Navigator.pop(context);
       });
     }
@@ -137,7 +136,7 @@ class _Tutorial4ChallengePageState extends State<Tutorial4ChallengePage> {
                 style: TextStyle(fontSize: 16),
               ),
             ),
-            Container(
+            SizedBox(
               height: 300,
               width: 300,
               child: playerWidget,

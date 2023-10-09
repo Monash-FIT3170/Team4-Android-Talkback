@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:application/common/instruction_card.dart';
 import 'package:application/routes.dart';
@@ -60,7 +59,7 @@ class _OpenNotificationSubmoduleState extends State<_OpenNotification> {
     super.initState();
     listener;
     if (widget.nextSubmodule == null) {
-      Timer(Duration(seconds: 20), () {
+      Timer(const Duration(seconds: 20), () {
         Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
       });
     }

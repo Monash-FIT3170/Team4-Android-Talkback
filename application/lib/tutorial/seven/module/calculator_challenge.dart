@@ -38,7 +38,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
     totalEquations += 1;
 
     final List<String> operators = ['+', '-', 'x', '/'];
-    final List<String> operators_str = [
+    final List<String> operatorsStr = [
       'plus',
       'minus',
       'multiplied by',
@@ -102,8 +102,8 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
     equationResult = result;
 
     // Convert to spoken
-    operator1 = operators_str[operators.indexOf(operator1)];
-    operator2 = operators_str[operators.indexOf(operator2)];
+    operator1 = operatorsStr[operators.indexOf(operator1)];
+    operator2 = operatorsStr[operators.indexOf(operator2)];
 
     _equation = "$operand1 $operator1 $operand2 $operator2 $operand3";
   }

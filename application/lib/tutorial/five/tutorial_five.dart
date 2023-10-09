@@ -59,7 +59,7 @@ class TutorialFive extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const OpenTalkback()),
                 );
               },
-              child: Text("Open Talkback Menu"),
+              child: const Text("Open Talkback Menu"),
             ),
             ElevatedButton(
               onPressed: () {
@@ -79,14 +79,14 @@ class TutorialFive extends StatelessWidget {
                       builder: (context) => const Challenge()),
                 );
               },
-              child: Text("End of Lesson Challenge"),
+              child: const Text("End of Lesson Challenge"),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TicTacToeGame()),
+                      builder: (context) => const TicTacToeGame()),
                 );
               },
               child: const Text("Tic-Tac-Toe"),

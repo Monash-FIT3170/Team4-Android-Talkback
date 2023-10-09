@@ -2,7 +2,6 @@ import 'package:application/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ProgressionTracker extends StatefulWidget {
   const ProgressionTracker({Key? key}) : super(key: key);
@@ -161,7 +160,7 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
               // SizedBox(height: 20),
 
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: CircularPercentIndicator(
                   radius: 125.0,
                   lineWidth: 20.0,
@@ -220,22 +219,22 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               calculatorAppModule,
                               voiceRecorderAppModule,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   circularStrokeCap: CircularStrokeCap.round,
                   progressColor: Colors.green,
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
-              Text(
+              const Text(
                 'Tutorial 1',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -248,21 +247,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                     "${(progress([
                               tutorialTwoChallenge, // placeholder since we havent added tut 1
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
                   progressColor: Colors.green,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 2',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -283,21 +282,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               adjustSliderModule,
                               tutorialTwoChallenge,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
                   progressColor: Colors.green,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 3',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -320,21 +319,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               jumpLinksModule,
                               tutorialThreeChallenge,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
                   progressColor: Colors.green,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 4',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -351,21 +350,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               mediaVolumeControlModule,
                               tutorialFourChallenge,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   barRadius: const Radius.circular(16),
                   progressColor: Colors.green,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 5',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -388,21 +387,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               openVoiceCommandModule,
                               tutorialFiveChallenge,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
                   barRadius: const Radius.circular(16),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 6',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -417,21 +416,21 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               virtualKeyboardModule,
                               tutorialSixChallenge,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
                   barRadius: const Radius.circular(16),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 'Tutorial 7',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: LinearPercentIndicator(
                   width: MediaQuery.of(context).size.width - 50,
                   lineHeight: 20.0,
@@ -446,13 +445,13 @@ class ProgressionTrackerState extends State<ProgressionTracker> {
                               calculatorAppModule,
                               voiceRecorderAppModule,
                             ]) * 100).toStringAsFixed(0)}%",
-                    style: TextStyle(fontSize: 12.0),
+                    style: const TextStyle(fontSize: 12.0),
                   ),
                   progressColor: Colors.green,
                   barRadius: const Radius.circular(16),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               ElevatedButton(
                   onPressed: () => {
                         resetProgress(),

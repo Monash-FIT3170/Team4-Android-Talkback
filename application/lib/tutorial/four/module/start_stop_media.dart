@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
@@ -32,7 +31,7 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     allowFullScreen: false,
     allowMuting: false,
     autoInitialize: true,
-    hideControlsTimer: Duration(seconds: 10),
+    hideControlsTimer: const Duration(seconds: 10),
     showOptions: false,
     showControlsOnInitialize: false,
   );
@@ -67,7 +66,7 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
     tts.stop();
     tts.speak(
         "Great job! You have paused the video. Congratulations on completing this lesson on how to start and stop a video. Sending you back to the lesson page.");
-    Timer(Duration(seconds: 15), () {
+    Timer(const Duration(seconds: 15), () {
       Navigator.pop(context);
     });
     await tts.awaitSpeakCompletion(true);
@@ -103,7 +102,7 @@ class _StartStopMediaPageState extends State<StartStopMediaPage> {
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Container(
+          SizedBox(
             height: 640,
             width: 360,
             child: playerWidget,

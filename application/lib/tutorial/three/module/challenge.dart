@@ -79,7 +79,7 @@ class Tutorial3Challenge extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('tutorial'.tr(args: ['3']) + ' ' + 'challenge'.tr()),
+          title: Text('${'tutorial'.tr(args: ['3'])} ${'challenge'.tr()}'),
         ),
         body: SingleChildScrollView(
             child: Column(
@@ -178,7 +178,7 @@ abstract class Tutorial3Recipe extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: Text('tutorial'.tr(args: ['3']) + ' ' + 'challenge'.tr()),
+          title: Text('${'tutorial'.tr(args: ['3'])} ${'challenge'.tr()}'),
         ),
         body: Center(
             child: SingleChildScrollView(

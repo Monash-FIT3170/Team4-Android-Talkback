@@ -79,7 +79,7 @@ class PhonePadState extends State<PhonePad> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Text(
               'Entered Number:\n $_enteredNumber',
               style: const TextStyle(fontSize: 30),
@@ -153,7 +153,6 @@ class PhonePadState extends State<PhonePad> {
                   setState(() {
                     _enteredNumber = '';
                   });
-                  ;
                 },
                 child: const Text("Retry"),
               ),

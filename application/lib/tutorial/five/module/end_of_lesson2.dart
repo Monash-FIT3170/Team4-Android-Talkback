@@ -134,8 +134,8 @@ class _Challenge2 extends State<Challenge2> with WidgetsBindingObserver {
                   if (snapshot.hasData) {
                     _speakLines(snapshot.data!, introSpeech);
                   }
-                  return Column(
-                    children: const [
+                  return const Column(
+                    children: [
                       SizedBox() //,
                       //Text(introSpeech), // Display the speech content
                     ],
@@ -160,9 +160,9 @@ class _Challenge2 extends State<Challenge2> with WidgetsBindingObserver {
                         flutterLocalNotificationsPlugin:
                             flutterLocalNotificationsPlugin);
                   }
-                  return Column(
+                  return const Column(
                     children: [
-                      const SizedBox(),
+                      SizedBox(),
                       // Text(middleSpeech), // Display the speech content
                     ],
                   );

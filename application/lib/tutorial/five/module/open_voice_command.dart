@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:application/common/instruction_card.dart';
 import 'package:application/routes.dart';
@@ -68,7 +67,7 @@ class _OpenVoiceCommandSubmoduleState extends State<_OpenVoiceCommand> {
     super.initState();
     listener;
     if (widget.nextSubmodule == null) {
-      Timer(Duration(seconds: 15), () {
+      Timer(const Duration(seconds: 15), () {
         Navigator.popUntil(context, ModalRoute.withName(Routes.tutorialFive));
       });
     }

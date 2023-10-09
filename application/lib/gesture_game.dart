@@ -75,7 +75,7 @@ class GestureMiniGameState extends State<GestureMiniGame> {
                           'gesture_minigame_stop_game',
                           style: TextStyle(fontSize: 24),
                         ).tr()),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: Align(
                         alignment: Alignment.center,
