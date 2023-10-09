@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import 'package:flutter/services.dart';
 import 'chat_model.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 class ChatView extends StatefulWidget {
+  const ChatView({super.key});
+
   @override
   _ChatViewState createState() => _ChatViewState();
 }
@@ -60,7 +61,7 @@ class _ChatViewState extends State<ChatView> {
     });
     if (containMessage) {
       speakDuringLesson("tutorial6_challenge_completion_message".tr());
-      Future.delayed(Duration(seconds: 8), () {
+      Future.delayed(const Duration(seconds: 8), () {
         Navigator.pop(context);
       });
     }
@@ -146,10 +147,11 @@ class _ChatViewState extends State<ChatView> {
                 } else {
                   debugPrint("unable to print");
                 }
+                return null;
               },
             ),
           ),
-          Divider(height: 1),
+          const Divider(height: 1),
           Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,

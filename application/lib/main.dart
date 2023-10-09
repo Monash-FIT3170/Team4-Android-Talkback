@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:application/tutorial/two/tutorial_two.dart';
 import 'package:application/tutorial/three/tutorial_three.dart';
 import 'package:application/tutorial/four/tutorial_four.dart';
+import 'package:application/tutorial/seven/tutorial_seven.dart';
 import 'package:application/tutorial/five/tutorial_five.dart';
 import 'package:application/progression_tracker.dart';
 import 'package:application/sandbox_mode.dart';
@@ -51,8 +52,9 @@ class MyApp extends StatelessWidget {
           Routes.tutorialFour: (context) => tutorialFour,
           Routes.tutorialFive: (context) => const TutorialFive(),
           Routes.tutorialSix: (context) => tutorialSix,
+          Routes.tutorialSeven: (context) => tutorialSeven,
           Routes.sandBox: (context) => const SandBox(),
-          Routes.gestures: (context) => GestureMiniGame(),
+          Routes.gestures: (context) => const GestureMiniGame(),
           Routes.soundBoard: (context) => const SoundBoard(),
           Routes.progression: (context) => const ProgressionTracker(),
         });
@@ -106,6 +108,9 @@ class HomePage extends StatelessWidget {
               routeName: Routes.tutorialFive),
           MainMenuTutorialButton(
               title: 'tutorial'.tr(args: ["6"]), routeName: Routes.tutorialSix),
+          MainMenuTutorialButton(
+              title: 'tutorial'.tr(args: ["7"]),
+              routeName: Routes.tutorialSeven),
           MainMenuTutorialButton(
               title: "sandbox".tr(), routeName: Routes.sandBox),
           MainMenuTutorialButton(
