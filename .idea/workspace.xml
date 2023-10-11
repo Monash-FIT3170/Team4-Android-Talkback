@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0aac9a6a-2ed0-491e-8348-6f8d0ce7490c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/application/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/application/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/application/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/application/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/application/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/lib/tutorial/six/module/chat_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/tutorial/six/module/chat_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/lib/tutorial/six/module/type_with_virtual_keyboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/tutorial/six/module/type_with_virtual_keyboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/lib/tutorial/six/tutorial_six.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/tutorial/six/tutorial_six.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/lib/tutorial/three/module/challenge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/tutorial/three/module/challenge.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/lib/tutorial/two/tutorial_two.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/tutorial/two/tutorial_two.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/macos/Flutter/Flutter-Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/application/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/macos/Flutter/Flutter-Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/application/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
+    <list default="true" id="f8831e84-77de-4a9d-9893-a6e4b78f89e4" name="Changes" comment="testing circular indicator for total progression">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/application/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +14,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,15 +38,25 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
-    "settings.editor.selected.configurable": "dart.settings"
+    "io.flutter.reload.alreadyRun": "true",
+    "settings.editor.selected.configurable": "dart.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.Unnamed">
     <configuration name="main.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/application/lib/main.dart" />
       <option name="workingDirectory" value="$PROJECT_DIR$/application" />
       <method v="2" />
     </configuration>
+    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/application/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Dart Command Line App.main.dart" />
+      <item itemvalue="Flutter.Unnamed" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Dart Command Line App.main.dart" />
@@ -59,7 +66,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0aac9a6a-2ed0-491e-8348-6f8d0ce7490c" name="Changes" comment="" />
+      <changelist id="f8831e84-77de-4a9d-9893-a6e4b78f89e4" name="Changes" comment="testing circular indicator for total progression" />
       <created>1693835045565</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

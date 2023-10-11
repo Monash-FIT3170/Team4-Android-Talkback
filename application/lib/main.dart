@@ -48,7 +48,19 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          colorScheme: const ColorScheme.dark(
+          primary: Colors.deepPurple,
+          onPrimary: Colors.white,
+          ),
+
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              side: const BorderSide(
+              color: Colors.white,
+              width: 1,
+              ),
+            ),
+          ),
         ),
         initialRoute: Routes.home,
         routes: {
