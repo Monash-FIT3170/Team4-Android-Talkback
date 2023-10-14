@@ -6,18 +6,29 @@ import math
 from pathlib import Path
 import json
 import os
-# from multiprocessing.pool import ThreadPool
 import concurrent.futures
-# from concurrent.futures import ThreadPoolExecutor
+import logging
+
+# Use logging rather than print() since print() is not thread-safe and may lead
+# to issues
+LOGGER = logging.getLogger(__file__)
+LOGGER.setLevel(logging.DEBUG)
+_console_handler = logging.StreamHandler()
+_console_handler.setLevel(logging.DEBUG)
+_console_handler.setFormatter(logging.Formatter("%(message)s"))
+# _console_handler.setFormatter(logging.Formatter("[%(asctime)s] [%(levelname)-8s] %(message)s"))
+LOGGER.addHandler(_console_handler)
+
+
 
 # Whether or not you want the option to use ChatGPT's API
 ASK_GPT = True
 # If True, won't prompt you for user input and will automatically translate all 
 # missing keys for every language
-TRANSLATE_ALL = False
+TRANSLATE_ALL = True
 # If True, won't prompt you for user input and will automatically *write* all
 # new translations to respective JSON files
-WRITE_ALL = False
+WRITE_ALL = True
 TRANSLATIONS_DIR = Path("application/assets/translations")
 # Used in ThreadPoolExecutor
 MAX_THREADS = 16
@@ -150,13 +161,13 @@ def _chatgpt_translate_one_language(prompts: list[str]) -> TranslationDict:
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         future_to_prompt = {executor.submit(_chatgpt_translate_one_chunk, prompt): prompt for prompt in prompts}
         for i, future in enumerate(concurrent.futures.as_completed(future_to_prompt)):
-            print(f"Received response for prompt {i+1}/{len(future_to_prompt)}")
+            LOGGER.info(f"Received response for prompt {i+1}/{len(future_to_prompt)}")
             prompt = future_to_prompt[future]
             try:
                 translation_dict = future.result()
                 total_translation_dict.update(translation_dict)
             except Exception as e:
-                print(f"Prompt generated an exception:\n\tprompt='{prompt}'\n\n\texception={e}")
+                LOGGER.warning(f"Prompt generated an exception: prompt='{prompt}'")
 
     return total_translation_dict
 
@@ -164,12 +175,12 @@ def _chatgpt_translate_one_language(prompts: list[str]) -> TranslationDict:
 def _update_translation_file(language_code: str, translation_dict: TranslationDict, gpt_translation: TranslationDict, reference_dict: TranslationDict = None):
     """Appends ChatGPT translation to existing translation file."""
     output_file = TRANSLATIONS_DIR / f"{language_code}.json"
-    print(f"Updating {output_file}...")
+    LOGGER.info(f"Updating {output_file}...")
     translation_dict.update(gpt_translation)
     
     # Sort keys to be in same order as 'reference_dict'
     if reference_dict:
-        print(f"Sorting '{language_code}' to have same key ordering as 'reference_dict'")
+        LOGGER.info(f"Sorting '{language_code}' to have same key ordering as 'reference_dict'")
         translation_dict = _sort_in_same_order(translation_dict=translation_dict, reference_dict=reference_dict)
     
     with open(output_file, "w") as f:
@@ -210,52 +221,63 @@ def _get_user_response(question: str, options: list[str]) -> str:
     while True:
         response = input(question)
         if response not in options:
-            print(f"    Must provide response from {options}\n")
+            LOGGER.info(f"    Must provide response from {options}\n")
         else:
             return response
+        
+def decorated_text(msg: str) -> str: 
+    """Return 'msg' wrapped by equals signs above and below.
+    
+    E.g. '_decorated_text("HELLO WORLD")' would yield
+    ================================================================
+    HELLO WORLD
+    ================================================================
+    """
+    equals = "=" * 64
+    return f"{equals}\n{msg}\n{equals}"
 
 
 if __name__ == "__main__":
     translation_dicts = _load_translation_dicts(TRANSLATIONS_DIR)
-    print(f"Found language codes: {list(translation_dicts.keys())}")
+    LOGGER.info(f"Found language codes: {list(translation_dicts.keys())}")
     unique_keys = _get_all_unique_keys(translation_dicts)
-    print(f"Found {len(unique_keys)} unique keys across all translation files\n")
+    LOGGER.info(f"Found {len(unique_keys)} unique keys across all translation files\n")
     
     any_language_missing_keys = False
     for language_code, translation_dict in translation_dicts.items():
-        print("="*64, f"\nLanguage code='{language_code}'\n", "="*64, sep="")
+        LOGGER.info(decorated_text(f"Language code='{language_code}'"))
         missing_keys = _find_missing_keys(translation_dict=translation_dict, unique_keys=unique_keys)
-        print(f"{language_code:<5} has {len(missing_keys):>2} missing keys")
+        LOGGER.info(f"{language_code:<5} has {len(missing_keys):>2} missing keys")
         if len(missing_keys) > 0:
             any_language_missing_keys = True
-            print(f"Missing keys: {missing_keys}")
+            LOGGER.info(f"Missing keys: {missing_keys}")
             prompts = _generate_chatgpt_prompts(language_code=language_code, keys=missing_keys, translation_dicts=translation_dicts)
-            print(f"\nGenerated {len(prompts)} prompts:\n")
-            print(prompts)
+            LOGGER.info(f"\nGenerated {len(prompts)} prompts:\n")
+            LOGGER.info(prompts)
             
             # In this case, user would manually copy-paste so they need to see the prompt
             if ASK_GPT:
-                print()
+                LOGGER.info("\n")
 
                 # Check if user wants to plug this into ChatGPT automatically
                 if TRANSLATE_ALL or (_get_user_response(f"Do you want ChatGPT to translate these into '{language_code}' [y/n]?: ", options=["y", "n"]) == "y"):
-                    print("Getting translation from ChatGPT...")
+                    LOGGER.info("Getting translation from ChatGPT...")
                     gpt_translation = _chatgpt_translate_one_language(prompts=prompts)
                     
-                    print(gpt_translation)
+                    LOGGER.info(gpt_translation)
                     
                     # Check if user wants to write to file
                     if WRITE_ALL or (_get_user_response("Received response from ChatGPT. Do you want to write this to file (y/n)?: ", ["y", "n"]) == "y"):
-                        print("Writing new translations to file...")
+                        LOGGER.info("Writing new translations to file...")
                         _update_translation_file(language_code=language_code, translation_dict=translation_dict, gpt_translation=gpt_translation, reference_dict=translation_dicts["en"])
                     else:
-                        print("Not writing to file")
+                        LOGGER.info("Not writing to file")
                 else:
-                    print("Not asking ChatGPT for translation")
+                    LOGGER.info("Not asking ChatGPT for translation")
             else:
-                print(prompts)
+                LOGGER.info(prompts)
         
-        print("\n")
+        LOGGER.info("\n")
 
     if not any_language_missing_keys:
-        print("="*64, "\nSUCCESS! All language files are consistent\n", "="*64, sep="")
+        LOGGER.info(decorated_text("SUCCESS! All language files are consistent"))

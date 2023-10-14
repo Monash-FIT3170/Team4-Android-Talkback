@@ -35,6 +35,13 @@ void main() async {
           Locale('ja'), // Japanese
           Locale('vi'), // Vietnamese
           Locale('tr'), // Turkish
+          Locale('arz'), // Egyptian Arabic
+          Locale('de'), // German
+          Locale('id'), // Indonesian
+          Locale('mr'), // Marathi
+          Locale('pcm'), // Nigerian Pidgin
+          Locale('te'), // Telugu
+          Locale('ur'), // Urdu
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
