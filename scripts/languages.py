@@ -2,19 +2,25 @@
 This script is intended to make the process of translating the app into multiple
 languages more automated.
 """
+import math
 from pathlib import Path
 import json
 import os
+# from multiprocessing.pool import ThreadPool
+import concurrent.futures
+# from concurrent.futures import ThreadPoolExecutor
 
 # Whether or not you want the option to use ChatGPT's API
 ASK_GPT = True
 # If True, won't prompt you for user input and will automatically translate all 
 # missing keys for every language
-TRANSLATE_ALL = True
+TRANSLATE_ALL = False
 # If True, won't prompt you for user input and will automatically *write* all
 # new translations to respective JSON files
-WRITE_ALL = True
+WRITE_ALL = False
 TRANSLATIONS_DIR = Path("application/assets/translations")
+# Used in ThreadPoolExecutor
+MAX_THREADS = 16
 
 
 if ASK_GPT:
@@ -62,7 +68,7 @@ def _find_missing_keys(translation_dict: TranslationDict, unique_keys: set[str])
     return unique_keys.difference(d_keys)
 
 
-def _generate_chatgpt_prompt(language_code: str, keys: list[str], translation_dicts: dict[LanguageCode, TranslationDict], preferred_language: str="en") -> str:
+def _generate_chatgpt_prompts(language_code: str, keys: list[str], translation_dicts: dict[LanguageCode, TranslationDict], preferred_language: str="en", max_keys_per_prompt: int=8) -> str:
     """
     Generate a prompt to ask ChatGPT to translate all of the given 'keys' to 
     the desired language based on their existing values in some other language
@@ -75,10 +81,15 @@ def _generate_chatgpt_prompt(language_code: str, keys: list[str], translation_di
     in 'translation_dicts' that has that key.
     """
     prompt = f"Could you please translate only the *values* of the following JSON into the language corresponding to '{language_code}'?\n"
-    prompt_dict = {}
+    # List of tuples of (key, value). List instead of dict because it makes chunking
+    # easier later on
+    prompt_key_pairs = []
+    # prompt_dict = {}
     for key in keys:
+        value = None
         if key in translation_dicts[preferred_language]:
-            prompt_dict[key] = translation_dicts[preferred_language][key]
+            # prompt_key_pairs.append((key, ))
+            value = translation_dicts[preferred_language][key]
         else:
             # Find this key in any of the other dicts
             found_str = None
@@ -93,29 +104,68 @@ def _generate_chatgpt_prompt(language_code: str, keys: list[str], translation_di
 
             if found_str is None:
                 raise ValueError(f"Could not find key '{key}' in any of the given translation dicts ({list(translation_dicts.keys())}), so cannot translate")
-            prompt_dict[key] = found_str
+            value = found_str
+        
+        prompt_key_pairs.append((key, value))
 
-    prompt_dict_json = json.dumps(prompt_dict, indent=4)
-    prompt += prompt_dict_json
-    return prompt
+    num_prompts = math.ceil(len(prompt_key_pairs) / max_keys_per_prompt)
+    prompts = []
+    for i in range(num_prompts):
+        start_index = i * max_keys_per_prompt
+        end_index = start_index + max_keys_per_prompt
+        key_pairs_chunk = prompt_key_pairs[start_index:end_index]
+        chunk_dict = dict(key_pairs_chunk)
+        chunk_json = json.dumps(chunk_dict, indent=4)
+        prompts.append(prompt + chunk_json)
+    
+    return prompts
 
 
-def _get_chatgpt_response(prompt: str):
-    """Get only the actual text of ChatGPT's reponse to the given 'prompt'."""
-    messages = [{"role": "user", "content": prompt}]
+def _chatgpt_translate_one_chunk(prompt: str, timeout_seconds: int=120) -> TranslationDict:
+    """Get translation dict for the given prompt."""
+    conversation = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create( 
-        model="gpt-3.5-turbo", messages=messages 
+        model="gpt-3.5-turbo", messages=conversation, timeout=timeout_seconds
     )
+    # TODO: Handle truncated output more gracefully than just throwing error,
+    # e.g. figuring out where answer was truncated and starting new prompt
+    # from there
+    if response.choices[0].finish_reason == "length":
+        raise ValueError("Prompt response was too long. Consider making chunks smaller")
+    
     message = response.choices[0].message.content
-    return message
+    translation_dict = json.loads(message)
+    return translation_dict
 
 
-def _update_translation_file(language_code: str, translation_dict: TranslationDict, gpt_translation: str, reference_dict: TranslationDict = None):
+def _chatgpt_translate_one_language(prompts: list[str]) -> TranslationDict:
+    """Get complete TranslationDict by merging responses to all given prompts
+    
+    Submis each prompt to ChatGPT for translation, then combines all responses
+    into single dict. If any prompt throws an exception, this is printed but 
+    otherwise ignored, meaning user should watch out for these messages and 
+    rerun the script as required!
+    """
+    total_translation_dict = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
+        future_to_prompt = {executor.submit(_chatgpt_translate_one_chunk, prompt): prompt for prompt in prompts}
+        for i, future in enumerate(concurrent.futures.as_completed(future_to_prompt)):
+            print(f"Received response for prompt {i+1}/{len(future_to_prompt)}")
+            prompt = future_to_prompt[future]
+            try:
+                translation_dict = future.result()
+                total_translation_dict.update(translation_dict)
+            except Exception as e:
+                print(f"Prompt generated an exception:\n\tprompt='{prompt}'\n\n\texception={e}")
+
+    return total_translation_dict
+
+
+def _update_translation_file(language_code: str, translation_dict: TranslationDict, gpt_translation: TranslationDict, reference_dict: TranslationDict = None):
     """Appends ChatGPT translation to existing translation file."""
     output_file = TRANSLATIONS_DIR / f"{language_code}.json"
     print(f"Updating {output_file}...")
-    new_dict = json.loads(gpt_translation)
-    translation_dict.update(new_dict)
+    translation_dict.update(gpt_translation)
     
     # Sort keys to be in same order as 'reference_dict'
     if reference_dict:
@@ -127,15 +177,27 @@ def _update_translation_file(language_code: str, translation_dict: TranslationDi
 
 
 def _sort_in_same_order(translation_dict: TranslationDict, reference_dict: TranslationDict) -> TranslationDict:
-    """Sorts 'translation_dict's keys in same order as 'reference_dict'."""
-    keys1 = set(translation_dict.keys())
-    keys2 = set(reference_dict.keys())
-    if len(keys1.difference(keys2)) > 0 or len(keys2.difference(keys1)) > 0:
-        raise ValueError("Expect both dicts to have exact same keys")
-
+    """Sorts 'translation_dict's keys in same order as 'reference_dict'.
+    
+    Note that 'translation_dict' does not need to have the exact same set of 
+    keys as 'reference_dict':
+        - Any key in 'reference_dict' that is not in 'translation_dict' is
+          ignored.
+        - Any keys in 'translation_dict that are not in 'reference_dict' are 
+          placed in their original relative ordering but at the *end* of the
+          returned dict.
+    """
     new_d = {}
     for key in reference_dict.keys():
-        new_d[key] = translation_dict[key]
+        if key in translation_dict:
+            new_d[key] = translation_dict[key]
+
+    # Add any missing keys, i.e. keys in translation_dict that were not in
+    # reference_dict for some reason. Shouldn't really happen
+    for key in translation_dict.keys():
+        # E.g. if 'reference_dict' did not have this key for some reason
+        if key not in new_d:
+            new_d[key] = translation_dict[key]
 
     return new_d
 
@@ -167,7 +229,9 @@ if __name__ == "__main__":
         if len(missing_keys) > 0:
             any_language_missing_keys = True
             print(f"Missing keys: {missing_keys}")
-            prompt = _generate_chatgpt_prompt(language_code=language_code, keys=missing_keys, translation_dicts=translation_dicts)
+            prompts = _generate_chatgpt_prompts(language_code=language_code, keys=missing_keys, translation_dicts=translation_dicts)
+            print(f"\nGenerated {len(prompts)} prompts:\n")
+            print(prompts)
             
             # In this case, user would manually copy-paste so they need to see the prompt
             if ASK_GPT:
@@ -176,7 +240,7 @@ if __name__ == "__main__":
                 # Check if user wants to plug this into ChatGPT automatically
                 if TRANSLATE_ALL or (_get_user_response(f"Do you want ChatGPT to translate these into '{language_code}' [y/n]?: ", options=["y", "n"]) == "y"):
                     print("Getting translation from ChatGPT...")
-                    gpt_translation = _get_chatgpt_response(prompt=prompt)
+                    gpt_translation = _chatgpt_translate_one_language(prompts=prompts)
                     
                     print(gpt_translation)
                     
@@ -189,7 +253,7 @@ if __name__ == "__main__":
                 else:
                     print("Not asking ChatGPT for translation")
             else:
-                print(prompt)
+                print(prompts)
         
         print("\n")
 
