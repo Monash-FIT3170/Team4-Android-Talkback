@@ -70,7 +70,7 @@ class PhonePadState extends State<PhonePad> {
             child: const Text(
               "Phone challenge",
               semanticsLabel:
-                  "In this tutorial, you will learn how to call by typing phone number. Please enter 1234567890",
+                  "In this tutorial, you will learn how to call by typing phone number. Please enter 1 2 3 4 5 6 7 8 9 0",
             ),
           ),
         ),

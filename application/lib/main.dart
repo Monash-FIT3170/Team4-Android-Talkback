@@ -24,11 +24,24 @@ void main() async {
   runApp(
     EasyLocalization(
         supportedLocales: const [
-          Locale('en'),
-          Locale('es'),
-          Locale('ar'),
-          Locale('zh', 'CN'),
-          Locale('ru'),
+          Locale('en'), // English
+          Locale('es'), // Spanish
+          Locale('ar'), // Arabic
+          Locale('zh', 'CN'), // Simplified Chinese
+          Locale('ru'), // Russian
+          Locale('hi'), // Hindi
+          Locale('pt'), // Portuguese
+          Locale('bn'), // Bengali
+          Locale('ja'), // Japanese
+          Locale('vi'), // Vietnamese
+          Locale('tr'), // Turkish
+          Locale('arz'), // Egyptian Arabic
+          Locale('de'), // German
+          Locale('id'), // Indonesian
+          Locale('mr'), // Marathi
+          Locale('pcm'), // Nigerian Pidgin
+          Locale('te'), // Telugu
+          Locale('ur'), // Urdu
         ],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
@@ -126,23 +139,23 @@ class HomePage extends StatelessWidget {
               const Text(
                   'You should enable VoiceOver in your settings to best use this app'),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["2"]), routeName: Routes.tutorialTwo),
+              title: 'tutorial'.tr(args: ["1"]), routeName: Routes.tutorialTwo),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["3"]),
+              title: 'tutorial'.tr(args: ["2"]),
               routeName: Routes.tutorialThree),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["4"]),
+              title: 'tutorial'.tr(args: ["3"]),
               routeName: Routes.tutorialFour),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["5"]),
+              title: 'tutorial'.tr(args: ["4"]),
               routeName: Routes.tutorialFive),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["6"]), routeName: Routes.tutorialSix),
+              title: 'tutorial'.tr(args: ["5"]), routeName: Routes.tutorialSix),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["7"]),
+              title: 'tutorial'.tr(args: ["6"]),
               routeName: Routes.tutorialSeven),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["8"]),
+              title: 'tutorial'.tr(args: ["7"]),
               routeName: Routes.tutorialEight),
           MainMenuTutorialButton(
               title: "sandbox".tr(), routeName: Routes.sandBox),

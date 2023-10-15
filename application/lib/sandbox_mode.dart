@@ -26,8 +26,8 @@ class GesturesState extends State<SandBox> {
           else if (details.velocity.pixelsPerSecond.dx.abs() <=
               details.velocity.pixelsPerSecond.dy.abs())
             {
-              setState(() => {gestureText = 'vertical_swipe'.tr(), details.pointerCount}
-                  )
+              setState(() =>
+                  {gestureText = 'vertical_swipe'.tr(), details.pointerCount})
             },
         if (maxPointerCounter == 1)
           if (details.velocity.pixelsPerSecond.dx.abs() >
@@ -43,8 +43,7 @@ class GesturesState extends State<SandBox> {
               details.velocity.pixelsPerSecond.dy.abs())
             {
               timer = Timer(const Duration(milliseconds: 100), () {
-                setState(
-                    () => gestureText = 'two_finger_vertical_swipe'.tr());
+                setState(() => gestureText = 'two_finger_vertical_swipe'.tr());
                 maxPointerCounter = 0;
               }),
             },
