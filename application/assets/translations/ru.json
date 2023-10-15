@@ -139,6 +139,7 @@
     "tutorial4_play_music": "Воспроизвести музыку",
     "tutorial4_pause": "Пауза",
     "tutorial4_media_volume_control_module": "Модуль управления громкостью медиа",
+    "start_stop_media": "Запуск/Остановка медиа",
     "sandbox": "Песочница",
     "soundboard": "Звукопанель"
 }
