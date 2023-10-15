@@ -474,6 +474,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
 
   void speakResult(String text) async {
     FlutterTts flutterTts = FlutterTts();
+    flutterTts.setVolume(1.0);
     await Future.delayed(
         const Duration(seconds: 1)); // Introduce a pause of 1 second
     speakEquation(_equation);

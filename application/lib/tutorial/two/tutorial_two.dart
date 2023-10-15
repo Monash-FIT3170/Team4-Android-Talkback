@@ -7,7 +7,7 @@ import 'package:application/tutorial/two/practical/homepage.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 TutorialMenu tutorialTwo =
-    TutorialMenu(title: 'tutorial'.tr(args: ['2']), moduleButtons: [
+    TutorialMenu(title: 'tutorial'.tr(args: ['1']), moduleButtons: [
   TutorialMenuButton(title: 'tutorial2_go_back'.tr(), module: const GoBack()),
   TutorialMenuButton(
       title: 'tutorial2_scrolling'.tr(),

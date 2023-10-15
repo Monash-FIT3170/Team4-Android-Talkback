@@ -127,23 +127,23 @@ class HomePage extends StatelessWidget {
               const Text(
                   'You should enable VoiceOver in your settings to best use this app'),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["2"]), routeName: Routes.tutorialTwo),
+              title: 'tutorial'.tr(args: ["1"]), routeName: Routes.tutorialTwo),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["3"]),
+              title: 'tutorial'.tr(args: ["2"]),
               routeName: Routes.tutorialThree),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["4"]),
+              title: 'tutorial'.tr(args: ["3"]),
               routeName: Routes.tutorialFour),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["5"]),
+              title: 'tutorial'.tr(args: ["4"]),
               routeName: Routes.tutorialFive),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["6"]), routeName: Routes.tutorialSix),
+              title: 'tutorial'.tr(args: ["5"]), routeName: Routes.tutorialSix),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["7"]),
+              title: 'tutorial'.tr(args: ["6"]),
               routeName: Routes.tutorialSeven),
           MainMenuTutorialButton(
-              title: 'tutorial'.tr(args: ["8"]),
+              title: 'tutorial'.tr(args: ["7"]),
               routeName: Routes.tutorialEight),
           MainMenuTutorialButton(
               title: "sandbox".tr(), routeName: Routes.sandBox),
