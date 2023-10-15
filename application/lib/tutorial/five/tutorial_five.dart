@@ -16,9 +16,8 @@ class TutorialFive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
-        title: const Text("Tutorial 5"),
+        title: const Text("Tutorial 4"),
       ),
       body: Center(
         child: Column(
@@ -46,13 +45,13 @@ class TutorialFive extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const OpenNotification()),
+                  MaterialPageRoute(
+                      builder: (context) => const OpenNotification()),
                 );
               },
               child: const Text("Open Notification"),
             ),
-
-             ElevatedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -75,8 +74,7 @@ class TutorialFive extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const Challenge()),
+                  MaterialPageRoute(builder: (context) => const Challenge()),
                 );
               },
               child: const Text("End of Lesson Challenge"),
