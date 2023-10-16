@@ -146,7 +146,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
             alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.all(2),
-              color: Colors.white, // Set the background color to white
+              color: Colors.black54, // Set the background color to white
               child: const Text(
                 _introText,
               ),
@@ -156,7 +156,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
             alignment: Alignment.centerLeft,
             child: Container(
               padding: const EdgeInsets.all(2),
-              color: Colors.white, // Set the background color to white
+              color: Colors.black54, // Set the background color to white
               child: Text(
                 "Equation: $_equation",
               ),
@@ -166,7 +166,7 @@ class _CalculatorChallengePageState extends State<CalculatorChallengePage> {
             alignment: Alignment.centerLeft,
             child: Container(
               padding: const EdgeInsets.all(2),
-              color: Colors.white, // Set the background color to white
+              color: Colors.black54, // Set the background color to white
               child: Text(
                 "Correct Answers: $correctAnswers of $totalEquations",
               ),

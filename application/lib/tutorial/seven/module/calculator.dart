@@ -53,7 +53,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           Container(
             alignment: Alignment.center,
             child: Container(
-              color: Colors.white, // Set the background color to white
+              color: Colors.black54, // Set the background color to white
               child: const Text(
                 _introText,
               ),

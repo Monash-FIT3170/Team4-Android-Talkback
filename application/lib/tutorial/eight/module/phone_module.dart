@@ -79,7 +79,7 @@ class PhonePadState extends State<PhonePad> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(18.0),
             child: Text(
               'Entered Number:\n $_enteredNumber',
               style: const TextStyle(fontSize: 30),
