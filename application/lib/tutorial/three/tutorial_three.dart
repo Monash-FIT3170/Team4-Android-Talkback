@@ -13,7 +13,7 @@ import 'package:application/tutorial/three/module/adjust_reading_controls.dart';
 //
 // import 'package:application/tutorial/three/module/adjust_reading_controls.dart';
 //
-// import 'package:application/tutorial/three/module/jump_links.dart';
+import 'package:application/tutorial/three/module/jump_links.dart';
 //
 class TutorialThree extends StatelessWidget {
   const TutorialThree({Key? key}) : super(key: key);
@@ -68,10 +68,10 @@ class TutorialThree extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const JumpLinks()),
-                // );
+                 Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => const JumpLinks()),
+                 );
               },
               child: const Text("Jump Links Module"),
             ),

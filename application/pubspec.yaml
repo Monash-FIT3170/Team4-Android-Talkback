@@ -38,6 +38,7 @@ dependencies:
   flutter_tts: ^3.6.3
   just_audio: ^0.9.13
   xml: ^6.2.2
+  linkwell: ^2.0.6
 
 dev_dependencies:
   flutter_test:
